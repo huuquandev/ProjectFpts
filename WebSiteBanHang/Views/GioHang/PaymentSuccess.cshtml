@@ -1,0 +1,217 @@
+﻿@model WebSiteBanHang.Models.Order
+@{
+    Layout = null;
+}
+<html class="thankyou-page">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <title>Đặt hàng Thành công</title>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/Assets/Css/checkout.vendor.min.css">
+    <link rel="stylesheet" href="~/Assets/Css/checkout.min.css">
+    <script src="//bizweb.dktcdn.net/assets/themes_support/libphonenumber-v3.2.30.min.js?1684115584822"></script>
+    <script src="~/Assets/Js/checkout.vendor.min.js"></script>
+    <script src="~/Assets/Js/checkout.min.js"></script>
+    <script src="~/Assets/Js/stats.min.js"></script>
+    <script async="" src="//bizweb.dktcdn.net/web/assets/lib/js/fp.v3.3.0.min.js"></script>
+</head>
+<body data-no-turbolink>
+
+    <header class="banner">
+        <div class="wrap">
+            <div class="logo logo--left">
+
+                <h1 class="shop__name">
+                    <a href="/">Template Honey Bee</a>
+                </h1>
+
+            </div>
+        </div>
+    </header>
+    <div class="content">
+        <form>
+            <div class="wrap wrap--mobile-fluid">
+                <main class="main main--nosidebar">
+                    <header class="main__header">
+                        <div class="logo logo--left">
+
+                            <h1 class="shop__name">
+                                <a href="/">Template Honey Bee</a>
+                            </h1>
+
+                        </div>
+                    </header>
+                    <div class="main__content">
+                        <article class="row">
+                            <div class="col col--primary">
+                                <section class="section section--icon-heading">
+                                    <div class="section__icon unprintable">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="72px" height="72px">
+                                            <g fill="none" stroke="#8EC343" stroke-width="2">
+                                                <circle cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;"></circle>
+                                                <path d="M17.417,37.778l9.93,9.909l25.444-25.393" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;"></path>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div class="thankyou-message-container">
+                                        <h2 class="section__title">Cảm ơn bạn đã đặt hàng</h2>
+
+                                        <p class="section__text">
+                                            Một email xác nhận đã được gửi tới @Model.email. <br /> Xin vui lòng kiểm tra email của bạn
+                                        </p>
+
+
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col col--secondary">
+                                <aside class="order-summary order-summary--bordered order-summary--is-collapsed" id="order-summary">
+                                    <div class="order-summary__header">
+                                        <div class="order-summary__title">
+                                            Đơn hàng @Model.madh
+                                            <span class="unprintable">(@Model.OderItems.Count)</span>
+                                        </div>
+                                        <div class="order-summary__action hide-on-desktop unprintable">
+                                            <a data-toggle="#order-summary" data-toggle-class="order-summary--is-collapsed" class="expandable">
+                                                Xem chi tiết
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="order-summary__sections">
+                                        <div class="order-summary__section order-summary__section--product-list order-summary__section--is-scrollable order-summary--collapse-element">
+                                            <table class="product-table">
+                                                <tbody>
+
+                                                    @foreach (var item in Model.OderItems)
+                                                    {
+                                                        <tr class="product">
+                                                            <td class="product__image">
+                                                                <div class="product-thumbnail">
+                                                                    <div class="product-thumbnail__wrapper">
+                                                                        <img src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.Product.hinhanh))" alt="" class="product-thumbnail__image" />
+                                                                    </div>
+                                                                    <span class="product-thumbnail__quantity unprintable">@item.soluong</span>
+                                                                </div>
+                                                            </td>
+                                                            <th class="product__description">
+                                                                <span class="product__description__name">@item.Product.ten</span>
+
+
+                                                            </th>
+                                                            <td class="product__price">
+
+                                                                @string.Format("{0:N0}", item.Product.giatien * item.soluong)₫
+
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="order-summary__section">
+                                            <table class="total-line-table">
+                                                <tbody class="total-line-table__tbody">
+
+
+                                                    <tr class="total-line total-line--subtotal">
+                                                        <th class="total-line__name">Tạm tính</th>
+                                                        <td class="total-line__price">@string.Format("{0:N0}", Model.tongdh)₫</td>
+                                                    </tr>
+
+                                                    <tr class="total-line total-line--shipping-fee">
+                                                        <th class="total-line__name">Phí vận chuyển</th>
+                                                        <td class="total-line__price">
+
+                                                            40.000₫
+
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="order-summary__section">
+                                            <table class="total-line-table">
+                                                <tbody class="total-line-table__tbody">
+                                                    <tr class="total-line payment-due">
+                                                        <th class="total-line__name">
+                                                            <span class="payment-due__label-total">Tổng cộng</span>
+                                                        </th>
+                                                        <td class="total-line__price">
+                                                            <span class="payment-due__price">@string.Format("{0:N0}", Model.tongdh + 40000)₫</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </aside>
+                            </div>
+                            <div class="col col--primary">
+                                <section class="section">
+                                    <div class="section__content section__content--bordered">
+
+                                        <div class="row">
+
+                                            <div class="col col--md-two">
+                                                <h2>Thông tin mua hàng</h2>
+                                                <p>@Model.hoten</p>
+
+                                                <p>@Model.email</p>
+
+                                                <p>@Model.sodt</p>
+                                            </div>
+
+                                            <div class="col col--md-two">
+                                                <h2>Địa chỉ nhận hàng</h2>
+                                                <p>@Model.hoten</p>
+
+                                                <p>@Model.diachi</p>
+
+                                                <p>@Model.sodt</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col col--md-two">
+                                                <h2>Phương thức thanh toán</h2>
+                                                @if (Model.phuongthucthanhtoan == 1)
+                                                {
+                                                    <p>Thanh toán khi giao hàng (COD)</p>
+                                                }
+                                                else if (Model.phuongthucthanhtoan == 2)
+                                                {
+                                                    <p>Thanh toán Chuyển khoản (ONLINE)</p>
+                                                }
+                                            </div>
+                                            <div class="col col--md-two">
+                                                <h2>Phương thức vận chuyển</h2>
+                                                <p>Giao hàng tận nơi</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </section>
+                                <section class="section unprintable">
+                                    <div class="field__input-btn-wrapper field__input-btn-wrapper--floating">
+                                        <a href="/" class="btn btn--large">Tiếp tục mua hàng</a>
+                                        <span class="text-icon-group text-icon-group--large icon-print" onclick="window.print()">
+                                            <i class="fa fa-print"></i>
+                                            <span>In </span>
+                                        </span>
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+                    </div>
+
+                </main>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
+

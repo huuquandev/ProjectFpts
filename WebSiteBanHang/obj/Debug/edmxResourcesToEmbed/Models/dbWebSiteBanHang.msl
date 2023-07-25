@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="webBanHangModelStoreContainer" CdmEntityContainer="dbWebSiteBanHang">
+    <EntitySetMapping Name="Addresses">
+      <EntityTypeMapping TypeName="webBanHangModel.Address">
+        <MappingFragment StoreEntitySet="Address">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="hoten" ColumnName="hoten" />
+          <ScalarProperty Name="sodt" ColumnName="sodt" />
+          <ScalarProperty Name="diachi" ColumnName="diachi" />
+          <ScalarProperty Name="congty" ColumnName="congty" />
+          <ScalarProperty Name="quocgia" ColumnName="quocgia" />
+          <ScalarProperty Name="tinhthanh" ColumnName="tinhthanh" />
+          <ScalarProperty Name="quanhuyen" ColumnName="quanhuyen" />
+          <ScalarProperty Name="phuongxa" ColumnName="phuongxa" />
+          <ScalarProperty Name="mazip" ColumnName="mazip" />
+          <ScalarProperty Name="diachimacdinh" ColumnName="diachimacdinh" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="note" ColumnName="note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Carts">
+      <EntityTypeMapping TypeName="webBanHangModel.Cart">
+        <MappingFragment StoreEntitySet="Cart">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CartItems">
+      <EntityTypeMapping TypeName="webBanHangModel.CartItem">
+        <MappingFragment StoreEntitySet="CartItem">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_product" ColumnName="id_product" />
+          <ScalarProperty Name="id_cart" ColumnName="id_cart" />
+          <ScalarProperty Name="soluong" ColumnName="soluong" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImageProducts">
+      <EntityTypeMapping TypeName="webBanHangModel.ImageProduct">
+        <MappingFragment StoreEntitySet="ImageProduct">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="hinhanh" ColumnName="hinhanh" />
+          <ScalarProperty Name="id_product" ColumnName="id_product" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OderItems">
+      <EntityTypeMapping TypeName="webBanHangModel.OderItem">
+        <MappingFragment StoreEntitySet="OderItem">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_product" ColumnName="id_product" />
+          <ScalarProperty Name="id_oder" ColumnName="id_oder" />
+          <ScalarProperty Name="soluong" ColumnName="soluong" />
+          <ScalarProperty Name="tongdh" ColumnName="tongdh" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="webBanHangModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="madh" ColumnName="madh" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="tongdh" ColumnName="tongdh" />
+          <ScalarProperty Name="ngay_dathang" ColumnName="ngay_dathang" />
+          <ScalarProperty Name="thanhtoan" ColumnName="thanhtoan" />
+          <ScalarProperty Name="trangthai" ColumnName="trangthai" />
+          <ScalarProperty Name="diachi" ColumnName="diachi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="webBanHangModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="ten" ColumnName="ten" />
+          <ScalarProperty Name="giatien" ColumnName="giatien" />
+          <ScalarProperty Name="hinhanh" ColumnName="hinhanh" />
+          <ScalarProperty Name="giamgia" ColumnName="giamgia" />
+          <ScalarProperty Name="giacu" ColumnName="giacu" />
+          <ScalarProperty Name="ngaynhap" ColumnName="ngaynhap" />
+          <ScalarProperty Name="masanpham" ColumnName="masanpham" />
+          <ScalarProperty Name="id_info" ColumnName="id_info" />
+          <ScalarProperty Name="soluong" ColumnName="soluong" />
+          <ScalarProperty Name="idloaisanpham" ColumnName="idloaisanpham" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductDescs">
+      <EntityTypeMapping TypeName="webBanHangModel.ProductDesc">
+        <MappingFragment StoreEntitySet="ProductDesc">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="gioithieu" ColumnName="gioithieu" />
+          <ScalarProperty Name="mota" ColumnName="mota" />
+          <ScalarProperty Name="congdung" ColumnName="congdung" />
+          <ScalarProperty Name="baoquan" ColumnName="baoquan" />
+          <ScalarProperty Name="hansung" ColumnName="hansung" />
+          <ScalarProperty Name="luuysudung" ColumnName="luuysudung" />
+          <ScalarProperty Name="thanhphan" ColumnName="thanhphan" />
+          <ScalarProperty Name="huongdansudung" ColumnName="huongdansudung" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductTypes">
+      <EntityTypeMapping TypeName="webBanHangModel.ProductType">
+        <MappingFragment StoreEntitySet="ProductType">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="loaiSanpham" ColumnName="loaiSanpham" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="webBanHangModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="IdTaiKhoan" ColumnName="IdTaiKhoan" />
+          <ScalarProperty Name="ngaysinh" ColumnName="ngaysinh" />
+          <ScalarProperty Name="gioitinh" ColumnName="gioitinh" />
+          <ScalarProperty Name="ho" ColumnName="ho" />
+          <ScalarProperty Name="ten" ColumnName="ten" />
+          <ScalarProperty Name="sodt" ColumnName="sodt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

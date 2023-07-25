@@ -1,0 +1,296 @@
+﻿footer.footer {
+    background-repeat: repeat !important;
+    background-size: cover !important;
+    background: transparent;
+    position: relative;
+    background-color: #272625
+}
+
+    footer.footer .mid-footer {
+        padding: 60px 0
+    }
+
+@media (max-width: 767px) {
+    footer.footer .mid-footer {
+        padding: 30px 0
+    }
+}
+
+footer.footer .title-menu {
+    font-size: 16px;
+    color: var(--hover);
+    line-height: 20px;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin: 0 0 15px;
+    font-family: var(--font-title);
+    letter-spacing: 0.5px;
+    position: relative
+}
+
+@media (max-width: 767px) {
+    footer.footer .clicked {
+        margin: 0
+    }
+
+        footer.footer .clicked:after {
+            content: "+";
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 16px
+        }
+
+        footer.footer .clicked.open_ {
+            margin-bottom: 10px
+        }
+
+            footer.footer .clicked.open_:after {
+                content: "-";
+                font-size: 24px
+            }
+}
+
+@media (max-width: 767px) {
+    footer.footer .widget-ft {
+        border-bottom: 1px #313131 solid;
+        padding-bottom: 20px;
+        margin-bottom: 20px
+    }
+}
+
+@media (max-width: 992px) and (min-width: 768px) {
+    footer.footer .footer-click:first-child, footer.footer .footer-click:nth-child(2) {
+        margin-bottom: 40px
+    }
+}
+
+footer.footer .list-menu {
+    padding: 0;
+    margin: 0
+}
+
+    footer.footer .list-menu li a {
+        font-family: var(--font-title);
+        font-size: 12px;
+        color: #fff;
+        font-weight: 400;
+        position: relative;
+        line-height: 20px;
+        -webkit-transition: all ease 0.5s;
+        -moz-transition: all ease 0.5s;
+        -ms-transition: all ease 0.5s;
+        -o-transition: all ease 0.5s;
+        transition: all ease 0.5s
+    }
+
+        footer.footer .list-menu li a:hover {
+            color: var(--hover);
+            margin-left: 10px
+        }
+
+footer.footer .blocklogo {
+    display: block;
+    margin-bottom: 10px
+}
+
+footer.footer .content_contact {
+    margin-bottom: 10px;
+    display: block;
+    line-height: 20px;
+    font-weight: 400;
+    color: #fff;
+    font-family: var(--font-base);
+    font-size: 12px;
+    position: relative
+}
+
+    footer.footer .content_contact a {
+        color: #fff
+    }
+
+        footer.footer .content_contact a:hover {
+            color: var(--hover)
+        }
+
+footer.footer .social-footer {
+    padding: 0;
+    margin: 0
+}
+
+    footer.footer .social-footer li {
+        display: inline-block;
+        margin-right: 10px
+    }
+
+        footer.footer .social-footer li a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #323236;
+            text-align: center;
+            line-height: 45px;
+            border-radius: 50%;
+            text-decoration: none;
+            -webkit-transition: all ease 0.5s;
+            -moz-transition: all ease 0.5s;
+            -ms-transition: all ease 0.5s;
+            -o-transition: all ease 0.5s;
+            transition: all ease 0.5s
+        }
+
+            footer.footer .social-footer li a:hover {
+                background: var(--hover)
+            }
+
+                footer.footer .social-footer li a:hover svg {
+                    color: #fff
+                }
+
+            footer.footer .social-footer li a.google svg {
+                width: 24px
+            }
+
+            footer.footer .social-footer li a svg {
+                width: 14px;
+                height: 14px;
+                color: #cccccc
+            }
+
+footer.footer .menu_bottom {
+    margin: 0;
+    padding: 0;
+    text-align: right
+}
+
+@media (max-width: 991px) {
+    footer.footer .menu_bottom {
+        text-align: center
+    }
+}
+
+footer.footer .menu_bottom li {
+    display: inline-block;
+    margin: 0 5px
+}
+
+    footer.footer .menu_bottom li a {
+        font-size: 13px;
+        font-family: var(--font-base);
+        color: #acacac;
+        font-weight: 400
+    }
+
+        footer.footer .menu_bottom li a:hover {
+            color: var(--hover)
+        }
+
+footer.footer .copyright {
+    margin-bottom: 0px;
+    font-size: 12px;
+    font-family: var(--font-base);
+    position: relative;
+    text-align: center;
+    background: var(--main-color);
+    line-height: 35px
+}
+
+@media (max-width: 991px) {
+    footer.footer .copyright {
+        text-align: center
+    }
+}
+
+@media (max-width: 991px) {
+    footer.footer .copyright .fot_copyright {
+        order: 2
+    }
+}
+
+footer.footer .copyright .fot_copyright span.wsp {
+    color: #fff
+}
+
+    footer.footer .copyright .fot_copyright span.wsp .mobile {
+        opacity: 1
+    }
+
+    footer.footer .copyright .fot_copyright span.wsp b {
+        color: #fff
+    }
+
+    footer.footer .copyright .fot_copyright span.wsp .dash {
+        padding: 0 5px
+    }
+
+@media (max-width: 767px) {
+    footer.footer .copyright .fot_copyright span.wsp .dash {
+        display: none
+    }
+}
+
+footer.footer .copyright .fot_copyright a {
+    color: #fff;
+    opacity: 1;
+    font-weight: 700
+}
+
+    footer.footer .copyright .fot_copyright a:hover {
+        color: var(--hover) !important;
+        opacity: 1
+    }
+
+@media (max-width: 767px) {
+    footer.footer .copyright {
+        padding: 15px 0
+    }
+
+        footer.footer .copyright .wsp {
+            overflow: hidden;
+            display: block;
+            line-height: 24px
+        }
+
+        footer.footer .copyright .mobile {
+            display: block;
+            width: 100%;
+            line-height: 24px
+        }
+}
+
+.backtop {
+    position: fixed;
+    bottom: 80px;
+    right: 40px;
+    z-index: 99;
+    top: auto;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+    color: #fff !important;
+    border-radius: 3px;
+    background: var(--main-color);
+    text-decoration: none;
+    opacity: 0 !important
+}
+
+    .backtop svg {
+        height: 40px;
+        width: 16px
+    }
+
+        .backtop svg path {
+            fill: #fff
+        }
+
+    .backtop:hover {
+        background: var(--hover)
+    }
+
+    .backtop.show {
+        opacity: 1 !important
+    }

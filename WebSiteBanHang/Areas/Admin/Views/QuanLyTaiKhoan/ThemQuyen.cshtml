@@ -1,0 +1,107 @@
+﻿@model WebSiteBanHang.Areas.Admin.Commons.RolePermissionModel
+@{
+    ViewBag.Title = "Thêm mới quyền";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Quản lí sản phẩm</h1>
+        <div class="app-title">
+            <ul class="app-breadcrumb breadcrumb" style="margin-bottom: 0;">
+                <li class="breadcrumb-item">Danh sách quyền</li>
+                <li class="breadcrumb-item"><a href="#">Thêm quyền</a></li>
+
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <h3 class="tile-title">Tạo mới quyền</h3>
+                    <div class="tile-body">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#role" data-toggle="tab">Thêm Vai trò</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#permission" data-toggle="tab">Thêm chức năng</a></li>
+                            </ul>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="active tab-pane" id="role">
+                                        @using (Html.BeginForm("AddRole", "QuanLyTaiKhoan", FormMethod.Post, new { @id = "roleForm", @enctype = "multipart/form-data" }))
+                                        {
+                                            <div class="form-group">
+                                                <label>Tên vai trò</label>
+                                                @Html.TextBoxFor(model => model.role.name, new { @class = "form-control", @type = "text", @placeholder = "Nhập tên vai trò", @required = "" })
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-success" onclick="addRole()">Thêm Vai trò</button>
+                                            </div>
+                                        }
+
+                                    </div>
+
+                                    <div class="tab-pane" id="permission">
+                                        @using (Html.BeginForm("AddPermission", "QuanLyTaiKhoan", FormMethod.Post, new { @id = "permissionForm", @enctype = "multipart/form-data" }))
+                                        {
+                                            <div class="form-group">
+                                                <label>Tên Chức năng</label>
+                                                @Html.TextBoxFor(model => model.permission.name, new { @class = "form-control", @type = "text", @placeholder = "Nhập tên Chức năng", @required = "" })
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-success" onclick="addPermission()">Thêm Chức năng</button>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    function addRole() {
+        var form = $('#roleForm');
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data: form.serialize(),
+            success: function (response) {
+                if (response.success) {
+                    alert('Thêm vai trò thành công.');
+                    location.reload();
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function () {
+                alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+            }
+        });
+    }
+
+    function addPermission() {
+        var form = $('#permissionForm');
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data: form.serialize(),
+            success: function (response) {
+                if (response.success) {
+                    alert('Thêm chức năng thành công.');
+                    location.reload();
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function () {
+                alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+            }
+        });
+    }
+</script>
+

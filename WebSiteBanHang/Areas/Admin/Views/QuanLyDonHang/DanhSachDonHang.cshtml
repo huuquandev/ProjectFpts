@@ -1,0 +1,155 @@
+﻿@model List<WebSiteBanHang.Models.Order>
+@{
+    ViewBag.Title = "Danh sách đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var session = (WebSiteBanHang.Models.User)Session[WebSiteBanHang.Commons.sessionLogin.USER_SESSION];
+}
+
+<main>
+    @if (session != null)
+    {
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Quản lí đơn hàng</h1>
+            <div class="app-title">
+                <ul class="app-breadcrumb breadcrumb" style="margin-bottom: 0;">
+                    <li class="breadcrumb-item">Danh sách đơn hàng</li>
+                </ul>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Danh sách đơn hàng
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Đơn hàng</th>
+                                <th>Tên khách hàng</th>
+                                <th>Số điện thoại</th>
+                                <th>Giá trị</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                Model.Reverse();
+                                for (int i = 0; i < Model.Count; i++)
+                                {
+                                    var item = Model[i];
+                                    <tr>
+                                        <td>@item.madh</td>
+                                        <td>@item.hoten</td>
+                                        <td>@item.sodt</td>
+                                        <td>@string.Format("{0:N0}", item.tongdh)₫</td>
+                                        @if (item.trangthaidonhang == 1)
+                                        {
+                                            <td>
+                                                <span class="badge bg-success" style="font-size: 13px;"><b class="span_pending" style="color: white; font-weight: 600;">Đã thanh toán</b></span>
+                                            </td>
+                                        }
+                                        else if (item.trangthaidonhang == 2)
+                                        {
+
+                                            <td>
+                                                <span class="badge bg-warning" style="font-size: 13px;"><b class="span_pending" style="color: white; font-weight: 600;">Chưa thanh toán</b></span>
+                                            </td>
+                                        }
+                                        <td>@item.ngay_dathang.Value.ToString("dd/ MM/ yyyy")</td>
+                                        <td>
+                                            @foreach (var permission in session.Role.RolePermissions)
+                                            {
+                                                if (permission.Permission.name == "Xem")
+                                                {
+                                                    <a href="@Url.Action("ChiTietDonhang", "QuanLyDonHang", new { orderId = item.id })" class="btn btn-success"> <i class="fa-solid fa-eye"></i> </a>
+                                                }
+                                                if (permission.Permission.name == "Sửa")
+                                                {
+                                                    <a href="#" class="btn btn-danger btnCapNhat" data-id="@item.id" data-method="@item.trangthaidonhang"> <i class="fa-solid fa-pen-to-square"></i> </a>
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    </main>
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Cập nhật trạng thái</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnClose">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="txtOrderId" value="0" />
+                <div class="form-group">
+                    <label>Trạng thái</label>
+                    <select class="form-control" id="ddTrangthai">
+                        <option value="1">Đã thanh toán</option>
+                        <option value="2">Chưa thanh toán</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btnClose" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btnSave">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('body').on('click', '.btnCapNhat', function () {
+            var id = $(this).data("id");
+            $('#txtOrderId').val(id);
+            $('#modal-default').modal('show');
+            var tt = $(this).data("method");
+            var optionList = document.getElementById("ddTrangthai");
+            for (var i = 0; i < optionList.options.length; i++) {
+                if (optionList.options[i].value == tt) {
+                    optionList.options[i].selected = true;
+                }
+            }
+        });
+        $('body').on('click', '#btnSave', function () {
+            var id = $("#txtOrderId").val();
+            var tt = $("#ddTrangthai").val();
+            debugger;
+            $.ajax({
+                url: '@Url.Action("UpdateTrangThai", "QuanLyDonHang")',
+                type: 'POST',
+                data: JSON.stringify({ orderId: id, trangThai: tt }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    if (result.success) {
+                        location.reload();
+                        $('#modal-default').modal('hide');
+                    }
+                },
+                error: function () {
+                    alert("Cập nhật trạng thái không thành công!");
+                }                       
+            });
+        });
+        $('body').on('click', '#btnClose', function () {
+            $('#modal-default').modal('hide');
+        });
+    });
+</script>
+
+<script src="~/Assets/Js/Admin/simple-datatables.js"></script>
+<script src="~/Assets/Js/Admin/datatables-simple-demo.js"></script>

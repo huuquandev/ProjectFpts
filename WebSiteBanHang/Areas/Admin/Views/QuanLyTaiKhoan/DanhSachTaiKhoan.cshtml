@@ -1,0 +1,274 @@
+﻿@model List<WebSiteBanHang.Models.User>
+
+@{
+    ViewBag.Title = "Danh sách tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    WebSiteBanHang.Models.dbWebSiteBanHang db = new WebSiteBanHang.Models.dbWebSiteBanHang();
+    var session = (WebSiteBanHang.Models.User)Session[WebSiteBanHang.Commons.sessionLogin.USER_SESSION];
+
+}
+
+<main>
+    @if (session != null)
+    {
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Quản lí tài khoản</h1>
+            <div class="app-title">
+                <ul class="app-breadcrumb breadcrumb">
+                    <li class="breadcrumb-item">Danh sách tài khoản</li>
+                </ul>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Danh sách sản phẩm
+                    @foreach (var permission in session.Role.RolePermissions)
+                        {
+                            if (permission.Permission.name == "Thêm")
+                            {
+                                <a href="~/Admin/QuanLyTaiKhoan/ThemTaiKhoan" class="btn btn-success" style="float: right"> <i class="fa-solid fa-circle-plus"> </i> Thêm tài khoản</a>
+                            }
+                        }   
+                    }
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                </th>
+                                <th>ID tài khoản</th>
+                                <th>Họ và tên</th>
+                                <th>Email</th>
+                                <th>Mật khẩu</th>
+                                <th>Giới tính</th>
+                                <th>Số điện thoại</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                for (int i = 0; i < Model.Count; i++)
+                                {
+                                    var item = Model[i];
+                                    if (item.role_id != 1)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td>@item.IdTaiKhoan</td>
+                                            <td>@item.ho @item.ten</td>
+                                            <td>@item.email</td>
+                                            <td>@item.password</td>
+                                            <td>
+                                                @(item.gioitinh == 0 ? "Nam" : (item.gioitinh == 1 ? "Nữ" : "Giới tính khác"))
+                                            </td>
+                                            <td>@item.sodt</td>
+                                            <td>
+
+                                                @foreach (var permission in session.Role.RolePermissions)
+                                                {
+                                                    if (permission.Permission.name == "Xem")
+                                                    {
+                                                        <a href="#" class="btn btn-warning btnShow_@item.Id"> <i class="fa-solid fa-eye"></i> </a>
+                                                    }
+                                                    if (permission.Permission.name == "Xóa")
+                                                    {
+                                                        <a href="#" data-line="1" class="btn  btn-danger" onclick="deleteAccount(@item.Id)"> <i class="fa-solid fa-trash-can"></i></a>
+                                                    }
+                                                }
+                                            </td>
+                                            <div class="modal fade bd-example-modal-lg" id="modal-default_@item.Id">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Thông tin tài khoản #@item.IdTaiKhoan</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnClose_@item.Id">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        @using (Html.BeginForm("SuaTaiKhoan", "QuanLyTaiKhoan", FormMethod.Post, new { @enctype = "multipart/form-data", @id = item.Id }))
+                                                        {
+                                                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                                                            <div class="modal-body">
+                                                                <input type="hidden" id="Id" name="Id" value="@item.Id" />
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Họ</label>
+                                                                            <input type="text" class="form-control" id="ho" name="ho" value="@item.ho" required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Tên</label>
+                                                                            <input type="text" class="form-control" id="ten" name="ten" value="@item.ten" required>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Tài khoản</label>
+                                                                            <input type="text" class="form-control" id="username" name="username" value="@item.username">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Mật khẩu</label>
+                                                                            <input type="text" class="form-control" id="password" name="password" value="@item.password" required>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Email</label>
+                                                                            <input type="email" class="form-control" id="email" name="email" value="@item.email" required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Số điện thoại</label>
+                                                                            <input type="tel" class="form-control" id="sodt" name="sodt" value="@item.sodt" required>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <input type="hidden" class="form-control" id="gioitinh" value="0">
+                                                                        <div class="form-group">
+                                                                            <label>Giới tính</label>
+                                                                            <select class="form-control" id="gioitinh" name="gioitinh">
+                                                                                <option value="1" @(item.gioitinh == 1 ? "selected" : "")>Nam</option>
+                                                                                <option value="2" @(item.gioitinh == 2 ? "selected" : "")>Nữ</option>
+                                                                                <option value="3" @(item.gioitinh == 3 ? "selected" : "")>Giới tính khác</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Ngày sinh</label>
+                                                                            <input type="datetime" class="form-control" id="ngaysinh" name="ngaysinh" value="@item.ngaysinh.Value.ToString("dd/ MM/ yyyy")">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <input type="hidden" class="form-control" id="role_id" value="0">
+                                                                        <div class="form-group">
+                                                                            <label>Vai trò</label>
+                                                                            <select class="form-control" id="role_id" name="role_id">
+                                                                                @foreach (var role in db.Roles.ToList())
+                                                                                {
+                                                                                    <option value="@role.id" @(role.id == item.role_id ? "selected" : "")>@role.name</option>
+                                                                                }
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" id="btnClose_@item.Id" data-dismiss="modal">Đóng</button>
+                                                                <button type="submit" class="btn btn-primary" id="btnSave" data-id="@item.Id">Cập nhật</button>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </tr>
+                                        <script>
+                                    $(document).ready(function () {
+                                        $('body').on('click', '.btnShow_@item.Id', function () {
+                                            $('#modal-default_@item.Id').modal('show');
+                                            selectValue(document.getElementById("gioitinh_@item.Id"), "@item.gioitinh");
+                                        });
+                                        $('body').on('click', '#btnClose_@item.Id', function () {
+                                            $('#modal-default_@item.Id').modal('hide');
+                                        });
+                                        function selectValue(selectElement, value) {
+                                            for (var i = 0; i < selectElement.options.length; i++) {
+                                                if (selectElement.options[i].value === value) {
+                                                    selectElement.options[i].selected = true;
+                                                }
+                                            }
+                                        }
+
+                                    });
+                                        </script>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <a href="#" class="btn btn-sm btn-delete" style="color: inherit"> <i class="fa-solid fa-trash-can"></i> Xóa hết</a>
+
+                </div>
+            </div>
+        </div>
+
+    }
+    </main>
+    <script>
+    $(document).ready(function () {
+            $('form').submit(function (event) {
+                event.preventDefault();
+                var form = $(this)
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: form.attr('method'),
+                    data: new FormData(form[0]),
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Cập nhật thành công.');
+                            location.reload();
+                            $('#modal-default_' + form.attr('id')).modal('hide');
+
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                    }
+                });
+            });
+    });
+            function deleteAccount(accountId) {
+            var confirmation = confirm('Bạn có chắc muốn xóa tài khoản này?');
+            if (confirmation) {
+                $.ajax({
+                    url: '@Url.Action("XoaTaiKhoan", "QuanLyTaiKhoan")',
+                    type: 'POST',
+                    data: { accountId: accountId },
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert('Xóa tài khoản thất bại: ' + message);
+                        }
+                    },
+                    error: function () {
+                        alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                    }
+                });
+            }
+        }
+
+    </script>
+
+
+    <script src="~/Assets/Js/Admin/simple-datatables.js"></script>
+    <script src="~/Assets/Js/Admin/datatables-simple-demo.js"></script>
+

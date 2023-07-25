@@ -1,0 +1,117 @@
+﻿@model List<WebSiteBanHang.Models.Product>
+@{
+    ViewBag.Title = "Tìm kiếm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/Assets/Css/main_collections.css">
+    <link rel="stylesheet" href="~/Assets/Css/collections_style.css">
+    <link rel="stylesheet" href="~/Assets/Css/sidebar_style.css">
+}
+
+<main class="wrapperMain_content">
+    <nav class="bread-crumb clearfix">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li class="home">
+                    <a href="/"><span>Trang chủ</span></a>
+                    <span class="mr_lr">&nbsp;/&nbsp;</span>
+                </li>
+                <li><strong><span>Tìm kiếm</span></strong></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="signup search-main wrap_background background_white clearfix">
+        <div class="container">
+            <div class="row bg_page clearfix margin-bottom-50">
+
+
+                <div class="col-12 col-xl-12 col-lg-12 margin-bottom-15">
+                    <div class="title-block-page">
+                        <h1>Trang tìm kiếm</h1>
+                    </div>
+
+                    @if (Model.Count > 0)
+                    {
+                        <p>
+                            Đã tìm thấy @Model.Count kết quả phù hợp
+
+                        </p>
+                      }                        
+                    </div>
+                <div class="search-page col-12">
+                    <div class="products-view products-view-grid ">
+                        <div class="row" style="margin-top: 15px">
+
+                            @if (Model.Count > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <div class="col-12 col-md-4 col-lg-3 product-col">
+                                        <div class="item_product_main cls_search item_option margin-bottom-15">
+                                            @using (Html.BeginForm("AddToCart", "GioHang", new { productid = item.id }, FormMethod.Post))
+                                            {
+                                                <div class="product-thumbnail">
+                                                    <a class="image_thumb" href="/mat-hoa-ca-phe" title="@item.ten" style="height: 263px;">
+                                                        <img src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.hinhanh))" alt="@item.ten" class="lazyload img-responsive center-block loaded" data-was-processed="true">
+                                                    </a>
+
+                                                    <div class="action-cart">
+                                                        <input type="hidden" name="variantId" value="76949308">
+
+                                                        <button class="btn-buy btn-left btn-views add_to_cart " title="Mua ngay" onclick="addCartItem(@item.id); return false;">
+                                                            Mua ngay
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="info-product">
+                                                    <h3 class="product-name"><a href="@Url.Action("GetProductById", "ChiTietSanPham", new { productId = item.id})" title="Mật Hoa Cà Phê">@item.ten</a></h3>
+                                                    <div class="price-box">
+                                                        @if (item.giamgia != null)
+                                                        {
+                                                            <span class="discount">
+                                                                -
+                                                                @item.giamgia%
+                                                            </span>
+                                                        }
+                                                        <span class="price">
+                                                            @string.Format("{0:N0}", item.giatien)₫
+                                                        </span>
+                                                        @if (item.giacu != null)
+                                                        {
+                                                            <span class="compare-price">
+                                                                @string.Format("{0:N0}", item.giacu)₫
+                                                            </span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                }
+                            }
+                            else if(Model.Count == 0)
+                            {
+                                <div class="text-center">
+                                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzU2IiBoZWlnaHQ9IjM1NiIgdmlld0JveD0iMCAwIDM1NiAzNTYiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9ImEiIGQ9Ik0wIDBoMzU2djM1NkgweiIvPgogICAgICAgIDxwYXRoIGlkPSJjIiBkPSJNMCAxOC45ODNWLjI0M2gxNTB2MzcuNDhIMHYtMTguNzR6Ii8+CiAgICAgICAgPHBhdGggaWQ9ImUiIGQ9Ik0wIDU1Ljc3NnY1NS41NTJoMTUwVi4yMjNIMHoiLz4KICAgICAgICA8cGF0aCBpZD0iZyIgZD0iTTQwLjgyOS4yNDNILjE4N3YzNy40OGg0MC42NDJWLjI0M3oiLz4KICAgICAgICA8cGF0aCBpZD0iaSIgZD0iTTAgMTQ4Ljg3OGgxNTBWLjI5M0gweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHVzZSBmaWxsPSIjRkZGIiBmaWxsLW9wYWNpdHk9IjAiIHhsaW5rOmhyZWY9IiNhIi8+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjI0NiIgaGVpZ2h0PSIzOCIgeD0iNzUiIHk9IjcxIiBmaWxsPSIjRUVGOEZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iIG1hc2s9InVybCgjYikiIHJ4PSIxOSIgdHJhbnNmb3JtPSJyb3RhdGUoLTI2LjIzIDE5OCA5MCkiLz4KICAgICAgICA8cmVjdCB3aWR0aD0iMjQ2IiBoZWlnaHQ9IjM4IiB4PSIzNCIgeT0iMTM0IiBmaWxsPSIjRUVGOEZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iIG1hc2s9InVybCgjYikiIHJ4PSIxOSIgdHJhbnNmb3JtPSJyb3RhdGUoLTI2LjIzIDE1NyAxNTMpIi8+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjI0NiIgaGVpZ2h0PSIzOCIgeD0iOTEiIHk9IjE0NyIgZmlsbD0iI0VFRjhGRiIgZmlsbC1ydWxlPSJub256ZXJvIiBtYXNrPSJ1cmwoI2IpIiByeD0iMTkiIHRyYW5zZm9ybT0icm90YXRlKC0zMy41OSAyMTQgMTY2KSIvPgogICAgICAgIDxyZWN0IHdpZHRoPSIyMTIiIGhlaWdodD0iMzgiIHg9IjgzIiB5PSIyMDUiIGZpbGw9IiNFRUY4RkYiIGZpbGwtcnVsZT0ibm9uemVybyIgbWFzaz0idXJsKCNiKSIgcng9IjE5IiB0cmFuc2Zvcm09InJvdGF0ZSgtMzMuNTkgMTg5IDIyNCkiLz4KICAgICAgICA8cmVjdCB3aWR0aD0iMTc2IiBoZWlnaHQ9IjM4IiB4PSI5MSIgeT0iMjUzIiBmaWxsPSIjRUVGOEZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iIG1hc2s9InVybCgjYikiIHJ4PSIxOSIgdHJhbnNmb3JtPSJyb3RhdGUoLTMzLjU5IDE3OSAyNzIpIi8+CiAgICAgICAgPHBhdGggZD0iTTU1IDMwOWgxOSIgbWFzaz0idXJsKCNiKSIvPgogICAgICAgIDxnIG1hc2s9InVybCgjYikiPgogICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMDMgMTMzKSI+CiAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIC4wNSkiPgogICAgICAgICAgICAgICAgICAgIDxtYXNrIGlkPSJkIiBmaWxsPSIjZmZmIj4KICAgICAgICAgICAgICAgICAgICAgICAgPHVzZSB4bGluazpocmVmPSIjYyIvPgogICAgICAgICAgICAgICAgICAgIDwvbWFzaz4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjRDI4RjM2IiBkPSJNMTMwLjQwNy4yNDNIMTkuNTkzQTcuMzA0IDcuMzA0IDAgMCAwIDEyLjc5IDQuOUwwIDM3LjcyM2gxNTBMMTM3LjIxIDQuOTAxYTcuMzA0IDcuMzA0IDAgMCAwLTYuODAzLTQuNjU4IiBtYXNrPSJ1cmwoI2QpIi8+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDM3LjU1KSI+CiAgICAgICAgICAgICAgICAgICAgPG1hc2sgaWQ9ImYiIGZpbGw9IiNmZmYiPgogICAgICAgICAgICAgICAgICAgICAgICA8dXNlIHhsaW5rOmhyZWY9IiNlIi8+CiAgICAgICAgICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiNGMEFBNTEiIGQ9Ik0xNDIuNjc2IDExMS4zMjhINy4zMjRBNy4zMjQgNy4zMjQgMCAwIDEgMCAxMDQuMDA0Vi4yMjRoMTUwdjEwMy43OGE3LjMyNCA3LjMyNCAwIDAgMS03LjMyNCA3LjMyNCIgbWFzaz0idXJsKCNmKSIvPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTQuNDkyIC4wNSkiPgogICAgICAgICAgICAgICAgICAgIDxtYXNrIGlkPSJoIiBmaWxsPSIjZmZmIj4KICAgICAgICAgICAgICAgICAgICAgICAgPHVzZSB4bGluazpocmVmPSIjZyIvPgogICAgICAgICAgICAgICAgICAgIDwvbWFzaz4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjRUFCRDU2IiBkPSJNNDAuODI5IDM3LjcyM0guMTg3TDIuMDY4LjI0M2gzNi44OHoiIG1hc2s9InVybCgjaCkiLz4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiNGRkQ2N0IiIGQ9Ik05My4yMDEgNTMuMzU1SDU2Ljc5OWEyLjEyIDIuMTIgMCAwIDEtMi4xMi0yLjEyVjM3Ljc3Mmg0MC42NDJ2MTMuNDYxYTIuMTIgMi4xMiAwIDAgMS0yLjEyIDIuMTIiLz4KICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiNCNjdCMzciIGQ9Ik05NC4zODkgOTAuNjQ0aC01LjUyMlY2NC41NDNhNS4zMjggNS4zMjggMCAwIDAtNS4zMjktNS4zMjlINjYuNDYyYTUuMzI5IDUuMzI5IDAgMCAwLTUuMzMgNS4zMjl2MjYuMTAxaC01LjUyMWMtNi40NDggMC05LjYyNSA3Ljg0My00Ljk5MyAxMi4zM2wxOS4zODkgMTguNzg1YTcuMTc2IDcuMTc2IDAgMCAwIDkuOTg2IDBsMTkuMzktMTguNzg1YzQuNjMtNC40ODcgMS40NTQtMTIuMzMtNC45OTQtMTIuMzMiLz4KICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiNGRkQ2N0IiIGQ9Ik01Mi4xMSAxNDIuNjEySDkuNjU0YTMuOTgzIDMuOTgzIDAgMCAxLTMuOTgyLTMuOTgydi0xNS44NjNjMC0yLjIgMS43ODMtMy45ODMgMy45ODItMy45ODNINTIuMTFjMi4yIDAgMy45ODMgMS43ODMgMy45ODMgMy45ODN2MTUuODYzYzAgMi4yLTEuNzgzIDMuOTgyLTMuOTgzIDMuOTgyIi8+CiAgICAgICAgICAgICAgICA8bWFzayBpZD0iaiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgICAgICAgICAgPHVzZSB4bGluazpocmVmPSIjaSIvPgogICAgICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICAgICAgPHBhdGggZmlsbD0iI0NGQTYzRCIgZD0iTTkuNDk2IDEyOC43NDVoNDIuNzczdi02LjI1SDkuNDk2ek05LjQ5NiAxMzguOTAxaDQyLjc3M3YtNi4yNUg5LjQ5NnoiIG1hc2s9InVybCgjaikiLz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+Cg==" alt="No item">
+                                </div>
+                                <p class="text-center" style="font-size:18px;">
+                                    Không có kết quả nào phù hợp
+                                </p>
+                            }
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="webBanHangModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userId" Type="Int32" />
+    <Property Name="hoten" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="sodt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="diachi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="congty" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="quocgia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="tinhthanh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="quanhuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="phuongxa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="mazip" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="diachimacdinh" Type="Int32" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Address_User" FromRole="Address" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_user" Type="Int32" />
+    <NavigationProperty Name="CartItems" Relationship="Self.FK_cart" FromRole="Cart" ToRole="CartItem" />
+    <NavigationProperty Name="User" Relationship="Self.FK_User" FromRole="Cart" ToRole="User" />
+  </EntityType>
+  <EntityType Name="CartItem">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_product" Type="Int32" />
+    <Property Name="id_cart" Type="Int32" />
+    <Property Name="soluong" Type="Int32" />
+    <NavigationProperty Name="Cart" Relationship="Self.FK_cart" FromRole="CartItem" ToRole="Cart" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_product" FromRole="CartItem" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="ImageProduct">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="hinhanh" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="id_product" Type="Int32" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_imageProduct" FromRole="ImageProduct" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="OderItem">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_product" Type="Int32" />
+    <Property Name="id_oder" Type="Int32" />
+    <Property Name="soluong" Type="Int32" />
+    <Property Name="tongdh" Type="Decimal" Precision="10" Scale="0" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_OderItem_Oder" FromRole="OderItem" ToRole="Order" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_OderItem_Product" FromRole="OderItem" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="madh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="id_user" Type="Int32" />
+    <Property Name="tongdh" Type="Decimal" Precision="10" Scale="0" />
+    <Property Name="ngay_dathang" Type="DateTime" Precision="3" />
+    <Property Name="thanhtoan" Type="Int32" />
+    <Property Name="trangthai" Type="Int32" />
+    <Property Name="diachi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="OderItems" Relationship="Self.FK_OderItem_Oder" FromRole="Order" ToRole="OderItem" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="giatien" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+    <Property Name="hinhanh" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="giamgia" Type="Int32" />
+    <Property Name="giacu" Type="Decimal" Precision="10" Scale="0" />
+    <Property Name="ngaynhap" Type="DateTime" Precision="3" />
+    <Property Name="masanpham" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="id_info" Type="Int32" />
+    <Property Name="soluong" Type="Int32" />
+    <Property Name="idloaisanpham" Type="Int32" />
+    <NavigationProperty Name="CartItems" Relationship="Self.FK_product" FromRole="Product" ToRole="CartItem" />
+    <NavigationProperty Name="ImageProducts" Relationship="Self.FK_imageProduct" FromRole="Product" ToRole="ImageProduct" />
+    <NavigationProperty Name="OderItems" Relationship="Self.FK_OderItem_Product" FromRole="Product" ToRole="OderItem" />
+    <NavigationProperty Name="ProductDesc" Relationship="Self.FK_Product_Info" FromRole="Product" ToRole="ProductDesc" />
+    <NavigationProperty Name="Product1" Relationship="Self.FK_Product_Product" FromRole="Product" ToRole="Product1" />
+    <NavigationProperty Name="Product2" Relationship="Self.FK_Product_Product" FromRole="Product1" ToRole="Product" />
+    <NavigationProperty Name="ProductType" Relationship="Self.FK_ProductType" FromRole="Product" ToRole="ProductType" />
+  </EntityType>
+  <EntityType Name="ProductDesc">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="gioithieu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="mota" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="congdung" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="baoquan" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="hansung" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="luuysudung" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="thanhphan" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="huongdansudung" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Product_Info" FromRole="ProductDesc" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="ProductType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="loaiSanpham" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_ProductType" FromRole="ProductType" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="role" Type="Int32" Nullable="false" />
+    <Property Name="IdTaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ngaysinh" Type="DateTime" Precision="3" />
+    <Property Name="gioitinh" Type="Int32" />
+    <Property Name="ho" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="sodt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Addresses" Relationship="Self.FK_Address_User" FromRole="User" ToRole="Address" />
+    <NavigationProperty Name="Carts" Relationship="Self.FK_User" FromRole="User" ToRole="Cart" />
+  </EntityType>
+  <Association Name="FK_Address_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Address" Type="Self.Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Address">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cart">
+    <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
+    <End Role="CartItem" Type="Self.CartItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cart">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CartItem">
+        <PropertyRef Name="id_cart" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="CartItem" Type="Self.CartItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CartItem">
+        <PropertyRef Name="id_product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_imageProduct">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ImageProduct" Type="Self.ImageProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ImageProduct">
+        <PropertyRef Name="id_product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OderItem_Oder">
+    <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+    <End Role="OderItem" Type="Self.OderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="OderItem">
+        <PropertyRef Name="id_oder" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OderItem_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="OderItem" Type="Self.OderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="OderItem">
+        <PropertyRef Name="id_product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Info">
+    <End Role="ProductDesc" Type="Self.ProductDesc" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductDesc">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="id_info" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Product1" Type="Self.Product" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Product1">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductType">
+    <End Role="ProductType" Type="Self.ProductType" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductType">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="idloaisanpham" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbWebSiteBanHang" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Addresses" EntityType="Self.Address" />
+    <EntitySet Name="Carts" EntityType="Self.Cart" />
+    <EntitySet Name="CartItems" EntityType="Self.CartItem" />
+    <EntitySet Name="ImageProducts" EntityType="Self.ImageProduct" />
+    <EntitySet Name="OderItems" EntityType="Self.OderItem" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="ProductDescs" EntityType="Self.ProductDesc" />
+    <EntitySet Name="ProductTypes" EntityType="Self.ProductType" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Address_User" Association="Self.FK_Address_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Address" EntitySet="Addresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cart" Association="Self.FK_cart">
+      <End Role="Cart" EntitySet="Carts" />
+      <End Role="CartItem" EntitySet="CartItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User" Association="Self.FK_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_product" Association="Self.FK_product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="CartItem" EntitySet="CartItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_imageProduct" Association="Self.FK_imageProduct">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ImageProduct" EntitySet="ImageProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OderItem_Oder" Association="Self.FK_OderItem_Oder">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OderItem" EntitySet="OderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OderItem_Product" Association="Self.FK_OderItem_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="OderItem" EntitySet="OderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Info" Association="Self.FK_Product_Info">
+      <End Role="ProductDesc" EntitySet="ProductDescs" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Product" Association="Self.FK_Product_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Product1" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductType" Association="Self.FK_ProductType">
+      <End Role="ProductType" EntitySet="ProductTypes" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,64 @@
+﻿@{
+    var session = (WebSiteBanHang.Models.User)Session[WebSiteBanHang.Commons.sessionLogin.USER_SESSION];
+}
+<div class="col-xs-12 col-sm-12 col-lg-3 col-left-ac">
+    <div class="block-account">
+        <h5 class="title-account">Trang tài khoản</h5>
+        <p>Xin chào, <span style="color:#f5af1a;"> @session.ho @session.ten</span>&nbsp;!</p>
+        <ul>
+            <li>
+                <a class="title-info active" href="/TaiKhoan/accountDetail">Thông tin tài khoản</a>
+            </li>
+            <li>
+                <a class="title-info" href="/TaiKhoan/orders">Đơn hàng của bạn</a>
+            </li>
+            <li>
+                <a class="title-info" href="/TaiKhoan/ChangePassword">Đổi mật khẩu</a>
+            </li>
+            <li>
+                <a class="title-info" href="/TaiKhoan/addresses">Sổ địa chỉ (@session.Addresses.Count)</a>
+            </li>
+            <li>
+                <a class="title-info" href="/TaiKhoan/logout">Đăng xuất</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var menuItem = document.querySelectorAll(".block-account .title-info");
+        var currentIndex = 0;
+
+        function updateMenuByIndex(index) {
+            menuItem.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            currentIndex = index;
+            menuItem[index].classList.add('active');
+        }
+
+        menuItem.forEach((item, index) => {
+            item.addEventListener('click', (e) => {
+                if (currentIndex < index) {
+                    updateMenuByIndex(index);
+                } else if (currentIndex > index) {
+                    updateMenuByIndex(index);
+                }
+            });
+        });
+
+        var savedIndex = localStorage.getItem('currentIndex');
+        if (savedIndex !== null && !isNaN(savedIndex)) {
+            currentIndex = parseInt(savedIndex);
+        }
+        updateMenuByIndex(currentIndex);
+
+        menuItem.forEach((item, index) => {
+            item.addEventListener('click', (e) => {
+                localStorage.setItem('currentIndex', index);
+            });
+        });
+    });
+
+</script>

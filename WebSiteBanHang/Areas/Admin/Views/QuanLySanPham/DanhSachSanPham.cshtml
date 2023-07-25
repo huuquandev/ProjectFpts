@@ -1,0 +1,135 @@
+﻿@model List<WebSiteBanHang.Models.Product>
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var session = (WebSiteBanHang.Models.User)Session[WebSiteBanHang.Commons.sessionLogin.USER_SESSION];
+}
+<main>
+    @if (session != null)
+    {
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Quản lí sản phẩm</h1>
+            <div class="app-title">
+                <ul class="app-breadcrumb breadcrumb" style="margin-bottom: 0;">
+                    <li class="breadcrumb-item">Danh sách sản phẩm</li>
+                </ul>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Danh sách sản phẩm
+                    @foreach (var permission in session.Role.RolePermissions)
+                    {
+                        if (permission.Permission.name == "Thêm")
+                        {
+                            <a href="~/Admin/QuanLySanPham/ThemSanPham" class="btn btn-success" style="float: right"> <i class="fa-solid fa-circle-plus"> </i> Thêm sản phẩm</a>
+                        }
+                    }
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                </th>
+                                <th>Mã sản phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Hình ảnh</th>
+                                <th>Danh mục</th>
+                                <th>Số lượng</th>
+                                <th>Tình trạng</th>
+                                <th>Giá tiền</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                for (int i = 0; i < Model.Count; i++)
+                                {
+                                    var item = Model[i];
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            </div>
+                                        </td>
+                                        <td>@item.masanpham</td>
+                                        <td>@item.ten</td>
+                                        <td>
+                                            <img width="120" height="120" src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.hinhanh))" data-src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.hinhanh))" alt="@item.ten" class="lazyload img-responsive center-block loaded" data-was-processed="true">
+                                        </td>
+                                        <td>@item.ProductType.loaiSanpham</td>
+                                        <td>@item.soluong</td>
+                                        @if (item.trangthai == 1)
+                                        {
+                                            <td>
+                                                <span class="badge bg-success" style="font-size: 13px;"><b class="span_pending" style="color: white; font-weight: 600;">Còn hàng</b></span>
+                                            </td>
+                                        }
+                                        else if (item.trangthai == 0)
+                                        {
+
+                                            <td>
+                                                <span class="badge bg-danger" style="font-size: 13px;"><b class="span_pending" style="color: white; font-weight: 600;">Hết hàng</b></span>
+                                            </td>
+                                        }
+                                        <td>@string.Format("{0:N0}", item.giatien)₫</td>
+                                        <td>
+                                            @foreach (var permission in session.Role.RolePermissions)
+                                            {
+                                                if (permission.Permission.name == "Xem")
+                                                {
+                                                    <a href="@Url.Action("ChiTietSanPham", "QuanLySanPham", new { productId = item.id })" class="btn btn-warning"> <i class="fa-solid fa-eye"></i> </a>
+                                                }
+                                                if (permission.Permission.name == "Xóa")
+                                                {
+                                                    <a href="#" data-line="1" class="btn  btn-danger" onclick="deleteProduct(@item.id, @i); return false;"> <i class="fa-solid fa-trash-can"></i></a>
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <a href="#" class="btn btn-sm btn-delete" style="color: inherit"> <i class="fa-solid fa-trash-can"></i> Xóa hết</a>
+
+                </div>
+            </div>
+        </div>
+    }
+</main>
+
+<script src="~/Assets/Js/Admin/simple-datatables.js"></script>
+<script src="~/Assets/Js/Admin/datatables-simple-demo.js"></script>
+
+<script>
+   function deleteProduct(productId, index) {
+        var confirmation = confirm('Bạn có chắc muốn xóa sản phẩm này?');
+        if (confirmation) {
+            $.ajax({
+                url: '@Url.Action("XoaSanPham", "QuanLySanPham")',
+                type: 'POST',
+                data: { productId: productId },
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Xóa sản phẩm thất bại.');
+                    }
+                },
+                error: function () {
+                    alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                }
+            });
+        }
+    }
+
+
+</script>
+
+
+

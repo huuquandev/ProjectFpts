@@ -1,0 +1,206 @@
+﻿@model WebSiteBanHang.Models.Order
+@{
+    ViewBag.Title = "OrderDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/Assets/Css/account_style.css">
+}
+<main class="wrapperMain_content">
+    <nav class="bread-crumb clearfix">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li class="home">
+                    <a href="/"><span>Trang chủ</span></a>
+                    <span class="mr_lr">&nbsp;/&nbsp;</span>
+                </li>
+                <li>
+                    <a href="/account"><span>Tài khoản</span></a>
+                    <span class="mr_lr"> &nbsp;/&nbsp; </span>
+                </li>
+
+                <li><strong><span>Đơn hàng @Model.madh</span></strong></li>
+
+            </ul>
+        </div>
+    </nav>
+    <section class="login page_order wrap_background">
+        <div class="container">
+            <div class="row">
+
+                @Html.Partial("AcountSidebar")
+
+                <div class="col-xs-12 col-sm-12 col-lg-9">
+                    <div class="head-title clearfix">
+                        <h1>Chi tiết đơn hàng #1012</h1>
+                        <span class="note order_date">
+                            Ngày tạo: @Model.ngay_dathang.Value.ToString("dd/ MM/ yyyy")
+                        </span>
+                    </div>
+
+                    <div class="payment_status">
+                        <span class="note">Trạng thái thanh toán:</span>
+
+                        <b class="status_pending">
+
+
+                            @if (Model.trangthaidonhang == 1)
+                            {
+                                <b class="span_pending" style="color: #4BB543; font-weight: 600;">Đã thanh toán</b>
+                            }
+                            else if (Model.trangthaidonhang == 2)
+                            {
+                                <b class="span_pending" style="color: #E49C06;font-weight: 600;">Chưa thanh toán</b>
+
+                            }
+
+
+                        </b>
+
+                    </div>
+                    <div class="shipping_status">
+                        <span class="note">Trạng thái vận chuyển:</span>
+
+                        @if (Model.trangthaivanchuyen == 1)
+                        {
+                            <b style="color:#212B25" class="span_">
+                                Đã chuyển
+                            </b>
+                        }
+                        else if (Model.trangthaivanchuyen == 2)
+                        {
+                            <b style="color:#212B25" class="span_">
+                                Chưa chuyển
+                            </b>
+                        }
+
+                    </div>
+                    <div class="code_order">
+                        <span class="note">Mã vận đơn:</span>
+                        <a style="color:#2196f3;font-weight:bold;text-transform: uppercase;" href=""></a>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 body_order">
+
+                            <div class="box-address">
+                                <h2 class="title-head">Địa chỉ giao hàng</h2>
+
+                                <div class="address box-des">
+                                    <p> <strong>@Model.hoten</strong></p>
+                                    <p>
+                                        Địa chỉ: @Model.diachi
+                                    </p>
+
+                                    <p>Số điện thoại: @Model.sodt</p>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-3 body_order">
+                            <div class="box-address">
+                                <h2 class="title-head">
+                                    Thanh toán
+                                </h2>
+                                <div class="box-des">
+                                    @if (Model.phuongthucthanhtoan == 1)
+                                    {
+                                        <p>Thanh toán khi giao hàng (COD)</p>
+                                    }
+                                    else if (Model.phuongthucthanhtoan == 2)
+                                    {
+                                        <p>Thanh toán Chuyển khoản (ONLINE)</p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-3 body_order">
+                            <div class="box-address">
+                                <h2 class="title-head">
+                                    Ghi chú
+                                </h2>
+                                <div class="box-des">
+                                    @if (Model.ghichu != null)
+                                    {
+                                        <p>@Model.ghichu</p>
+                                    }
+                                    else
+                                    {
+                                        <p>
+                                            Không có ghi chú
+                                        </p>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="table-order">
+                                <div class="table-responsive-block table_mobile">
+                                    <table id="order_details" class="table table-cart">
+                                        <thead class="thead-default theborder">
+                                            <tr>
+                                                <th>Sản phẩm</th>
+                                                <th>Đơn giá</th>
+                                                <th>Số lượng</th>
+                                                <th>Tổng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var item in Model.OderItems)
+                                            {
+                                                <tr>
+                                                    <td class="link" data-title="Tên">
+                                                        <div class="image_order">
+                                                            <a title="@item.Product.ten" href="@Url.Action("GetProductById", "ChiTietSanPham", new { productId = item.id_product})"><img src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.Product.hinhanh))" alt=""></a>
+                                                        </div>
+                                                        <div class="content_right">
+                                                            <a class="title_order" href="@Url.Action("GetProductById", "ChiTietSanPham", new { productId = item.id_product})" title="@item.Product.ten">@item.Product.ten</a>
+                                                        </div>
+
+                                                    </td>
+                                                    <td data-title="Giá" class="numeric">@string.Format("{0:N0}", item.Product.giatien)₫</td>
+                                                    <td data-title="Số lượng" class="numeric">@item.soluong</td>
+                                                    <td data-title="Tổng" class="numeric">@string.Format("{0:N0}", item.tongdh)₫</td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <table class="table totalorders">
+                                    <tfoot>
+                                        <tr class="order_summary discount">
+                                            <td>Khuyến mại </td>
+
+                                            <td class="total money right">0₫</td>
+                                        </tr>
+
+                                        <tr class="order_summary ">
+                                            <td colspan="">Phí vận chuyển</td>
+                                            <td class="total money right">
+
+                                                40.000₫
+                                                (Giao hàng tận nơi)
+
+                                            </td>
+
+                                        </tr>
+
+                                        <tr class="order_summary order_total">
+                                            <td>Tổng tiền</td>
+                                            <td class="right"><strong style="color:#CA170E;font-size:19px;">@string.Format("{0:N0}", Model.tongdh + 40000)₫</strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+

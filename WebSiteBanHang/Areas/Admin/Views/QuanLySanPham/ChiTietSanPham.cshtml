@@ -1,0 +1,485 @@
+﻿@model WebSiteBanHang.Models.Product
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    WebSiteBanHang.Models.dbWebSiteBanHang db = new WebSiteBanHang.Models.dbWebSiteBanHang();
+    var session = (WebSiteBanHang.Models.User)Session[WebSiteBanHang.Commons.sessionLogin.USER_SESSION];
+}
+<style>
+    .Choicefile {
+        display: block;
+        background: #14142B;
+        border: 1px solid #fff;
+        color: #fff;
+        width: 150px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        padding: 5px 0px;
+        border-radius: 5px;
+        font-weight: 500;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .Choicefile:hover {
+            text-decoration: none;
+            color: white;
+        }
+
+    #uploadfile,
+    .removeimg {
+        display: none;
+    }
+
+    #thumbbox {
+        position: relative;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+       
+</style>
+<script>
+    function readURL(input, thumbimage) {
+        if (input.files && input.files[0] > 0) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#thumbimage").attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+        else { // Sử dụng cho IE
+            $("#thumbimage").attr('src', input.value);
+
+        }
+        $("#thumbimage").show();
+        $('.filename').text($("#uploadfile").val());
+        $('.Choicefile').css('background', '#14142B');
+        $('.Choicefile').css('cursor', 'default');
+        $(".removeimg").show();
+
+        // Lấy đường dẫn của ảnh đã chọn
+        var imageUrl = input.files[0] ? URL.createObjectURL(input.files[0]) : input.value;
+
+        $('.Choicefile').css('cursor', 'default');
+        var current = $('#idCurrentId').val();
+        var dataId = $('#dataCurrentId').val();
+        var currentId = parseInt(current) + 1;
+        var currentdata = parseInt(dataId) + 1;
+        var str = "";
+        str += `<tr id="trow_${currentId}">
+            <td class="text-center" id="#add">${currentId}</td>
+            <td class="text-center" id="#add"><img width="120" height="120" src="${imageUrl}" data-src="" alt="" id="${currentId}" class="lazyload img-responsive center-block loaded" data-was-processed="true" data-id="${currentdata}"></td>
+            <td class="text-center" id="#add"><div class="form-check"><input class="form-check-input" type="radio" name="flexRadioDefault" id="" value="${currentId}"></div></td>
+            <td class="text-center" id="#add"><a href="#" data-line="1" class="btn btn-danger btnXoaAnh" onclick="deleleProduct(${currentId}); return false;"> <i class="fa-solid fa-trash-can"></i></a></td>
+        </tr>`;
+        $('#tbhtml').append(str);
+        $('#idCurrentId').val(currentId);
+        formData.append("ImageUploads", input.files[0]);
+
+    }
+    function deleleProduct(idProduct) {
+        $(this).click(function () {
+            $("#trow_" + idProduct).fadeTo('fast', 1, function () {
+                $(this).remove();
+            });
+            var current = $('#idCurrentId').val();
+            var currentId = parseInt(current) - 1;
+            $('#idCurrentId').val(currentId);
+
+        });
+    }
+    $(document).ready(function () {
+        $(".Choicefile").bind('click', function () {
+            $("#uploadfile").click();
+
+        });
+        $(".removeimg").click(function () {
+            $("#thumbimage").attr('src', '').hide();
+            $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
+            $(".removeimg").hide();
+            $(".Choicefile").bind('click', function () {
+                $("#uploadfile").click();
+            });
+            $('.Choicefile').css('background', '#14142B');
+            $('.Choicefile').css('cursor', 'pointer');
+            $(".filename").text("");
+        });
+    })
+</script>
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Quản lí sản phẩm</h1>
+        <div class="app-title">
+            <ul class="app-breadcrumb breadcrumb" style="margin-bottom: 0;">
+                <li class="breadcrumb-item">Danh sách sản phẩm</li>
+                <li class="breadcrumb-item"><a href="#">Chi tiết sản phẩm</a></li>
+            </ul>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link active" href="#information" data-toggle="tab">Thông tin chung</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#imageProduct" data-toggle="tab">Hình ảnh</a></li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="active tab-pane" id="information">
+                        @using (Html.BeginForm("SuaSanPham", "QuanLySanPham", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                        {
+
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Mã sản phẩm</label>
+                                        <input type="text" class="form-control" id="masanpham" value="@Model.masanpham" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Tên sản phẩm</label>
+                                        <input type="text" class="form-control" id="ten" value="@Model.ten" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Giá tiền</label>
+                                        <input type="text" class="form-control" id="giatien" value="@string.Format("{0:N0}", Model.giatien)₫" data-value="@Model.giatien" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Giảm giá</label>
+                                        <input type="text" class="form-control" id="giamgia" value="@(Model.giamgia == null ? 0 : Model.giamgia)%" data-value="@(Model.giamgia == null ? 0 : Model.giamgia)" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Số lượng</label>
+                                        <input type="number" class="form-control" id="soluong" value="@Model.soluong" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3>Thông tin thêm</h3>
+                                    <hr />
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex align-items-center" style="padding-top: 30px">
+                                        <div class="col-md-6">
+                                            <div class="form-group d-flex justify-content-between" style="padding-left: 140px">
+                                                <div>                                                  
+                                                    <img src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(Model.hinhanh))" class="img-fluid" alt="@Model.ten" width="250px" id="hinhanh">
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="padding-bottom: 150px">
+                                                <label style="margin-top: 10px;">Danh mục</label>
+                                                <select class="form-control hidden" id="idloaisanpham" name="idloaisanpham" disabled>
+                                                    @foreach (var item in db.ProductTypes.ToList())
+                                                    {
+                                                        <option value="@item.id" @(item.id == Model.idloaisanpham ? "selected" : "")>@item.loaiSanpham</option>
+                                                    }
+                                                </select>
+                                                <label style="margin-top: 10px;">Ngày nhập</label>
+                                                <input type="datetime-local" class="form-control" id="ngaynhap" value="@Model.ngaynhap.Value.ToString("yyyy-MM-ddTHH:mm:ss")" readonly>
+                                                <label style="margin-top: 10px">Mô tả</label>
+                                                <textarea class="form-control" name="mota" id="mota" readonly></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+
+                    <div class="tab-pane" id="imageProduct">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group col-md-12" id="imageUploadId" style="display: none">
+                                    <div id="myfileupload">
+                                        <input type="file" id="uploadfile" name="ImageUploads" onchange="readURL(this);" required="" multiple> 
+                                    </div>
+                                    <div id="boxchoice">
+                                        <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Thêm ảnh</a>
+                                        <p style="clear:both"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <table class="table table-borderless" id="tbImageProduct">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>#</th>
+                                            <th>Ảnh</th>
+                                            <th>Ảnh đại diện</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbhtml">
+                                        @{ int i = 0;
+                                            int id = 0;
+                                        }
+                                        @foreach (var item in Model.ProductImages)
+                                        {
+                                            bool isChecked = item.image_representative == 1;
+                                            <tr id="trow_@(i+1)">
+                                                <td class="text-center">@(++i)</td>
+                                                <td class="text-center">
+                                                    <img width="120" height="120" src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.image))" data-src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.image))" alt="@Model.ten" id="@item.product_id" data-id="@item.Id" class="lazyload img-responsive center-block loaded" data-was-processed="true">
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="@item.image_representative" @(isChecked ? "checked" : "") disabled readonly>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                </td>
+                                            </tr>
+                                            id = item.Id;
+                                    }
+                                    </tbody>
+                                </table>
+                                <input type="hidden" id="idCurrentId" value="@i" />
+                                <input type="hidden" id="dataCurrentId" value="@id" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style=" float: right" id="viewProduct">
+            @if (session != null)
+            {
+                if (session.role_id == 1 || session.role_id == 3)
+                {
+                    foreach (var permission in session.Role.RolePermissions)
+                    {
+                        if (permission.Permission.name == "Sửa")
+                        {
+                            <a href="#" class="btn btn-warning" id="editButton"> <i class="fa-solid fa-pen-to-square"></i> Chỉnh sửa</a>
+                        }
+                    }
+                }
+            }
+            <a href="/Admin/QuanLySanPham/DanhSachSanPham" class="btn btn-danger" id="backButton"> <i class="fa-solid fa-backward"></i> Quay lại</a>
+        </div>
+        <div style="display: none; float: right" id="editProduct">
+            <button type="submit" class="btn btn-success" id="saveButton" onclick="saveProduct(); return false;"> <i class="fa-solid fa-check"></i> Lưu</button>
+            <a href="#" class="btn btn-danger" id="cancelButton"> <i class="fa-solid fa-times"></i> Hủy</a>
+        </div>
+    </div>
+</main>
+
+<script>
+    $(document).ready(function () {
+        $('#image_representative').change(function () {
+            if ($(this).is(':checked')) {
+                $('#image_representative').val("1");
+            } else {
+                $('#image_representative').val("0");
+            }
+            console.log($('#image_representative').val());
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        var originalInputs = Array.from(document.querySelectorAll("input[readonly]")).map(function (input) {
+            return {
+                input: input,
+                value: input.value
+            };
+        });
+        var viewProduct = document.getElementById("viewProduct");
+        var editButton = document.getElementById("editButton");
+        var cancelButton = document.getElementById("cancelButton");
+        var editProduct = document.getElementById("editProduct");
+
+        editButton.addEventListener("click", function (event) {
+            var inputs = document.querySelectorAll("input[readonly]");
+            console.log(inputs.length);
+            inputs.forEach(function (input) {
+                if (input.id != "masanpham") {
+                    input.removeAttribute("readonly");
+                    input.removeAttribute("disabled");
+                }
+            });
+            imageUploadId.style.display = "block";
+            editProduct.style.display = "block";
+            viewProduct.style.display = "none";
+            document.querySelector("select").removeAttribute("disabled", "");
+
+            var actionHeader = document.querySelector("#tbImageProduct thead tr");
+            var actionColumn = actionHeader.querySelector("th:last-child");
+            if (!actionColumn || actionColumn.innerHTML !== "Hành động") {
+                var newActionColumn = document.createElement("th");
+                newActionColumn.innerHTML = "Hành động";
+                actionHeader.appendChild(newActionColumn);
+            }
+
+            var rows = document.querySelectorAll("#tbImageProduct tbody tr");
+            rows.forEach(function (row) {
+                var Id = row.querySelector("img").getAttribute("data-id");
+                var imageSrc = row.querySelector("img").getAttribute("src");
+                var deleteButton = row.querySelector(".delete-button");
+                if (!deleteButton) {
+                    var newDeleteButton = document.createElement("a");
+                    newDeleteButton.href = "#";
+                    newDeleteButton.className = "btn btn-danger delete-button";
+                    newDeleteButton.id = Id;
+                    newDeleteButton.onclick = function () {
+                        deleteProduct(row);
+                        formData.append("imageIds[" + 0 + "].Id", Id);
+                        idImageDelete.push(Id);
+                        srcImageDelete.push(imageSrc);
+                        alert(imageSrc);
+                    };
+                    newDeleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+                    row.querySelector("td:last-child").appendChild(newDeleteButton);
+                }
+            });
+
+            function deleteProduct(row) {
+                // Assuming 'tbImageProduct' is the ID of the table
+                var table = document.getElementById("tbImageProduct");
+                var rowIndex = row.rowIndex;
+                table.deleteRow(rowIndex);
+
+                var current = parseInt(document.getElementById('idCurrentId').value);
+                var currentId = current - 1;
+                document.getElementById('idCurrentId').value = currentId;
+            }
+        });
+
+        cancelButton.addEventListener("click", function (event) {
+            //var inputs = document.querySelectorAll("input");
+            //inputs.forEach(function (input, index) {
+            //    if (input.type !== "file" ) { // Kiểm tra nếu không phải input file
+            //        input.setAttribute("readonly", "");
+            //        if (input.type == "radio") {
+            //            input.setAttribute("disabled", "");
+            //        }
+            //    }
+            //});
+
+            //imageUploadId.style.display = "none";
+            //editProduct.style.display = "none";
+            //viewProduct.style.display = "block";
+            //document.querySelector("select").setAttribute("disabled", "");
+            //// Xóa cột "Hành động"
+            //var actionHeader = document.querySelector("#tbImageProduct thead tr");
+            //var actionColumn = actionHeader.querySelector("th:last-child");
+            //if (actionColumn && actionColumn.innerHTML === "Hành động") {
+            //    actionHeader.removeChild(actionColumn);
+            //}
+
+            //// Xóa nút xóa khỏi mỗi hàng
+            //var rows = document.querySelectorAll("#tbImageProduct tbody tr");
+            //rows.forEach(function (row) {
+            //    var deleteButton = row.querySelector(".delete-button");
+            //    if (deleteButton) {
+            //        row.querySelector("td:last-child").removeChild(deleteButton);
+            //    }
+            //});
+            location.reload();
+        });
+    });
+    var formData = new FormData();
+    var idImageDelete = [];
+    var srcImageDelete = [];
+
+    function saveProduct() {
+        var allid = [];
+        var allImages = [];
+        var selectedImageId = [];
+        var rows = document.querySelectorAll("#tbImageProduct tbody tr");
+        rows.forEach(function (row) {
+            var imageSrc = row.querySelector("img").getAttribute("src");
+            var Id = row.querySelector("img").getAttribute("data-id");
+            allImages.push(imageSrc);
+            allid.push(Id);
+            var radio = row.querySelector("input[type='radio']");
+            if (radio.checked) {
+                selectedImageId.push(1);
+            } else {
+                selectedImageId.push(0);
+            }
+        });
+        var imageSrc = $("#hinhanh").attr("src");
+
+        formData.append('id', @Model.id);
+        formData.append('masanpham', $('#masanpham').val());
+        formData.append('ten', $('#ten').val());
+        formData.append('giatien', $('#giatien').data('value'));
+        formData.append('giamgia', $('#giamgia').data('value'));
+        formData.append('soluong', $('#soluong').val());
+        formData.append('idloaisanpham', $('#idloaisanpham').val());
+        formData.append('ngaynhap', new Date($('#ngaynhap').val()).toISOString());
+        formData.append("hinhanh", imageSrc);
+        formData.append("imageId", imageSrc);
+
+
+        for (var i = 0; i < idImageDelete.length; i++) {
+            formData.append("imageIds[" + i + "].Id", idImageDelete[i]);
+            formData.append("imageIds[" + i + "].image", srcImageDelete[i]);
+        }
+        // Thêm danh sách ảnh đã chọn vào formData
+        for (var i = 0; i < allImages.length; i++) {
+            // Kiểm tra nếu ảnh đã chọn từ hộp thoại có tồn tại thì mới thêm vào formData
+            formData.append("ProductImages[" + i + "].Id", allid[i]);
+            formData.append("ProductImages[" + i + "].product_id", rows[i].querySelector("img").getAttribute("id"));
+            formData.append("ProductImages[" + i + "].image", allImages[i]);
+            formData.append("ProductImages[" + i + "].image_representative", selectedImageId[i]);
+        }
+
+        $.ajax({
+            url: '@Url.Action("SuaSanPham", "QuanLySanPham")',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                // Xử lý phản hồi từ server
+                if (response.success) {
+                    // Hiển thị thông báo thành công
+                    alert('Lưu thành công.');
+                    location.reload();
+                } else {
+                    // Hiển thị thông báo lỗi
+                    alert('Lưu thất bại: ' + response.message);
+                }
+
+                var inputs = document.querySelectorAll("input");
+                inputs.forEach(function (input, index) {
+                    if (input.type !== "file") { // Kiểm tra nếu không phải input file
+                        input.setAttribute("readonly", "");
+                    }
+                });
+
+                imageUploadId.style.display = "none";
+                editProduct.style.display = "none";
+                viewProduct.style.display = "block";
+                document.querySelector("select").setAttribute("disabled", "");
+            },
+            error: function () {
+                alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+            }
+        });
+    }
+</script>
+
+
+
+
+

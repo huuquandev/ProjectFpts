@@ -1,0 +1,410 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2:wght@400;600;700&amp;family=Baloo+Paaji+2:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --main-color: #f5af1a;
+            --font-base: 'Baloo Paaji 2', cursive;
+            --font-title: 'Baloo Bhaina 2', cursive;
+            --hover: #f4c70f;
+            --text-color: #272625;
+            --price: #272625;
+            --hover: #f4c70f;
+            --menu: #ff8ea6;
+            --bgcopoun: #ffeef2;
+            --bgbestsale: #f8f8f8;
+            --bgmailchip: #ffeef2;
+        }
+    </style>
+    <link rel="stylesheet" href="~/Assets/Css/style.css">
+    <link rel="stylesheet" href="~/Assets/Css/header.css">
+    <link rel="stylesheet" href="~/Assets/Css/main.css">
+    <link rel="stylesheet" href="~/Assets/Css/reset.css">
+    <link rel="stylesheet" href="~/Assets/Css/footer.css">
+
+    @RenderSection("Styles", required: false)
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+
+</head>
+<body>
+
+    @*header*@
+
+    <header class="header">
+        <div class="tophead lazyload" data-src="//bizweb.dktcdn.net/100/472/304/themes/887048/assets/bg_header.png?1670581281488">
+            <div class="container">
+                <div class="text_tophead">
+                    <img class="img-responsive lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" data-src="//bizweb.dktcdn.net/100/472/304/themes/887048/assets/bee_header.png?1670581281488" alt="bee_header">Miễn phí vận chuyển trên mọi đơn hàng
+                </div>
+            </div>
+        </div>
+        <div class="mid-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 col-md-12 col-12">
+                        <div class="header_menu clearfix" style="margin-right: -40px;">
+                            <div class="navigation-head">
+                                <nav class="nav-horizontal">
+                                    <div class="account_mb">
+                                    </div>
+                                    <ul class="item_big" id="item_big_id">
+                                        <li class="nav-item active">
+                                            <a class="a-img" href="/" title="Trang chủ">
+                                                <span>Trang chủ</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item level0">
+                                            <a class="a-img" href="~/SanPham/all" title="Sản phẩm">
+                                                Sản phẩm <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-caret-down fa-w-10" style="margin-bottom: 5px" ;><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z" class="" style="margin-bottom: 5px" ;=""></path></svg>
+                                            </a>
+
+                                            <i class="icon icon-plus"></i>
+                                                
+                                            <ul class="item_small level0">
+                                                <li class="level1">
+                                                    <a href="~/SanPham/mat_ong_nhap_khau" title="Mật ong nhập khẩu">Mật ong nhập khẩu</a>
+                                                </li>
+                                                <li class="level1">
+                                                    <a href="/mat-ong-rung" title="Mật ong rừng">Mật ong rừng<i class="icon-right"></i></a>
+                                                    <i class="icon icon-plus"></i>
+
+                                                    <ul class="level1">
+                                                        <li class="level2">
+                                                            <a href="~/SanPham/mat_ong_rung_nhiet_doi" title="Mật ong rừng nhiệt đới" class="a3">Mật ong rừng nhiệt đới</a>
+                                                        </li>
+                                                        <li class="level2">
+                                                            <a href="~/SanPham/mat_ong_rung_hoa" title="Mật ong rừng hoa" class="a3">Mật ong rừng hoa</a>
+                                                        </li>
+                                                        <li class="level2">
+                                                            <a href="~/SanPham/mat_ong_rung_ngap_man" title="Mật ong rừng nhập mặn" class="a3">Mật ong rừng nhập mặn</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="level1">
+                                                    <a href="~/SanPham/mat_ong_hoa" title="Mật ong hoa">Mật ong hoa</a>
+                                                </li>
+                                                <li class="level1">
+                                                    <a href="~/SanPham/mat_ong_thien_nhien" title="Mật ong thiên nhiên">Mật ong thiên nhiên</a>
+                                                </li>
+                                                <li class="level1">
+                                                    <a href="~/SanPham/mat_ong_nguyen_chat" title="Mật ong nguyên chất">Mật ong nguyên chất</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a class="a-img" href="/TinTuc/blog" title="Tin tức">
+                                                <span>Tin tức</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a class="a-img" href="/LienHe/contact" title="Liên hệ">
+                                                <span>Liên hệ</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a class="a-img" href="/GioiThieu/introduce" title="Giới thiệu">
+                                                <span>Giới thiệu</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-5 col-12">
+                        <div class="logo_center">
+                            <div class="logo">
+
+                                <a href="/" class="logo-wrapper ">
+                                    <img src="//bizweb.dktcdn.net/100/472/304/themes/887048/assets/logo.png?1670581281488" alt="logo Template Honey Bee">
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-7 col-12">
+                        <div class="header-right">
+                            <div class="hotline_header">
+                                Hotline:<a href="tel:18006750">
+                                    1800 6750
+                                </a>
+                            </div>
+                            <div class="account_header">
+                                <a href="/TaiKhoan/accountDetail" class="icon-cart">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-user fa-w-14"><path fill="currentColor" d="M313.6 288c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4zM416 464c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16v-41.6C32 365.9 77.9 320 134.4 320c19.6 0 39.1 16 89.6 16 50.4 0 70-16 89.6-16 56.5 0 102.4 45.9 102.4 102.4V464zM224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm0-224c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z" class=""></path></svg>
+                                </a>
+                                <div class="ac_hover">
+                                    @{
+                                        var session = (WebSiteBanHang.Models.User)Session[WebSiteBanHang.Commons.sessionLogin.USER_SESSION];
+                                    }
+
+                                    @if (session != null)
+                                    {
+                                        <a href="/TaiKhoan/accountDetail">@session.ten</a>
+                                        <a href="/TaiKhoan/logout">Đăng xuất</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/TaiKhoan/login">Đăng nhập</a>
+                                        <a href="/TaiKhoan/register">Đăng ký</a>
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="header_search clearfix">
+                                <div class="icon_search">
+                                    <svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use> </svg>
+                                </div>
+                                @using (Html.BeginForm("Search", "TrangChu", FormMethod.Post, new { @class = "input-group search-bar theme-header-search-form ultimate-search",  @role = "search" }))
+                                {
+                                    <input type="text" aria-label="Tìm sản phẩm" name="searchString" value="" autocomplete="off" placeholder="Từ khóa tìm kiếm" class="search-auto input-group-field auto-search" required="" id="searchString">
+                                    <input type="hidden" name="type" value="product">
+                                    <span class="input-group-btn">
+                                        <button class="btn icon-fallback-text" aria-label="Justify" type="submit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg>
+                                        </button>
+                                    </span>
+                                }
+                            </div>
+                            <div class="top-cart-contain">
+                                <a class="img_hover_cart" href="/GioHang/cart" title="Giỏ hàng">
+                                    <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cartheader"></use></svg>
+                                    @if (Session["Count"] != null)
+                                        {
+                                        <span class="count_item count_item_pr hidden-count" id="CartCount" style="top: 0" ;>@Session["Count"]</span>
+                                    }
+                                    else if (Session["CountUser"] != null)
+                                    {
+                                        <span class="count_item count_item_pr hidden-count" id="CartCount" style="top: 0" ;>@Session["CountUser"]</span>
+                                    }
+                                    else
+                                {
+                                        <span class="count_item count_item_pr hidden-count" id="CartCount" style="top: 0" ;>0</span>
+                                        }
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+                                    var menuItem = document.querySelectorAll("#item_big_id li");
+                                    var currentIndex = null;
+
+                                    function updateMenuByIndex(index) {
+                                        menuItem.forEach(item => {
+                                            item.classList.remove('active');
+                                        });
+
+                                        if (index !== null) {
+                                            currentIndex = index;
+                                            menuItem[index].classList.add('active');
+                                        }
+                                    }
+
+                                    menuItem.forEach((item, index) => {
+                                        item.addEventListener('click', (e) => {
+                                            updateMenuByIndex(index);
+                                            localStorage.setItem('currentIndex', index);
+                                        });
+                                    });
+
+                                    var savedIndex = localStorage.getItem('currentIndex');
+
+                                    if (savedIndex !== null && !isNaN(savedIndex)) {
+                                        currentIndex = parseInt(savedIndex);
+                                    }
+
+                                    updateMenuByIndex(currentIndex);
+
+                                    var userIcon = document.querySelector('.account_header');
+                                    userIcon.addEventListener('click', function () {
+                                        updateMenuByIndex(null);
+                                        localStorage.removeItem('currentIndex');
+                                    });
+                                });
+    </script>
+
+
+
+    @RenderBody()
+
+    @*footer*@
+
+    <footer class="footer">
+        <div class="mid-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-12">
+                        <div class="widget-ft">
+                            <a href="/" class="blocklogo">
+                                <img src="//bizweb.dktcdn.net/100/472/304/themes/887048/assets/logo-footer.png?1670581281488" alt="Template Honey Bee">
+                            </a>
+                            <div class="content_contact">
+                                Tâng 6 toà nhà Ladeco, 266 Đội Cấn, phường Liễu Giai, Hà Nội,
+                            </div>
+                            <div class="content_contact">
+                                <a href="tel:18006750">
+                                    1800 6750
+                                </a>
+                            </div>
+                            <div class="content_contact">
+                                <a href="mailto:hellocafein@gmail.com">hellocafein@gmail.com</a>
+                            </div>
+                            <div class="content_contact">
+                                <a href="#" title="Hệ thống chi nhánh">Hệ thống chi nhánh</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-12 footer-click">
+                        <div class="widget-ft">
+                            <h4 class="title-menu clicked">
+                                Thông tin khách hàng
+                            </h4>
+                            <ul class="list-menu toggle-mn" style="">
+
+                                <li class="li_menu">
+                                    <a href="/" title="Trang chủ">Trang chủ</a>
+                                </li>
+
+                                <li class="li_menu">
+                                    <a href="/collections/all" title="Sản phẩm">Sản phẩm</a>
+                                </li>
+
+                                <li class="li_menu">
+                                    <a href="/tin-tuc" title="Tin tức">Tin tức</a>
+                                </li>
+
+                                <li class="li_menu">
+                                    <a href="/lien-he" title="Liên hệ">Liên hệ</a>
+                                </li>
+
+                                <li class="li_menu">
+                                    <a href="/gioi-thieu" title="Giới thiệu">Giới thiệu</a>
+                                </li>
+
+                                <li class="li_menu">
+                                    <a href="/cam-nang" title="Cẩm nang">Cẩm nang</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-12 footer-click">
+                        <div class="widget-ft">
+                            <h4 class="title-menu clicked">
+                                Chính sách mua hàng
+                            </h4>
+                            <ul class="list-menu toggle-mn" style="">
+
+                                <li class="li_menu">
+                                    <a href="/" title="Trang chủ">Trang chủ</a>
+                                </li>
+
+                                <li class="li_menu">
+                                    <a href="/collections/all" title="Sản phẩm">Sản phẩm</a>
+                                </li>
+
+                                <li class="li_menu">
+                                    <a href="/tin-tuc" title="Tin tức">Tin tức</a>
+                                </li>
+
+                                <li class="li_menu">
+                                    <a href="/lien-he" title="Liên hệ">Liên hệ</a>
+                                </li>
+
+                                <li class="li_menu">
+                                    <a href="/gioi-thieu" title="Giới thiệu">Giới thiệu</a>
+                                </li>
+
+                                <li class="li_menu">
+                                    <a href="/cam-nang" title="Cẩm nang">Cẩm nang</a>
+                                </li>
+
+                            </ul>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-12">
+                        <h4 class="title-menu">
+                            Dịch vụ hỗ trợ
+                        </h4>
+                        <div class="payment">
+                            <img src="//bizweb.dktcdn.net/100/472/304/themes/887048/assets/payment.png?1670581281488" data-src="//bizweb.dktcdn.net/100/472/304/themes/887048/assets/payment.png?1670581281488" class="lazyload loaded" alt="Phương thức thanh toán" data-was-processed="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright clearfix">
+            <div class="container">
+                <div class="row tablet">
+                    <div id="copyright" class="col-lg-12 col-md-12 col-xs-12 fot_copyright">
+                        <span class="wsp">
+
+                            <span class="mobile">
+                                Bản quyền thuộc về <b>Cafein Team</b>
+                                <span class="dash"> | </span>
+                            </span>
+
+                            <span class="opacity1">Cung cấp bởi</span>
+
+                            <a href="https://www.sapo.vn/?utm_campaign=cpn:site_khach_hang-plm:footer&amp;utm_source=site_khach_hang&amp;utm_medium=referral&amp;utm_content=fm:text_link-km:-sz:&amp;utm_term=&amp;campaign=site_khach_hang" rel="nofollow" title="Sapo" target="_blank">Sapo</a>
+                            z
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <a href="#" class="backtop show" title="Lên đầu trang">
+            <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="angle-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-angle-up fa-w-10"><path fill="currentColor" d="M168.5 164.2l148 146.8c4.7 4.7 4.7 12.3 0 17l-19.8 19.8c-4.7 4.7-12.3 4.7-17 0L160 229.3 40.3 347.8c-4.7 4.7-12.3 4.7-17 0L3.5 328c-4.7-4.7-4.7-12.3 0-17l148-146.8c4.7-4.7 12.3-4.7 17 0z" class=""></path></svg>
+        </a>
+
+    </footer>
+
+    <div style="visibility:hidden; position: absolute; z-index: -1; bottom: 0; left: 0;">
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="accounticon">
+                <svg version="1.0" viewBox="0 0 256.000000 256.000000">
+                    <g transform="translate(0.000000,256.000000) scale(0.100000,-0.100000)" stroke="none">
+                        <path d="M913 2330 c-222 -40 -410 -216 -453 -427 -18 -83 -7 -244 19 -312 41 -102 115 -198 204 -262 34 -25 37 -30 21 -35 -167 -59 -266 -111 -369 -195 -145 -118 -258 -289 -305 -464 -23 -83 -39 -318 -26 -369 9 -38 48 -54 81 -32 24 16 25 20 25 124 1 189 39 330 125 463 114 177 284 300 502 365 109 32 301 43 421 24 298 -48 546 -232 667 -493 44 -96 65 -203 65 -336 0 -60 3 -117 6 -126 11 -28 53 -38 82 -19 l24 16 -5 161 c-6 186 -17 239 -82 372 -77 160 -184 280 -340 380 -73 47 -212 115 -234 115 -6 0 -22 5 -36 10 l-27 10 60 45 c114 83 192 217 213 368 23 159 -28 320 -142 442 -33 35 -82 78 -109 95 -105 67 -267 101 -387 80z m220 -127 c319 -100 417 -508 178 -737 -93 -88 -186 -126 -312 -126 -295 0 -507 289 -419 572 72 232 322 364 553 291z" />
+                        <path d="M1742 2098 c-7 -7 -12 -24 -12 -40 0 -35 29 -54 97 -61 102 -11 202 -84 253 -183 21 -42 25 -62 25 -144 0 -79 -4 -103 -23 -143 -50 -99 -150 -171 -263 -187 -71 -10 -89 -22 -89 -60 0 -41 21 -52 115 -61 177 -18 336 -96 448 -220 105 -115 156 -257 157 -427 0 -99 10 -122 50 -122 50 0 60 20 60 128 0 307 -175 570 -456 687 -38 16 -70 30 -72 31 -2 1 20 24 49 50 28 27 62 65 74 84 156 251 32 579 -252 665 -58 18 -145 19 -161 3z" />
+                    </g>
+                </svg>
+            </symbol>
+            <symbol id="carticon">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 201.387 201.387" style="enable-background:new 0 0 201.387 201.387;" xml:space="preserve"> <g> <g> <path d="M129.413,24.885C127.389,10.699,115.041,0,100.692,0C91.464,0,82.7,4.453,77.251,11.916    c-1.113,1.522-0.78,3.657,0.742,4.77c1.517,1.109,3.657,0.78,4.768-0.744c4.171-5.707,10.873-9.115,17.93-9.115    c10.974,0,20.415,8.178,21.963,19.021c0.244,1.703,1.705,2.932,3.376,2.932c0.159,0,0.323-0.012,0.486-0.034    C128.382,28.479,129.679,26.75,129.413,24.885z" /> </g> </g> <g> <g> <path d="M178.712,63.096l-10.24-17.067c-0.616-1.029-1.727-1.657-2.927-1.657h-9.813c-1.884,0-3.413,1.529-3.413,3.413    s1.529,3.413,3.413,3.413h7.881l6.144,10.24H31.626l6.144-10.24h3.615c1.884,0,3.413-1.529,3.413-3.413s-1.529-3.413-3.413-3.413    h-5.547c-1.2,0-2.311,0.628-2.927,1.657l-10.24,17.067c-0.633,1.056-0.648,2.369-0.043,3.439s1.739,1.732,2.97,1.732h150.187    c1.231,0,2.364-0.662,2.97-1.732S179.345,64.15,178.712,63.096z" /> </g> </g> <g> <g> <path d="M161.698,31.623c-0.478-0.771-1.241-1.318-2.123-1.524l-46.531-10.883c-0.881-0.207-1.809-0.053-2.579,0.423    c-0.768,0.478-1.316,1.241-1.522,2.123l-3.509,15c-0.43,1.835,0.71,3.671,2.546,4.099c1.835,0.43,3.673-0.71,4.101-2.546    l2.732-11.675l39.883,9.329l-6.267,26.795c-0.43,1.835,0.71,3.671,2.546,4.099c0.263,0.061,0.524,0.09,0.782,0.09    c1.55,0,2.953-1.062,3.318-2.635l7.045-30.118C162.328,33.319,162.176,32.391,161.698,31.623z" /> </g> </g> <g> <g> <path d="M102.497,39.692l-3.11-26.305c-0.106-0.899-0.565-1.72-1.277-2.28c-0.712-0.56-1.611-0.816-2.514-0.71l-57.09,6.748    c-1.871,0.222-3.209,1.918-2.988,3.791l5.185,43.873c0.206,1.737,1.679,3.014,3.386,3.014c0.133,0,0.27-0.009,0.406-0.024    c1.87-0.222,3.208-1.918,2.988-3.791l-4.785-40.486l50.311-5.946l2.708,22.915c0.222,1.872,1.91,3.202,3.791,2.99    C101.379,43.261,102.717,41.564,102.497,39.692z" /> </g> </g> <g> <g> <path d="M129.492,63.556l-6.775-28.174c-0.212-0.879-0.765-1.64-1.536-2.113c-0.771-0.469-1.696-0.616-2.581-0.406L63.613,46.087    c-1.833,0.44-2.961,2.284-2.521,4.117l3.386,14.082c0.44,1.835,2.284,2.964,4.116,2.521c1.833-0.44,2.961-2.284,2.521-4.117    l-2.589-10.764l48.35-11.626l5.977,24.854c0.375,1.565,1.775,2.615,3.316,2.615c0.265,0,0.533-0.031,0.802-0.096    C128.804,67.232,129.932,65.389,129.492,63.556z" /> </g> </g> <g> <g> <path d="M179.197,64.679c-0.094-1.814-1.592-3.238-3.41-3.238H25.6c-1.818,0-3.316,1.423-3.41,3.238l-6.827,133.12    c-0.048,0.934,0.29,1.848,0.934,2.526c0.645,0.677,1.539,1.062,2.475,1.062h163.84c0.935,0,1.83-0.384,2.478-1.062    c0.643-0.678,0.981-1.591,0.934-2.526L179.197,64.679z M22.364,194.56l6.477-126.293h143.701l6.477,126.293H22.364z" /> </g> </g> <g> <g> <path d="M126.292,75.093c-5.647,0-10.24,4.593-10.24,10.24c0,5.647,4.593,10.24,10.24,10.24c5.647,0,10.24-4.593,10.24-10.24    C136.532,79.686,131.939,75.093,126.292,75.093z M126.292,88.747c-1.883,0-3.413-1.531-3.413-3.413s1.531-3.413,3.413-3.413    c1.882,0,3.413,1.531,3.413,3.413S128.174,88.747,126.292,88.747z" /> </g> </g> <g> <g> <path d="M75.092,75.093c-5.647,0-10.24,4.593-10.24,10.24c0,5.647,4.593,10.24,10.24,10.24c5.647,0,10.24-4.593,10.24-10.24    C85.332,79.686,80.739,75.093,75.092,75.093z M75.092,88.747c-1.882,0-3.413-1.531-3.413-3.413s1.531-3.413,3.413-3.413    s3.413,1.531,3.413,3.413S76.974,88.747,75.092,88.747z" /> </g> </g> <g> <g> <path d="M126.292,85.333h-0.263c-1.884,0-3.413,1.529-3.413,3.413c0,0.466,0.092,0.911,0.263,1.316v17.457    c0,12.233-9.953,22.187-22.187,22.187s-22.187-9.953-22.187-22.187V88.747c0-1.884-1.529-3.413-3.413-3.413    s-3.413,1.529-3.413,3.413v18.773c0,15.998,13.015,29.013,29.013,29.013s29.013-13.015,29.013-29.013V88.747    C129.705,86.863,128.176,85.333,126.292,85.333z" /> </g> </g> </svg>
+            </symbol>
+            <symbol id="cartheader">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 24" fill="none">
+                    <path d="M13.286 24C12.8082 24.0001 12.341 23.8594 11.9437 23.5958C11.5463 23.3321 11.2366 22.9573 11.0537 22.5187C10.8708 22.0801 10.8228 21.5975 10.916 21.1319C11.0091 20.6663 11.2392 20.2386 11.577 19.9028C11.9148 19.5671 12.3453 19.3385 12.8139 19.2458C13.2825 19.1532 13.7683 19.2006 14.2098 19.3823C14.6512 19.5639 15.0286 19.8716 15.294 20.2663C15.5595 20.661 15.7012 21.1251 15.7012 21.5998C15.7005 22.2361 15.4458 22.846 14.993 23.296C14.5402 23.7459 13.9264 23.9991 13.286 24Z" fill="white" />
+                    <path d="M21.7402 24C21.2624 24 20.7954 23.8592 20.3981 23.5955C20.0008 23.3318 19.6912 22.9569 19.5084 22.5183C19.3255 22.0797 19.2777 21.5972 19.3709 21.1316C19.4641 20.666 19.6942 20.2383 20.032 19.9026C20.3699 19.567 20.8003 19.3384 21.269 19.2458C21.7376 19.1532 22.2233 19.2007 22.6647 19.3823C23.1062 19.564 23.4834 19.8716 23.7489 20.2664C24.0143 20.6611 24.156 21.1251 24.156 21.5998C24.1553 22.2362 23.9005 22.8462 23.4476 23.2962C22.9947 23.7461 22.3807 23.9992 21.7402 24Z" fill="white" />
+                    <path d="M22.1933 11.5874C18.9861 11.5874 16.3619 8.98024 16.3619 5.7937V5.78358C16.3631 5.65514 16.3386 5.52775 16.29 5.40873C16.2414 5.2897 16.1696 5.18139 16.0788 5.09002C15.9879 4.99865 15.8798 4.92602 15.7606 4.87631C15.6414 4.8266 15.5135 4.80078 15.3842 4.80034H8.15269L7.46537 2.48398C7.04132 1.02149 5.65368 0 4.08713 0H1.20766C0.891835 0.00679374 0.591251 0.136215 0.370307 0.360534C0.149364 0.584854 0.0256348 0.886227 0.0256348 1.20008C0.0256348 1.51394 0.149364 1.81531 0.370307 2.03963C0.591251 2.26395 0.891835 2.39337 1.20766 2.40017H4.08486C4.58025 2.40017 5.01335 2.70729 5.14414 3.15504L8.81566 15.5159C9.23971 16.9784 10.6274 17.9999 12.195 17.9999H23.0579C23.7914 18.0036 24.5077 17.7785 25.1058 17.3564C25.7038 16.9343 26.1535 16.3364 26.3914 15.6469L27.3663 12.5735C27.4023 12.4599 27.4109 12.3395 27.3914 12.2221C27.3718 12.1046 27.3247 11.9934 27.2539 11.8974C27.1831 11.8014 27.0905 11.7233 26.9836 11.6694C26.8767 11.6156 26.7586 11.5875 26.6388 11.5874H22.1933Z" fill="white" />
+                </svg>
+            </symbol>
+            <symbol id="search">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24">
+                    <path fill-rule="evenodd" fill="#fff" clip-rule="evenodd" d="M16.3901 14.026C18.9546 10.4342 18.5248 5.35811 15.1004 2.25607C11.6909 -0.845969 6.23568 -0.742073 2.94476 2.47871C-0.612987 5.9518 -0.642635 11.6512 2.85582 15.154C5.96885 18.2709 10.8311 18.5974 14.2999 16.1188L21.7267 23.5548C22.3049 24.1336 23.2388 24.1336 23.8169 23.5548C24.395 22.9759 24.395 22.0409 23.8169 21.462L16.3901 14.026ZM13.3364 4.66052C15.6489 6.97592 15.6489 10.731 13.3364 13.0613C11.0238 15.3767 7.25854 15.3767 4.946 13.0613C2.63346 10.7459 2.63346 6.99077 4.946 4.66052C7.25854 2.34513 11.0238 2.34513 13.3364 4.66052Z"></path>
+                </svg>
+            </symbol>
+        </svg>
+    </div>
+
+    <script src="~/Assets/Js/Menu.js"></script>
+    <script src="~/Assets/Js/Carousel.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

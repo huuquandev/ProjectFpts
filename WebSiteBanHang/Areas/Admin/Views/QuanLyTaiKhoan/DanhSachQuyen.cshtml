@@ -1,0 +1,323 @@
+﻿@model List<WebSiteBanHang.Models.Role>
+@{
+    ViewBag.Title = "Danh sách quyền";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    WebSiteBanHang.Models.dbWebSiteBanHang db = new WebSiteBanHang.Models.dbWebSiteBanHang();
+    var session = (WebSiteBanHang.Models.User)Session[WebSiteBanHang.Commons.sessionLogin.USER_SESSION];
+}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Quản lí tài khoản</h1>
+        <div class="app-title">
+            <ul class="app-breadcrumb breadcrumb" style="margin-bottom: 0;">
+                <li class="breadcrumb-item">Danh sách quyền</li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                        <div class="tile-body">
+                        <div class="card-header p-2">
+                            @if (session != null)
+                            {
+                                if (session.role_id == 1)
+                                {
+                                    <a href="~/Admin/QuanLyTaiKhoan/ThemQuyen" class="btn btn-success" style="float: right"> <i class="fa-solid fa-circle-plus"> </i> Thêm Quyền</a>
+                                }
+                            }
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#listRole" data-toggle="tab">Danh sách quyền</a></li>
+                            @if (session.role_id == 1)
+                            {
+                                <li class="nav-item"><a class="nav-link" href="#manageRole" data-toggle="tab">Quản lí quyền</a></li>
+
+                            }
+                        </ul>
+
+                        </div>
+                        <div class="card mb-4">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="listRole">
+                                    <div class="card-header">
+                                        <i class="fas fa-table me-1"></i>
+                                        Danh sách quyền và vai trò
+
+
+                                    </div>
+                                    <div class="card-body">
+                                        <table id="datatablesSimple">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Tên vai trò</th>
+                                                    <th>Chức năng</th>
+                                                    <th>Hành động</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model != null)
+                                                {
+                                                    for (int i = 0; i < Model.Count; i++)
+                                                    {
+                                                        var item = Model[i];
+                                                        <tr>
+                                                            <td>@(i + 1)</td>
+                                                            <td>@item.name</td>
+                                                            <td>
+                                                                @string.Join(", ", item.RolePermissions.Select(rp => rp.Permission.name))
+                                                            </td>
+                                                            <td>
+                                                                @if (session.role_id == 1)
+                                                                {
+                                                                    <a href="#" class="btn btn-warning btnCapNhatRole" data-roleid="@item.id"> <i class="fa-solid fa-pen-to-square"></i> </a>
+                                                                    <a href="#" data-line="1" class="btn btn-danger btnDeleteRole" data-roleid="@item.id"> <i class="fa-solid fa-trash-can"></i></a>
+                                                                }
+                                                                <div class="modal fade" id="modal-default_@item.id">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Cập nhật Quyền</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnClose">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <input type="hidden" id="txtOrderId" value="0" />
+                                                                                <div class="form-group">
+                                                                                    <label>Vai trò</label>
+                                                                                    <input type="text" class="form-control" id="name" name="Rolename_@item.id" value="@item.name" data-value="@item.name">
+
+                                                                                </div>
+                                                                                <label>Chức năng</label>
+                                                                                <div class="form-group" style="font-size: 15px;">
+                                                                                    @foreach (var permissionItem in db.Permissions.ToList())
+                                                                                    {
+                                                                                        bool isChecked = item.RolePermissions.Any(rp => rp.permission_id == permissionItem.id);
+                                                                                        <div class="form-check form-check-inline">
+                                                                                            <input class="form-check-input" type="checkbox" id="permission_@item.id" name="permissions_@item.id" value="@permissionItem.id" @(isChecked ? "checked" : "")>
+                                                                                            <label class="form-check-label" for="permission_@item.id">@permissionItem.name</label>
+                                                                                        </div>
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" id="btnClose" data-dismiss="modal">Đóng</button>
+                                                                                <button type="button" class="btn btn-primary btnSaveRole" data-roleid="@item.id">Cập nhật</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane" id="manageRole">
+                                    <div class="card-header">
+                                        <i class="fas fa-table me-1"></i>
+                                        Danh sách quyền và vai trò
+
+
+                                    </div>
+                                    <div class="card-body">
+                                        <table id="datatablesSimple">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Tên Chức năng</th>
+                                                    <th>Hành động</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model != null)
+                                                {
+                                                    var Permissions = db.Permissions.ToList();
+                                                    for (int i = 0; i < Permissions.Count; i++)
+                                                    {
+                                                        var item = Permissions[i];
+                                                        <tr>
+                                                            <td>@(i + 1)</td>
+                                                            <td>@item.name</td>
+                                                            <td>
+                                                                @if (session.role_id == 1)
+                                                                {
+                                                                    <a href="#" class="btn btn-warning btnCapNhatPermission" data-permissionid="@item.id"> <i class="fa-solid fa-pen-to-square"></i> </a>
+                                                                    <a href="#" data-line="1" class="btn btn-danger btnDeletePermission" data-permissionid="@item.id"> <i class="fa-solid fa-trash-can"></i></a>
+                                                                }
+                                                            </td>
+                                                            <div class="modal fade" id="modal-default-Permission_@item.id">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">Cập nhật Quyền</h4>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnClose">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <input type="hidden" id="txtOrderId" value="0" />
+                                                                            <div class="form-group">
+                                                                                <label>Vai trò</label>
+                                                                                <input type="text" class="form-control" id="name" name="Permissionname_@item.id" value="@item.name" data-value="@item.name">    
+                                                                            </div>                                                                           
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" id="btnClose" data-dismiss="modal">Đóng</button>
+                                                                            <button type="button" class="btn btn-primary btnSavePermission" data-permissionid="@item.id">Cập nhật</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</main>
+<script>
+    $(document).ready(function () {
+        $('body').on('click', '.btnCapNhatRole', function () {
+            var roleId = $(this).data('roleid');
+            $('#modal-default_' + roleId).modal('show');
+            console.log(roleId);
+        });
+        $('body').on('click', '.btnCapNhatPermission', function () {
+            var permissionId = $(this).data('permissionid');
+            $('#modal-default-Permission_' + permissionId).modal('show');
+            console.log(permissionId);
+        });
+        $('body').on('click', '#btnClose', function () {
+            $(this).closest('.modal').modal('hide');
+        });
+
+        $('body').on('click', '.btnSaveRole', function () {
+            var roleId = $(this).data('roleid');
+            var permissions = [];
+
+            // Lặp qua tất cả các checkbox trong vai trò hiện tại
+            $('input[name="permissions_' + roleId + '"]').each(function () {
+                var permissionId = $(this).val();
+                var isChecked = $(this).is(':checked');
+
+                var permission = {
+                    permissionId: permissionId,
+                    isChecked: isChecked
+                };
+
+                permissions.push(permission);
+            });
+            var inputRoleName = $('input[name="Rolename_' + roleId + '"]').val();
+            // Gửi AJAX request để cập nhật quyền cho vai trò
+            $.ajax({
+                url: '@Url.Action("UpdateRolePermission", "QuanLyTaiKhoan")',
+                type: 'POST',
+                data: JSON.stringify({ roleId: roleId, roleName: inputRoleName ,permissions: permissions }),
+                contentType: 'application/json',
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                        $('#modal-default_' + roleId).modal('hide');
+                        alert('Cập nhật thành công.');
+                    } else {
+                        alert('Cập nhật không thành công: ' + response.message);
+                    }
+                },
+                error: function () {
+                    alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                }
+            });
+        });
+        $('body').on('click', '.btnSavePermission', function () {
+            var permissionId = $(this).data('permissionid');
+
+            var inputPermissionName = $('input[name="Permissionname_' + permissionId + '"]').val();
+            $.ajax({
+                url: '@Url.Action("UpdatePermission", "QuanLyTaiKhoan")',
+                type: 'POST',
+                data: JSON.stringify({ permissionId: permissionId, permissionName: inputPermissionName }),
+                contentType: 'application/json',
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();                       
+                        $('#modal-default-Permission_' + permissionId).modal('hide');
+                        alert('Cập nhật thành công.');
+                    } else {
+                        alert('Cập nhật không thành công: ' + response.message);
+                    }
+                },
+                error: function () {
+                    alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                }
+            });
+        });
+
+        $('body').on('click', '.btnDeleteRole', function () {
+            var roleId = $(this).data('roleid');
+            var confirmation = confirm('Bạn có chắc muốn xóa vai trò này?');
+            if (confirmation) {
+                $.ajax({
+                    url: '@Url.Action("DeleteRole", "QuanLyTaiKhoan")',
+                    type: 'POST',
+                    data: { roleId: roleId },
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Xóa vai trò thành công!');
+                            location.reload();
+                        } else {
+                            alert('Xóa vai trò thất bại!');
+                        }
+                    },
+                    error: function () {
+                        alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                    }
+                });
+            }
+        });
+        $('body').on('click', '.btnDeletePermission', function () {
+            var permissionId = $(this).data('permissionid');
+            var confirmation = confirm('Bạn có chắc muốn xóa chức năng này?');
+            if (confirmation) {
+                $.ajax({
+                    url: '@Url.Action("DeletePermission", "QuanLyTaiKhoan")',
+                    type: 'POST',
+                    data: { permissionId: permissionId },
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Xóa vai trò thành công!');
+                            location.reload();
+                        } else {
+                            alert('Xóa vai trò thất bại!');
+                        }
+                    },
+                    error: function () {
+                        alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                    }
+                });
+            }
+        });
+
+    });
+</script>
+
+
+<script src="~/Assets/Js/Admin/simple-datatables.js"></script>
+<script src="~/Assets/Js/Admin/datatables-simple-demo.js"></script>
+

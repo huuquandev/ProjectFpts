@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var session = (WebSiteBanHang.Models.User)Session[WebSiteBanHang.Commons.sessionLogin.USER_SESSION];
+}
+@section Styles{
+    <link rel="stylesheet" href="~/Assets/Css/account_style.css">
+}
+<main class="wrapperMain_content">
+    <nav class="bread-crumb clearfix">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li class="home">
+                    <a href="/"><span>Trang chủ</span></a>
+                    <span class="mr_lr">&nbsp;/&nbsp;</span>
+                </li>
+                <li><strong><span>Trang khách hàng</span></strong></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="signup page_customer_account wrap_background">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-12 col-lg-3 col-left-ac">
+                    <div class="block-account">
+                        <h5 class="title-account">Trang tài khoản</h5>
+                        <p>Xin chào, <span style="color:#f5af1a;"> @session.ho @session.ten</span>&nbsp;!</p>
+                        <ul>
+                            <li>
+                                <a disabled="disabled" class="title-info active" href="javascript:void(0);">Thông tin tài khoản</a>
+                            </li>
+                            <li>
+                                <a class="title-info" href="/account/orders">Đơn hàng của bạn</a>
+                            </li>
+                            <li>
+                                <a class="title-info" href="/account/changepassword">Đổi mật khẩu</a>
+                            </li>
+                            <li>
+                                <a class="title-info" href="/account/addresses">Sổ địa chỉ (0)</a>
+                            </li>
+                            <li>
+                                <a class="title-info" href="/account/logout">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-lg-9 col-right-ac">
+                    <h1 class="title-head margin-top-0">Thông tin tài khoản</h1>
+                    <div class="form-signup name-account m992">
+
+                        <p><strong>Họ tên: </strong>@session.ho @session.ten</p>
+                        <p> <strong>Email: </strong>@session.email</p>
+
+                        <p> <strong>Điện thoại: </strong>@session.sodt</p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

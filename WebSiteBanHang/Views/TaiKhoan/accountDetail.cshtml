@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var session = (WebSiteBanHang.Models.User)Session[WebSiteBanHang.Commons.sessionLogin.USER_SESSION];
+}
+@section Styles{
+    <link rel="stylesheet" href="~/Assets/Css/account_style.css">
+}
+<main class="wrapperMain_content">
+    <nav class="bread-crumb clearfix">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li class="home">
+                    <a href="/"><span>Trang chủ</span></a>
+                    <span class="mr_lr">&nbsp;/&nbsp;</span>
+                </li>
+                <li><strong><span>Trang khách hàng</span></strong></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="signup page_customer_account wrap_background">
+        <div class="container">
+            <div class="row">
+
+                @Html.Partial("AcountSidebar")
+
+                <div class="col-xs-12 col-sm-12 col-lg-9 col-right-ac">
+                    <h1 class="title-head margin-top-0">Thông tin tài khoản</h1>
+                    <div class="form-signup name-account m992">
+
+                        <p><strong>Họ tên: </strong>@session.ho @session.ten</p>
+
+                        <p> <strong>Email: </strong>@session.email</p>
+
+                        <p> <strong>Điện thoại: </strong>@session.sodt</p>
+
+                        @foreach (var address in session.Addresses)
+                        {
+                            if (address.diachimacdinh == 1)
+                            {
+                                <p>
+                                    <strong>Địa chỉ: </strong>
+                                    @{
+                                        var parts = new List<string>();
+                                        if (!string.IsNullOrEmpty(address.diachi))
+                                        {
+                                            parts.Add(address.diachi);
+                                        }
+                                        if (!string.IsNullOrEmpty(address.phuongxa))
+                                        {
+                                            parts.Add(address.phuongxa);
+                                        }
+                                        if (!string.IsNullOrEmpty(address.quanhuyen))
+                                        {
+                                            parts.Add(address.quanhuyen);
+                                        }
+                                        if (!string.IsNullOrEmpty(address.tinhthanh))
+                                        {
+                                            parts.Add(address.tinhthanh);
+                                        }
+                                        if (!string.IsNullOrEmpty(address.quocgia))
+                                        {
+                                            parts.Add(address.quocgia);
+                                        }
+                                    }
+                                    @string.Join(", ", parts)
+                                </p>
+                            }
+                        }
+                    </div>
+                </div>
+                <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var phoneNumberElements = document.querySelectorAll(".form-signup p strong");
+                    phoneNumberElements.forEach(function (element) {
+                        var phoneNumber = element.nextSibling.nodeValue.trim();
+                        phoneNumber = phoneNumber.replace(/^0/, "+84");
+                        element.nextSibling.nodeValue = phoneNumber;
+                    });
+                });
+            </script>
+            </div>
+        </div>
+    </section>
+</main>
+

@@ -1,0 +1,179 @@
+﻿@model List<WebSiteBanHang.Models.Product>
+
+@{
+    ViewBag.Title = "Sản Phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/Assets/Css/main_collections.css">
+    <link rel="stylesheet" href="~/Assets/Css/collections_style.css">
+    <link rel="stylesheet" href="~/Assets/Css/sidebar_style.css">
+}
+<main class="wrapperMain_content">
+    <nav class="bread-crumb clearfix">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li class="home">
+                    <a href="/"><span>Trang chủ</span></a>
+                    <span class="mr_lr">&nbsp;/&nbsp;</span>
+                </li>
+                <li><strong><span>Tất cả sản phẩm</span></strong></li>
+            </ul>
+        </div>
+    </nav>
+    <link rel="preload" as="script" href="//bizweb.dktcdn.net/100/472/304/themes/887048/assets/search_filter.js?1670581281488">
+    <script src="//bizweb.dktcdn.net/100/472/304/themes/887048/assets/search_filter.js?1670581281488" type="text/javascript"></script>
+    <div class="section wrap_background">
+        <div class="container ">
+            <div class="bg_collection">
+                <div class="row">
+                    @Html.Partial("ProductSidebar")
+                    <div class="main_container collection right-content col-lg-9 col-md-12 col-sm-12">
+                        <div class="sortPagiBar">
+                            <div class="row">
+                                <div class="col-xl-8 col-md-6 col-12">
+                                    <h1 class="collectiontitle">Tất cả sản phẩm</h1>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-12">
+                                    <div class="sort-cate clearfix">
+                                        <div class="sort-by">
+                                            <label class="left">Sắp xếp: </label>
+                                            <select name="sortBy" id="sortBy" class="selectBox">
+                                                <option selected="" value="default">Mặc định</option>
+                                                <option value="alpha-asc">A → Z</option>
+                                                <option value="alpha-desc">Z → A</option>
+                                                <option value="price-asc">Giá tăng dần</option>
+                                                <option value="price-desc">Giá giảm dần</option>
+                                                <option value="created-desc">Hàng mới nhất</option>
+                                                <option value="created-asc">Hàng cũ nhất</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                            $(function () {
+                                    $('#sortBy').bind('change', function () {
+                                        var url = window.location.href;
+                                        url = replaceUrlParam(url, 'sortby', $(this).val());
+                                        window.location.href = url;
+                                    });
+                                function replaceUrlParam(url, paramName, paramValue) {
+                                    var pattern = new RegExp('(' + paramName + '=).*?(&|$)'),
+                                        newUrl = url.replace(pattern, '$1' + paramValue + '$2');
+                                    if (newUrl == url) {
+                                        newUrl = newUrl + (newUrl.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue;
+                                    }
+                                    return newUrl;
+                                }
+
+                                $(document).ready(function ($) {
+                                    function getParameterByName(name, href) {
+                                        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+                                        var regexS = "[\\?&]" + name + "=([^&#]*)";
+                                        var regex = new RegExp(regexS);
+                                        var results = regex.exec(href);
+                                        if (results == null)
+                                            return "";
+                                        else
+                                            return decodeURIComponent(results[1].replace(/\+/g, " "));
+                                    }   
+                                    var tt = getParameterByName("sortby", window.location.href);
+                                    if (tt != '') {
+                                        $('#sortBy option[value=' + tt + ']').attr('selected', 'selected');
+                                    }
+                                    x`x`
+                                });
+
+                            });
+
+                        </script>
+                        <div class="category-products products">
+                            <section class="products-view view-grid products-view-grid collection_reponsive">
+                                <div class="row">
+
+                                    @for (int i = 0; i < Model.Count; i++)
+                                    {
+                                        var item = Model[i];
+                                        <div class="col-12 col-md-4 col-lg-4 col-lg-4 product-col">
+                                            <div class="item_product_main">
+                                                <form action="/cart/add" method="post" class="variants product-action wishItem" data-cart-form="" data-id="@item.id" enctype="multipart/form-data">
+                                                    <div class="product-thumbnail">
+                                                        <a class="image_thumb" href="/mat-hoa-ca-phe" title="@item.ten" style="height: 263px;">
+                                                            <img src="@item.hinhanh" alt="@item.ten" class="lazyload img-responsive center-block loaded" data-was-processed="true">
+                                                        </a>
+
+                                                        <div class="action-cart">
+                                                            <input type="hidden" name="variantId" value="76949308">
+                                                            <button class="btn-buy btn-left btn-views add_to_cart " title="Mua ngay">
+                                                                Mua ngay
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="info-product">
+                                                        <h3 class="product-name"><a href="/mat-hoa-ca-phe" title="Mật Hoa Cà Phê">@item.ten</a></h3>
+                                                        <div class="price-box">
+                                                            @if (item.giamgia != null)
+                                                            {
+                                                                <span class="discount">
+                                                                    -
+                                                                    @item.giamgia%
+                                                                </span>
+                                                            }
+                                                            <span class="price">
+                                                                @string.Format("{0:N0}", item.giatien)₫
+                                                            </span>
+                                                            @if (item.giacu != null)
+                                                            {
+                                                                <span class="compare-price">
+                                                                    @string.Format("{0:N0}", item.giacu)₫
+                                                                </span>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </section>
+                            <div class="section pagenav ">
+                                <nav class="clearfix relative nav_pagi w_100">
+                                    <ul class="pagination clearfix">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#">
+                                                <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="angle-double-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-angle-double-left fa-w-10"><path fill="currentColor" d="M153.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L192.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L153 264.5c-4.6-4.7-4.6-12.3.1-17zm-128 17l117.8 116c4.7 4.7 12.3 4.7 17 0l7.1-7.1c4.7-4.7 4.7-12.3 0-17L64.7 256l102.2-100.4c4.7-4.7 4.7-12.3 0-17l-7.1-7.1c-4.7-4.7-12.3-4.7-17 0L25 247.5c-4.6 4.7-4.6 12.3.1 17z" class=""></path></svg>
+                                            </a>
+                                        </li>
+                                        <li class="active page-item disabled"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="/SanPham/all?page=2">2</a></li>
+                                        <li class="page-item hidden-xs">
+                                            <a class="page-link" href="/SanPham/all?page=2">
+                                                <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="angle-double-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-angle-double-right fa-w-10"><path fill="currentColor" d="M166.9 264.5l-117.8 116c-4.7 4.7-12.3 4.7-17 0l-7.1-7.1c-4.7-4.7-4.7-12.3 0-17L127.3 256 25.1 155.6c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0l117.8 116c4.6 4.7 4.6 12.3-.1 17zm128-17l-117.8-116c-4.7-4.7-12.3-4.7-17 0l-7.1 7.1c-4.7 4.7-4.7 12.3 0 17L255.3 256 153.1 356.4c-4.7 4.7-4.7 12.3 0 17l7.1 7.1c4.7 4.7 12.3 4.7 17 0l117.8-116c4.6-4.7 4.6-12.3-.1-17z" class=""></path></svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+
+                        <div id="open-filters" class="open-filters d-lg-none d-xl-none">
+                            <svg class="i-bar-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M3.853 54.87C10.47 40.9 24.54 32 40 32H472C487.5 32 501.5 40.9 508.1 54.87C514.8 68.84 512.7 85.37 502.1 97.33L320 320.9V448C320 460.1 313.2 471.2 302.3 476.6C291.5 482 278.5 480.9 268.8 473.6L204.8 425.6C196.7 419.6 192 410.1 192 400V320.9L9.042 97.33C-.745 85.37-2.765 68.84 3.854 54.87L3.853 54.87z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 492 492" style="enable-background:new 0 0 14 14" xml:space="preserve" class="i-close-white"><g xmlns="http://www.w3.org/2000/svg"><path d="M300.188,246L484.14,62.04c5.06-5.064,7.852-11.82,7.86-19.024c0-7.208-2.792-13.972-7.86-19.028L468.02,7.872    c-5.068-5.076-11.824-7.856-19.036-7.856c-7.2,0-13.956,2.78-19.024,7.856L246.008,191.82L62.048,7.872    c-5.06-5.076-11.82-7.856-19.028-7.856c-7.2,0-13.96,2.78-19.02,7.856L7.872,23.988c-10.496,10.496-10.496,27.568,0,38.052    L191.828,246L7.872,429.952c-5.064,5.072-7.852,11.828-7.852,19.032c0,7.204,2.788,13.96,7.852,19.028l16.124,16.116    c5.06,5.072,11.824,7.856,19.02,7.856c7.208,0,13.968-2.784,19.028-7.856l183.96-183.952l183.952,183.952    c5.068,5.072,11.824,7.856,19.024,7.856h0.008c7.204,0,13.96-2.784,19.028-7.856l16.12-16.116    c5.06-5.064,7.852-11.824,7.852-19.028c0-7.204-2.792-13.96-7.852-19.028L300.188,246z" fill="#ffffff" data-original="#000000" style="" class=""></path></g></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        var colId = 0;
+
+        var selectedViewData = "data";
+    </script>
+</main>

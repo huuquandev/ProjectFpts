@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="55e025aca126487f88bc81e1f567ac51" Name="Diagram1">
+        <EntityTypeShape EntityType="webBanHangModel.Address" Width="1.5" PointX="3" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="webBanHangModel.Cart" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="webBanHangModel.CartItem" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="webBanHangModel.News" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="webBanHangModel.OderItem" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="webBanHangModel.Order" Width="1.5" PointX="3" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="webBanHangModel.Permission" Width="1.5" PointX="1.5" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="webBanHangModel.Product" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="webBanHangModel.ProductDesc" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="webBanHangModel.ProductImage" Width="1.5" PointX="5.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="webBanHangModel.ProductIntroduction" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="webBanHangModel.ProductType" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="webBanHangModel.Role" Width="1.5" PointX="1.5" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="webBanHangModel.RolePermission" Width="1.5" PointX="3.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="webBanHangModel.User" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <AssociationConnector Association="webBanHangModel.FK_Address_User" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_cart" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_User" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_product" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_OderItem_Oder" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_OderItem_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_Order_User" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_RolePermission_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_Image_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_Product_Desc" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_Product_image" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_Product_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_ProductType" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_ProductIntroduction_Description" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_RolePermission_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="webBanHangModel.FK_User_Role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

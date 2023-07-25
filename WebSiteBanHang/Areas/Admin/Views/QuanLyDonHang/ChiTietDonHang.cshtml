@@ -1,0 +1,128 @@
+﻿@model WebSiteBanHang.Models.Order
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Quản lí Đơn hàng</h1>
+        <div class="app-title">
+            <ul class="app-breadcrumb breadcrumb" style="margin-bottom: 0;">
+                <li class="breadcrumb-item">Danh sách đơn hàng</li>
+                <li class="breadcrumb-item"><a href="#">Chi tiết đơn hàng</a></li>
+            </ul>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Chi tiết đơn hàng
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Đơn hàng</label>
+                            <p class="form-control">@Model.madh</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Tên khách hàng</label>
+                            <p class="form-control">@Model.hoten</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Giá trị đơn hàng</label>
+                            <p class="form-control">@string.Format("{0:N0}", Model.tongdh)₫</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Số điện thoại</label>
+                            <p class="form-control">@Model.sodt</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Ngày tạo</label>
+                            <p class="form-control">@Model.ngay_dathang.Value.ToString("dd/ MM/ yyyy")</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <p class="form-control">@Model.email</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Trạng thái</label>
+                            @if (Model.trangthaidonhang == 1)
+                            {
+                                <p class="form-control">
+                                    <b class="span_pending" style="color: #4BB543; font-weight: 600;">Đã thanh toán</b>
+                                </p>
+                            }
+                            else if (Model.trangthaidonhang == 2)
+                            {
+                                <p class="form-control">
+                                    <b class="span_pending" style="color: #E49C06;font-weight: 600;">Chưa thanh toán</b>
+                                </p>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-12">
+                        <h3>Danh Sách sản phẩm</h3>
+                        <hr />
+                    </div>
+                    <div class="col-12">
+                        <table class="table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Giá sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var i = 0;
+                                }
+                                @foreach (var item in Model.OderItems)
+                                {
+                                    <tr>
+                                        <td>@(i+=1)</td>
+                                        <td><img src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.Product.hinhanh))" alt="" width="100px;"></td>
+                                        <td>@item.Product.ten</td>
+                                        <td>@string.Format("{0:N0}", item.Product.giatien)₫</td>
+                                        <td>@item.soluong</td>
+                                        <td>@string.Format("{0:N0}", item.Product.giatien * item.soluong)₫</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style=" float: right">
+            <a href="/Admin/QuanLyDonHang/DanhSachDonHang" class="btn btn-danger" id="backButton"> <i class="fa-solid fa-backward"></i> Quay lại</a>
+        </div>
+    </div>
+</main>
+

@@ -1,0 +1,129 @@
+﻿@model List<WebSiteBanHang.Models.Order>
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Trang chủ</h1>
+        <div class="app-title">
+            <ul class="app-breadcrumb breadcrumb" style="margin-bottom: 0;">
+                <li class="breadcrumb-item">Trang chủ</li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Primary Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-warning text-white mb-4">
+                    <div class="card-body">Warning Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-success text-white mb-4">
+                    <div class="card-body">Success Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-danger text-white mb-4">
+                    <div class="card-body">Danger Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area me-1"></i>
+                        Biểu đồ miền theo ngày trong tháng
+                    </div>
+                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar me-1"></i>
+                        Biểu đồ cột theo tháng trong năm
+                    </div>
+                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Thống kê đơn hàng
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Đơn hàng</th>
+                            <th>Tên khách hàng</th>
+                            <th>Số điện thoại</th>
+                            <th>Giá trị</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày tạo</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            Model.Reverse();
+                            for (int i = 0; i < Model.Count; i++)
+                            {
+                                var item = Model[i];
+                                if (item.trangthaidonhang == 1)
+                                {
+                                    <tr>
+
+                                        <td>@item.madh</td>
+                                        <td>@item.hoten</td>
+                                        <td>@item.sodt</td>
+                                        <td>@string.Format("{0:N0}", item.tongdh)₫</td>
+                                        <td>
+                                            <span class="badge bg-success" style="font-size: 13px;"><b class="span_pending" style="color: white; font-weight: 600;">Đã thanh toán</b></span>
+                                        </td>
+                                        <td>@item.ngay_dathang.Value.ToString("dd/ MM/ yyyy")</td>
+                                        <td>
+                                            <a href="@Url.Action("ChiTietDonhang", "QuanLyDonHang", new { orderId = item.id })" class="btn btn-success"> <i class="fa-solid fa-eye"></i> </a>
+                                        </td>
+                                       
+                                    </tr>
+                                }
+                            }
+                        }
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="~/Assets/Js/Admin/scripts.js"></script>
+<script src="~/Assets/Js/Admin/demo/chart-area-demo.js"></script>
+<script src="~/Assets/Js/Admin/demo/chart-bar-demo.js"></script>
+<script src="~/Assets/Js/Admin/simple-datatables.js"></script>
+<script src="~/Assets/Js/Admin/datatables-simple-demo.js"></script>

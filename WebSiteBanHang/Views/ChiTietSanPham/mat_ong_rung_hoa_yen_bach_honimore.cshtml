@@ -1,0 +1,580 @@
+﻿
+@{
+    ViewBag.Title = " Mật ong rừng Hoa Yên Bạch Honimore";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+        $(function () {
+            $("#addToCart").click(function () {
+                var model = {
+                  productId: @Model.id,
+                  quantity: $("#qty").val()
+                };
+                debugger;
+                $.ajax({
+                    url: '@Url.Action("AddToCart", "GioHang")',
+                    type: "POST",
+                    data: JSON.stringify(model),
+                    dataType: "Json",
+                    contentType: "application/Json; charset=utf-8",
+                    success: function (response) {
+                          alert("Thêm giỏ hàng thành công!");
+                            if (response.Count != null) {
+                                $("#CartCount").text(response.Count);
+                            }else {
+                                $("#CartCount").text(response.CountUser);
+                            }
+
+                    },
+                    error: function () {
+                        alert("Lỗi khi thêm vào giỏ hàng!")
+                    }
+                });
+                return false;
+            });
+        });
+</script>
+<main class="wrapperMain_content">
+
+    <nav class="bread-crumb clearfix">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li class="home">
+                    <a href="/"><span>Trang chủ</span></a>
+                    <span class="mr_lr">&nbsp;/&nbsp;</span>
+                </li>
+                <li>
+                    <a class="changeurl" href="~/SanPham/mat_ong_rung"><span>Mật ong rừng</span></a>
+                    <span class="mr_lr">&nbsp;/&nbsp;</span>
+                </li>
+                <li><strong><span>Mật ong rừng Hoa Yên Bạch Honimore</span></strong></li>
+                <li>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section class="product details-main" itemscope="" itemtype="https://schema.org/Product">
+        <meta itemprop="category" content="Mật ong rừng">
+        <meta itemprop="url" content="//template-honey-bee.mysapo.net/combo-mat-ong-rung-hoa-yen-bach-honimore">
+        <meta itemprop="name" content="Mật ong rừng Hoa Yên Bạch Honimore">
+        <meta itemprop="image" content="http://bizweb.dktcdn.net/thumb/grande/100/472/304/products/frame-7-1.png?v=1669696727853">
+        <meta itemprop="description" content="Công dụng chính
+Mật ong có vị ngọt thanh, dịu, không bị gắt cổ và rất thơm Công dụng: Tăng sức đề kháng, trị ho, có tính sát khuẩn cao, làm sạch đường ruột
+Có thể kết hợp với tinh nghệ để chữa đau dạ dày, ngâm tỏi/chanh trị ho, cảm cúm...
+Sử dụng lâu dài giúp các tế bào được tái tạo, trẻ hóa làn da, ngủ ngon, trí nhớ tốt
+Ngoài ra có thể kết hợp với bột cám gạo, yến mạch để dưỡng da
+Cách dùng
+- Thanh lọc cơ thể: Buổi sáng sau khi thức dậy, pha 1 ly nước ấm 100-150ml với 1 trái tắc hoặc 1/4 trái chanh + 2 muỗng cơm mật ong (khoảng 10ml) Uống hằng ngày có tác dụng làm sạch gan, loại bỏ dầu mỡ thừa từ ngày hôm trước, làm sạch cặn bẩn trên lông ruột, cảm thấy cơ thể luôn khỏe mạnh và sảng khoái
+- Chữa viêm họng, ho: Mật ong ngâm chanh đào hoặc mật ong ngâm tắc bỏ 1 chút muối, pha với nước ấm hoặc uống nước cốt trực tiếp. Ngâm 1 hũ tỏi và mật ong: tỉ lệ 1/10, ví dụ: 100g tỏi tươi ngâm với 1000g mật ong, cắt nhỏ tỏi để có tác dụng tốt nhất
+- Dưỡng da trắng mịn: pha 1 muỗng mật ong với 1 muỗng sữa chua, thoa đều lên mặt 15p rồi rửa lại bằng nước ấm. Ngoài ra có thể kết hợp mật ong với sữa tươi/trứng gà/bột yến mạch">
+        <div class="d-none hidden" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+            <div class="inventory_quantity hidden" itemscope="" itemtype="http://schema.org/ItemAvailability">
+                <span class="a-stock" itemprop="supersededBy"><span class="a-stock">Còn hàng</span></span>
+            </div>
+            <link itemprop="availability" href="http://schema.org/InStock">
+            <meta itemprop="priceCurrency" content="VND">
+            <meta itemprop="price" content="500000">
+            <meta itemprop="url" content="https://template-honey-bee.mysapo.net/combo-mat-ong-rung-hoa-yen-bach-honimore">
+            <span itemprop="UnitPriceSpecification" itemscope="" itemtype="https://schema.org/Downpayment">
+                <meta itemprop="priceType" content="500000">
+            </span>
+            <span itemprop="UnitPriceSpecification" itemscope="" itemtype="https://schema.org/Downpayment">
+                <meta itemprop="priceSpecification" content="500000">
+            </span>
+            <meta itemprop="priceValidUntil" content="2099-01-01">
+        </div>
+        <div class="d-none hidden" id="https://template-honey-bee.mysapo.net" itemprop="seller" itemtype="http://schema.org/Organization" itemscope="">
+            <meta itemprop="name" content="Template Honey Bee">
+            <meta itemprop="url" content="https://template-honey-bee.mysapo.net">
+            <meta itemprop="logo" content="http://bizweb.dktcdn.net/100/472/304/themes/887048/assets/logo.png?1684115584822">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="product-detail-left product-images col-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="product-image-detail clearfix">
+
+                        <div class="col_large_default large-image">
+                            <div class="swiper-container gallery-top margin-bottom-10 swiper-container-initialized swiper-container-horizontal swiper-container-free-mode">
+                                <div class="swiper-wrapper" id="lightgallery" aria-live="polite">
+
+                                    <a class="swiper-slide swiper-slide-active" data-hash="0" href="//bizweb.dktcdn.net/thumb/1024x1024/100/472/304/products/frame-7-1.png?v=1669696727853" title="Bấm vào để xem thư viện ảnh Mật ong rừng Hoa Yên Bạch Honimore" role="group" aria-label="1 / 3" style="width: 530px; margin-right: 10px;">
+                                        <img src="//bizweb.dktcdn.net/thumb/large/100/472/304/products/frame-7-1.png?v=1669696727853" alt="Mật ong rừng Hoa Yên Bạch Honimore" data-image="//bizweb.dktcdn.net/thumb/medium/100/472/304/products/frame-7-1.png?v=1669696727853" class="img-responsive mx-auto d-block swiper-lazy lazyload swiper-lazy-loaded loading" data-was-processed="true">
+                                    </a>
+
+                                    <a class="swiper-slide swiper-slide-next" data-hash="1" href="//bizweb.dktcdn.net/thumb/1024x1024/100/472/304/products/img-1890-491d21ea844c46cc92eb4e9d98f86cad-5981edacc84249bb91b9321bd401a850-master.png?v=1669696728660" title="Bấm vào để xem thư viện ảnh Mật ong rừng Hoa Yên Bạch Honimore" role="group" aria-label="2 / 3" style="width: 530px; margin-right: 10px;">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" data-src="//bizweb.dktcdn.net/thumb/large/100/472/304/products/img-1890-491d21ea844c46cc92eb4e9d98f86cad-5981edacc84249bb91b9321bd401a850-master.png?v=1669696728660" alt="Mật ong rừng Hoa Yên Bạch Honimore" data-image="//bizweb.dktcdn.net/thumb/medium/100/472/304/products/img-1890-491d21ea844c46cc92eb4e9d98f86cad-5981edacc84249bb91b9321bd401a850-master.png?v=1669696728660" class="img-responsive mx-auto d-block swiper-lazy lazyload">
+                                    </a>
+
+                                    <a class="swiper-slide" data-hash="2" href="//bizweb.dktcdn.net/thumb/1024x1024/100/472/304/products/mat-ong-hoa-xuyen-chi-honeyland-2hux500g-1-1-2.jpg?v=1669696730110" title="Bấm vào để xem thư viện ảnh Mật ong rừng Hoa Yên Bạch Honimore" role="group" aria-label="3 / 3" style="width: 530px; margin-right: 10px;">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" data-src="//bizweb.dktcdn.net/thumb/large/100/472/304/products/mat-ong-hoa-xuyen-chi-honeyland-2hux500g-1-1-2.jpg?v=1669696730110" alt="Mật ong rừng Hoa Yên Bạch Honimore" data-image="//bizweb.dktcdn.net/thumb/medium/100/472/304/products/mat-ong-hoa-xuyen-chi-honeyland-2hux500g-1-1-2.jpg?v=1669696730110" class="img-responsive mx-auto d-block swiper-lazy lazyload">
+                                    </a>
+
+                                </div>
+                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="thumb_product_details clearfix">
+                            <div class="swiper-container gallery-thumbs swiper-container-initialized swiper-container-horizontal swiper-container-free-mode swiper-container-thumbs">
+                                <div class="swiper-wrapper" id="swiper-wrapper-734ea99dff211bf2" aria-live="polite">
+
+                                    <div class="swiper-slide swiper-slide-active swiper-slide-thumb-active" data-hash="0" role="group" aria-label="1 / 3" style="width: 71.4px; margin-right: 30px;">
+                                        <img src="//bizweb.dktcdn.net/thumb/medium/100/472/304/products/frame-7-1.png?v=1669696727853" alt="Mật ong rừng Hoa Yên Bạch Honimore" data-image="//bizweb.dktcdn.net/thumb/medium/100/472/304/products/frame-7-1.png?v=1669696727853" class="swiper-lazy swiper-lazy-loaded">
+
+                                    </div>
+
+                                    <div class="swiper-slide swiper-slide-next" data-hash="1" role="group" aria-label="2 / 3" style="width: 71.4px; margin-right: 30px;">
+                                        <img src="//bizweb.dktcdn.net/thumb/medium/100/472/304/products/img-1890-491d21ea844c46cc92eb4e9d98f86cad-5981edacc84249bb91b9321bd401a850-master.png?v=1669696728660" alt="Mật ong rừng Hoa Yên Bạch Honimore" data-image="//bizweb.dktcdn.net/thumb/medium/100/472/304/products/img-1890-491d21ea844c46cc92eb4e9d98f86cad-5981edacc84249bb91b9321bd401a850-master.png?v=1669696728660" class="swiper-lazy swiper-lazy-loaded">
+
+                                    </div>
+
+                                    <div class="swiper-slide" data-hash="2" role="group" aria-label="3 / 3" style="width: 71.4px; margin-right: 30px;">
+                                        <img src="//bizweb.dktcdn.net/thumb/medium/100/472/304/products/mat-ong-hoa-xuyen-chi-honeyland-2hux500g-1-1-2.jpg?v=1669696730110" alt="Mật ong rừng Hoa Yên Bạch Honimore" data-image="//bizweb.dktcdn.net/thumb/medium/100/472/304/products/mat-ong-hoa-xuyen-chi-honeyland-2hux500g-1-1-2.jpg?v=1669696730110" class="swiper-lazy swiper-lazy-loaded">
+
+                                    </div>
+
+                                </div>
+                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                            </div>
+                            <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-734ea99dff211bf2" aria-disabled="true"><svg class="icon"> <use xlink:href="#previcon"></use> </svg></div>
+                            <div class="swiper-button-next swiper-button-disabled" tabindex="-1" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-734ea99dff211bf2" aria-disabled="true"><svg class="icon"> <use xlink:href="#nexticon"></use> </svg></div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="col-12 col-md-12 col-lg-6 col-xl-6 details-pro">
+                    <div class="box_details_product">
+                        <h1 class="title-product">Mật ong rừng Hoa Yên Bạch Honimore</h1>
+                        <div class="group-status hidden">
+                            <div class="first_status status_2">
+                                Tình trạng:
+
+                                <div class="inventory_quantity">
+
+                                    <span class="a-stock status_name a2"><span class="a-stock">Còn hàng</span></span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="price-box clearfix">
+
+                            <span class="old-price" style="display: none;">
+                                <del class="price product-price-old" style="display: none;">
+                                    500.000₫
+                                </del>
+                            </span> <!-- Giá gốc -->
+                            <span class="special-price">
+                                <span class="price product-price">500.000₫</span>
+                            </span> <!-- Giá Khuyến mại -->
+                            <span class="save-price" style="display: none;">
+                                <span class="price product-price-save" style="display: none;"></span>
+                            </span>
+
+                        </div>
+                        <div class="product-summary">
+
+                            <em>(Đang cập nhật)</em>
+
+                        </div>
+
+                        <div class="service-product">
+
+
+
+
+
+                            <div class="item">
+                                <div class="icon">
+                                    <img src="//bizweb.dktcdn.net/100/472/304/themes/887048/assets/icon_service_product_1.svg?1684115584822" alt="Giao hàng toàn quốc">
+                                </div>
+                                <div class="info">
+                                    <h3>
+                                        Giao hàng toàn quốc
+                                    </h3>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <div class="item">
+                                <div class="icon">
+                                    <img src="//bizweb.dktcdn.net/100/472/304/themes/887048/assets/icon_service_product_2.svg?1684115584822" alt="Thanh toán khi nhận hàng">
+                                </div>
+                                <div class="info">
+                                    <h3>
+                                        Thanh toán khi nhận hàng
+                                    </h3>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <div class="item">
+                                <div class="icon">
+                                    <img src="//bizweb.dktcdn.net/100/472/304/themes/887048/assets/icon_service_product_3.svg?1684115584822" alt="Cam kết đổi trả hàng miễn phí">
+                                </div>
+                                <div class="info">
+                                    <h3>
+                                        Cam kết đổi trả hàng miễn phí
+                                    </h3>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <div class="item">
+                                <div class="icon">
+                                    <img src="//bizweb.dktcdn.net/100/472/304/themes/887048/assets/icon_service_product_4.svg?1684115584822" alt="Cam kết chính hãng">
+                                </div>
+                                <div class="info">
+                                    <h3>
+                                        Cam kết chính hãng
+                                    </h3>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <form enctype="multipart/form-data" id="add-to-cart-form" data-cart-form="" action="/cart/add" method="post" class="wishItem">
+                            <div class="form-product">
+
+                                <div class="select-swatch">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    <div class=" swatch clearfix" data-option-index="0">
+                                        <div class="options-title">Kích thước</div>
+
+
+
+
+
+
+
+                                        <div data-value="500Gr" class="swatch-element 500gr available">
+
+                                            <input id="swatch-0-500gr" type="radio" name="option-0" value="500Gr" checked="">
+
+                                            <label title="500Gr" for="swatch-0-500gr">
+                                                500Gr
+                                            </label>
+
+                                        </div>
+
+
+                                        <script>
+		jQuery('.swatch[data-option-index="0"] .500Gr').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
+                                        </script>
+
+
+
+
+
+
+
+                                        <div data-value="200Gr" class="swatch-element 200gr available">
+
+                                            <input id="swatch-0-200gr" type="radio" name="option-0" value="200Gr">
+
+                                            <label title="200Gr" for="swatch-0-200gr">
+                                                200Gr
+                                            </label>
+
+                                        </div>
+
+
+                                        <script>
+		jQuery('.swatch[data-option-index="0"] .200Gr').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
+                                        </script>
+
+
+                                    </div>
+
+
+
+
+
+                                </div>
+
+                                <div class="box-variant clearfix  d-none ">
+
+                                    <div class="selector-wrapper" style="text-align: left; margin-bottom: 15px;"><label>Kích thước</label><select class="single-option-selector" data-option="option1" id="product-selectors-option-0"><option value="500Gr">500Gr</option><option value="200Gr">200Gr</option></select></div><select id="product-selectors" class="form-control form-control-lg" name="variantId" style="display:none">
+
+                                        <option selected="selected" value="76944878">500Gr - 500.000₫</option>
+
+                                        <option value="76945378">200Gr - 298.000₫</option>
+
+                                    </select>
+
+                                </div>
+                                <div class="clearfix from-action-addcart">
+                                    <div class="clearfix custom-btn-number">
+                                        <label>Số lượng:</label>
+                                        <div class="custom custom-btn-numbers clearfix input_number_product">
+                                            <button onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN(qty) &amp; qty > 1 ) result.value--;return false;" class="btn-minus btn-cts" type="button">–</button>
+                                            <input aria-label="Số lượng" type="text" class="qty input-text" id="qty" name="quantity" size="4" value="1" maxlength="3" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" onchange="if(this.value == 0)this.value=1;">
+                                            <button onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN(qty)) result.value++;return false;" class="btn-plus btn-cts" type="button">+</button>
+                                        </div>
+                                        <div class="vd">
+
+
+
+                                            <span class="vend_c">Còn hàng</span>
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="btn-mua clearfix">
+
+                                        <button type="button" data-role="addtocart" class="btn btn-lg btn-gray btn-cart btn_buy add_to_cart" id="addToCart">
+                                            <span class="text_1">Cho vào giỏ hàng</span>
+                                        </button>                                         <button type="button" class="btn_buynow btn_base btn-buy-now">
+                                            <span class="text_1">Mua ngay</span>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="product-tab e-tabs not-dqtab">
+                        <ul class="tabs tabs-title clearfix">
+                            <li class="tab-link current" data-tab="tab-1">
+                                <span>Mô tả </span>
+                            </li>
+                            <li class="tab-link" data-tab="tab-2">
+                                <span>Tab tùy chỉnh</span>
+                            </li>
+                        </ul>
+                        <div id="tab-1" class="tab-content content_extab current">
+                            <div class="rte product_getcontent">
+                                <h2>Công dụng chính</h2>
+                                <p>Mật ong có vị ngọt thanh, dịu, không bị gắt cổ và rất thơm Công dụng: Tăng sức đề kháng, trị ho, có tính sát khuẩn cao, làm sạch đường ruột</p>
+                                <p>Có thể kết hợp với tinh nghệ để chữa đau dạ dày, ngâm tỏi/chanh trị ho, cảm cúm...</p>
+                                <p>Sử dụng lâu dài giúp các tế bào được tái tạo, trẻ hóa làn da, ngủ ngon, trí nhớ tốt</p>
+                                <p>Ngoài ra có thể kết hợp với bột cám gạo, yến mạch để dưỡng da</p>
+                                <h2>Cách dùng</h2>
+                                <p>- Thanh lọc cơ thể: Buổi sáng sau khi thức dậy, pha 1 ly nước ấm 100-150ml với 1 trái tắc hoặc 1/4 trái chanh + 2 muỗng cơm mật ong (khoảng 10ml) Uống hằng ngày có tác dụng làm sạch gan, loại bỏ dầu mỡ thừa từ ngày hôm trước, làm sạch cặn bẩn trên lông ruột, cảm thấy cơ thể luôn khỏe mạnh và sảng khoái</p>
+                                <p>- Chữa viêm họng, ho: Mật ong ngâm chanh đào hoặc mật ong ngâm tắc bỏ 1 chút muối, pha với nước ấm hoặc uống nước cốt trực tiếp. Ngâm 1 hũ tỏi và mật ong: tỉ lệ 1/10, ví dụ: 100g tỏi tươi ngâm với 1000g mật ong, cắt nhỏ tỏi để có tác dụng tốt nhất</p>
+                                <p>- Dưỡng da trắng mịn: pha 1 muỗng mật ong với 1 muỗng sữa chua, thoa đều lên mặt 15p rồi rửa lại bằng nước ấm. Ngoài ra có thể kết hợp mật ong với sữa tươi/trứng gà/bột yến mạch</p>
+                            </div>
+                        </div>
+                        <div id="tab-2" class="tab-content content_extab">
+                            <div class="rte">
+
+                                Đây là tab tuỳ chỉnh
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-related-product">
+
+
+
+
+                        <div class="section_prd_feature">
+                            <div class="title_module_main">
+                                <h2 class="h2">
+                                    <a href="/mat-ong-rung" title="Sản phẩm liên quan">Sản phẩm liên quan</a>
+                                </h2>
+                            </div>
+
+                            <div class="box_related">
+                                <div class="swiper-container swiper_related swiper-container-initialized swiper-container-horizontal">
+                                    <div class="swiper-wrapper" id="swiper-wrapper-07ba13e7fa1eac1b" aria-live="polite" style="transform: translate3d(0px, 0px, 0px);">
+
+
+                                        <div class="item swiper-slide swiper-slide-active" role="group" aria-label="1 / 4" style="width: 273.75px; margin-right: 15px;">
+                                            <div class="item_product_main">
+
+
+
+
+                                                <form action="/cart/add" method="post" class="variants product-action wishItem" data-cart-form="" data-id="product-actions-28669925" enctype="multipart/form-data">
+                                                    <div class="product-thumbnail">
+                                                        <a class="image_thumb" href="/mat-ong-rung-mat-khoai" title="Mật ong rừng mật khoái" style="height: 274px;">
+                                                            <img width="199" height="199" src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" data-src="https://bizweb.dktcdn.net/100/472/304/products/14.png?v=1669707975340" alt="Mật ong rừng mật khoái" class="lazyload img-responsive center-block">
+                                                        </a>
+
+                                                        <div class="action-cart">
+                                                            <input type="hidden" name="variantId" value="76949082">
+                                                            <button class="btn-buy btn-left btn-views add_to_cart " title="Mua ngay">
+                                                                Mua ngay
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="info-product">
+                                                        <h3 class="product-name"><a href="/mat-ong-rung-mat-khoai" title="Mật ong rừng mật khoái">Mật ong rừng mật khoái</a></h3>
+                                                        <div class="price-box">
+                                                            500.000₫
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="item swiper-slide swiper-slide-next" role="group" aria-label="2 / 4" style="width: 273.75px; margin-right: 15px;">
+                                            <div class="item_product_main">
+
+
+
+
+                                                <form action="/cart/add" method="post" class="variants product-action wishItem" data-cart-form="" data-id="product-actions-28669317" enctype="multipart/form-data">
+                                                    <div class="product-thumbnail">
+                                                        <a class="image_thumb" href="/mat-ong-rung-hoa-rung-phuong-nam" title="Mật ong rừng Hoa Rừng Phương Nam" style="height: 274px;">
+                                                            <img width="199" height="199" src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" data-src="https://bizweb.dktcdn.net/100/472/304/products/17.png?v=1669708779423" alt="Mật ong rừng Hoa Rừng Phương Nam" class="lazyload img-responsive center-block">
+                                                        </a>
+
+                                                        <div class="action-cart">
+                                                            <input type="hidden" name="variantId" value="76947769">
+                                                            <button class="btn-buy btn-left btn-views add_to_cart " title="Mua ngay">
+                                                                Mua ngay
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="info-product">
+                                                        <h3 class="product-name"><a href="/mat-ong-rung-hoa-rung-phuong-nam" title="Mật ong rừng Hoa Rừng Phương Nam">Mật ong rừng Hoa Rừng Phương Nam</a></h3>
+                                                        <div class="price-box">
+                                                            <span class="discount">
+                                                                -
+                                                                50%
+                                                            </span>
+                                                            <span class="price">200.000₫</span>
+                                                            <span class="compare-price">400.000₫</span>
+
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="item swiper-slide" role="group" aria-label="3 / 4" style="width: 273.75px; margin-right: 15px;">
+                                            <div class="item_product_main">
+
+
+
+
+                                                <form action="/cart/add" method="post" class="variants product-action wishItem" data-cart-form="" data-id="product-actions-28669297" enctype="multipart/form-data">
+                                                    <div class="product-thumbnail">
+                                                        <a class="image_thumb" href="/mat-ong-rung-hoa-cao-nguyen" title="Mật ong rừng Hoa Cao Nguyên" style="height: 274px;">
+                                                            <img width="199" height="199" src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" data-src="https://bizweb.dktcdn.net/100/472/304/products/16.png?v=1669708547967" alt="Mật ong rừng Hoa Cao Nguyên" class="lazyload img-responsive center-block">
+                                                        </a>
+
+                                                        <div class="action-cart">
+                                                            <input class="hidden" type="hidden" name="variantId" value="76947736">
+                                                            <button class="btn btn-cart btn-left  btn btn-views left-to option-choice" title="Tùy chọn" type="button" onclick="window.location.href='/mat-ong-rung-hoa-cao-nguyen'">
+                                                                Tùy chọn
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="info-product">
+                                                        <h3 class="product-name"><a href="/mat-ong-rung-hoa-cao-nguyen" title="Mật ong rừng Hoa Cao Nguyên">Mật ong rừng Hoa Cao Nguyên</a></h3>
+                                                        <div class="price-box">
+                                                            <span class="discount">
+                                                                -
+                                                                23%
+                                                            </span>
+                                                            <span class="price">230.000₫</span>
+                                                            <span class="compare-price">300.000₫</span>
+
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="item swiper-slide" role="group" aria-label="4 / 4" style="width: 273.75px; margin-right: 15px;">
+                                            <div class="item_product_main">
+
+
+
+                                                <form action="/cart/add" method="post" class="variants product-action wishItem" data-cart-form="" data-id="product-actions-28668464" enctype="multipart/form-data">
+                                                    <div class="product-thumbnail">
+                                                        <a class="image_thumb" href="/mat-ong-rung-cao-thao-duoc-honimore-lady" title="Mật ong rừng cao thảo dược Honimore Lady" style="height: 274px;">
+                                                            <img width="199" height="199" src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" data-src="https://bizweb.dktcdn.net/100/472/304/products/frame-8.png?v=1669697248883" alt="Mật ong rừng cao thảo dược Honimore Lady" class="lazyload img-responsive center-block">
+                                                        </a>
+
+                                                        <div class="action-cart">
+                                                            <input class="hidden" type="hidden" name="variantId" value="76945705">
+                                                            <button class="btn btn-cart btn-left  btn btn-views left-to option-choice" title="Tùy chọn" type="button" onclick="window.location.href='/mat-ong-rung-cao-thao-duoc-honimore-lady'">
+                                                                Tùy chọn
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="info-product">
+                                                        <h3 class="product-name"><a href="/mat-ong-rung-cao-thao-duoc-honimore-lady" title="Mật ong rừng cao thảo dược Honimore Lady">Mật ong rừng cao thảo dược Honimore Lady</a></h3>
+                                                        <div class="price-box">
+                                                            <span class="discount">
+                                                                -
+                                                                40%
+                                                            </span>
+                                                            <span class="price">300.000₫</span>
+                                                            <span class="compare-price">500.000₫</span>
+
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+                                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                </div>
+                                <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-07ba13e7fa1eac1b" aria-disabled="true"><svg class="icon"> <use xlink:href="#previcon"></use> </svg></div>
+                                <div class="swiper-button-next swiper-button-disabled" tabindex="-1" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-07ba13e7fa1eac1b" aria-disabled="true"><svg class="icon"> <use xlink:href="#nexticon"></use> </svg></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+

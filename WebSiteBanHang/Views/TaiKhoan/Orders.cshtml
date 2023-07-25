@@ -1,0 +1,109 @@
+﻿@model List<WebSiteBanHang.Models.Order>
+@{
+    ViewBag.Title = "Danh sách đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/Assets/Css/account_style.css">
+}
+<main class="wrapperMain_content">
+    <nav class="bread-crumb clearfix">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li class="home">
+                    <a href="/"><span>Trang chủ</span></a>
+                    <span class="mr_lr">&nbsp;/&nbsp;</span>
+                </li>
+                <li>
+                    <a href="/account"><span>Tài khoản</span></a>
+                    <span class="mr_lr"> &nbsp;/&nbsp; </span>
+                </li>
+
+                <li><strong><span>Đơn hàng </span></strong></li>
+
+            </ul>
+        </div>
+    </nav>
+    <section class="signup page_customer_account wrap_background">
+        <div class="container">
+            <div class="row">
+
+                @Html.Partial("AcountSidebar")
+
+                <div class="col-xs-12 col-sm-12 col-lg-9 col-right-ac">
+                    <h1 class="title-head margin-top-0">Đơn hàng của bạn</h1>
+
+                    <div class="my-account">
+                        <div class="dashboard">
+
+                            <div class="recent-orders">
+                                <div class="table-responsive-block tab-all" style="overflow-x:auto;">
+                                    <table class="table table-cart table-order" id="my-orders-table">
+                                        <thead class="thead-default">
+                                            <tr>
+                                                <th>Đơn hàng</th>
+                                                <th>Ngày</th>
+                                                <th>Địa chỉ</th>
+                                                <th>Giá trị đơn hàng</th>
+                                                <th>TT thanh toán</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @if (Model.Count > 0)
+                                            {
+                                                Model.Reverse();
+                                                foreach (var item in Model)
+                                                {
+                                                    <tr class="first odd">
+                                                        <td><a href="@Url.Action("OrderDetail", "TaiKhoan", new { orderId = item.id})" title="">@item.madh</a></td>
+                                                        <td>@item.ngay_dathang.Value.ToString("dd/MM/yyyy")</td>                                                        
+                                                        <td>@item.diachi</td>
+                                                        <td>
+                                                            <span class="price">@string.Format("{0:N0}", item.tongdh)₫</span>
+                                                        </td>
+                                                        <td>
+                                                            @if (item.trangthaidonhang == 1)
+                                                            {
+                                                                <b class="span_pending" style="color: #4BB543; font-weight: 600;">Đã thanh toán</b>
+                                                            }
+                                                            else if (item.trangthaidonhang == 2)
+                                                            {
+                                                                <b class="span_pending" style="color: #E49C06;font-weight: 600;">Chưa thanh toán</b>
+
+                                                            }
+                                                        </td>
+
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="6">
+                                                        <p>Không có đơn hàng nào.</p>
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+
+
+                                    </table>
+
+                                </div>
+
+                                <div class="paginate-pages pull-right page-account pagenav text-right col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
