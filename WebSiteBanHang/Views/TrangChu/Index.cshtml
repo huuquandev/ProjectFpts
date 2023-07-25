@@ -5,28 +5,28 @@
 }
 
 @*<script>
-    $(function () {
-        $("#addToCart").click(function () {
-            var model = {};
-            model.id = @Model.id;
-            model.soluong = $("#qty").val();
-            debugger;
-            $.ajax({
-                url: '@Url.Action("AddToCart", "GioHang")',
-                type: "POST",
-                dataType: "Json",
-                contentType: "application/Json; charset=utf-8",
-                success: function () {
-                    alert("Thêm giỏ hàng thành công!")
-                    $(#CartCount).text(@Session["Count"] + 1);
-                },
-                error: function () {
-                    alert("Lỗi khi thêm vào giỏ hàng!")
-                }
+        $(function () {
+            $("#addToCart").click(function () {
+                var model = {};
+                model.id = @Model.id;
+                model.soluong = $("#qty").val();
+                debugger;
+                $.ajax({
+                    url: '@Url.Action("AddToCart", "GioHang")',
+                    type: "POST",
+                    dataType: "Json",
+                    contentType: "application/Json; charset=utf-8",
+                    success: function () {
+                        alert("Thêm giỏ hàng thành công!")
+                        $(#CartCount).text(@Session["Count"] + 1);
+                    },
+                    error: function () {
+                        alert("Lỗi khi thêm vào giỏ hàng!")
+                    }
+                });
             });
         });
-    });
-</script>*@
+    </script>*@
 @*conntent*@
 <main class="wrapperMain_content">
 
@@ -57,7 +57,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-7 col-lg-6 col-12 product_image">
-                    <div class="fullarge_img">  
+                    <div class="fullarge_img">
                         <div class="swiper_index_large swiper-container swiper-container-initialized swiper-container-horizontal">
                             <div class="swiper-wrapper" id="swiper-wrapper-1ce3af5f7e952345" aria-live="polite" style="transform: translate3d(0px, 0px, 0px)">
                                 <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 5" style="width: 603px; margin-right: 10px;">
@@ -712,3 +712,4 @@
         </div>
     </section>
 </main>
+<script src="~/Assets/Js/Carousel.js"></script>

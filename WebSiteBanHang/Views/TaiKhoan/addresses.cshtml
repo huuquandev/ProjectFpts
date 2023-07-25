@@ -305,7 +305,7 @@
                                             <label>Quốc gia</label>
                                         </fieldset>
                                     </div>
-                                    <div class="group-country">
+                                    <div class="group-country" id="group-country_id">
                                         <fieldset class="form-group select-field not-vn">
                                             <select name="NewAddress.tinhthanh" value="" class="form-control add" id="Province1" data-address-type="province" data-address-zone="billing" data-select2-id="select2-data-billingProvince">
                                                 <option value="" hidden="">---</option>
@@ -339,7 +339,7 @@
                                     </label>
                                 </div>
                                 <div class="btn-row">
-                                    <button class="btn btn-lg btn-dark-address btn-close" type="button" style="height: 45px; padding-right: 24px;"><span>Hủy</span></button>
+                                    <button class="btn btn-lg btn-dark-address btn-close" type="button" style="height: 45px; padding-right: 24px;><span>Hủy</span></button>
                                     <button class="btn btn-lg btn-primarys btn-submit" id="addnew" type="submit"><span>Thêm địa chỉ</span></button>
                                 </div>
                             </div>
@@ -351,9 +351,9 @@
                                         } else {
                                             $('#address_default_address_').val("0");
                                         }
+                                        
                                     });
                                 });
-
                             </script>
                         }
                     </div>
@@ -692,20 +692,21 @@
                                                     </fieldset>
                                                 </div>
                                                 <div class="group-country">
-                                                    <fieldset class="form-group select-field not-vn">
-                                                        <select name="tinhthanh" value="" class="form-control add province myselect" data-default="@item.tinhthanh" id="Province2_@item.Id">
+                                                    <fieldset class="form-group select-field">
+                                                        <select name="tinhthanh" class="form-control add province myselect" data-default="@item.tinhthanh" id="Province2_@item.Id">
                                                             <option value="" hidden="">---</option>
+
                                                         </select>
                                                         <label>Tỉnh thành</label>
                                                     </fieldset>
                                                     <fieldset class="form-group select-field not-vn">
-                                                        <select name="quanhuyen" value="" class="form-control add  district myselect" data-default="@item.quanhuyen" id="District2_@item.Id" disabled>
+                                                        <select name="quanhuyen" class="form-control add  district myselect" data-default="@item.quanhuyen" id="District2_@item.Id" disabled>
                                                             <option value="" hidden="">---</option>
                                                         </select>
                                                         <label>Quận huyện</label>
                                                     </fieldset>
                                                     <fieldset class="form-group select-field not-vn">
-                                                        <select name="phuongxa" value="" class="form-control add ward myselect" data-default="@item.phuongxa" id="Ward2_@item.Id" disabled>
+                                                        <select name="phuongxa" class="form-control add ward myselect" data-default="@item.phuongxa" id="Ward2_@item.Id" disabled>
                                                             <option value="" hidden="">---</option>
                                                         </select>
                                                         <label>Phường xã</label>
@@ -749,8 +750,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.min.js"></script>
 
-<script>
-
+<script> 
     var overlay = document.getElementById('overlay');
     var body = document.body;
     document.getElementById("btn-add").addEventListener("click", function () {
@@ -791,7 +791,39 @@
             body.style.overflow = "auto";
         });
     }
+    // Kiểm tra giá trị ban đầu và thêm lớp "has-content"
+    var inputs = document.querySelectorAll("input");
+    inputs.forEach(function (input) {
+        input.addEventListener('input', function () {
+            if (input.value !== '') {
+                input.classList.add('has-content');
+            } else {
+                input.classList.remove('has-content');
+            }
+        });
 
+        if (input.value !== '') {
+            input.classList.add('has-content');
+        }
+    });
+
+    var selects = document.querySelectorAll("select");
+    selects.forEach(function (select) {
+        select.addEventListener('change', function () {
+            if (select.value !== '') {
+                select.classList.add('has-content');
+            } else {
+                select.classList.remove('has-content');
+            }
+        });
+    });
+
+    // Kiểm tra giá trị ban đầu và thêm lớp "has-content"
+    selects.forEach(function (select) {
+        if (select.value !== null) {
+            select.classList.add('has-content');
+        }
+    });
 
     function initializeDropdowns(citisId, districtId, wardId) {
         // Lấy tham chiếu đến các phần tử select từ id
@@ -853,56 +885,6 @@
             };
 
             document.addEventListener("DOMContentLoaded", function () {
-                // Hàm chọn giá trị trong thẻ select
-                function selectValue(selectElement, value) {
-                    for (var i = 0; i < selectElement.options.length; i++) {
-                        if (selectElement.options[i].value === value) {
-                            selectElement.options[i].selected = true;
-                        }
-                    }
-                }
-
-                @foreach (var item in Model.Addresses)
-                {
-                    @:selectValue(document.getElementById("mySelect2_@item.Id"), "@item.quocgia");
-                    @:selectValue(document.getElementById("Province2_@item.Id"), he.decode("@item.tinhthanh"));
-                    @:selectValue(document.getElementById("District2_@item.Id"), he.decode("@item.quanhuyen"));
-                }
-
-                // Kiểm tra giá trị ban đầu và thêm lớp "has-content"
-                var inputs = document.querySelectorAll("input");
-                inputs.forEach(function (input) {
-                    input.addEventListener('input', function () {
-                        if (input.value !== '') {
-                            input.classList.add('has-content');
-                        } else {
-                            input.classList.remove('has-content');
-                        }
-                    });
-
-                    if (input.value !== '') {
-                        input.classList.add('has-content');
-                    }
-                });
-
-                var selects = document.querySelectorAll("select");
-                selects.forEach(function (select) {
-                    select.addEventListener('change', function () {
-                        if (select.value !== '') {
-                            select.classList.add('has-content');
-                        } else {
-                            select.classList.remove('has-content');
-                        }
-                    });
-                });
-
-                // Kiểm tra giá trị ban đầu và thêm lớp "has-content"
-                selects.forEach(function (select) {
-                    if (select.value !== null) {
-                        select.classList.add('has-content');
-                    }
-                });
-                console.log(citis.value);
                 // Kiểm tra nếu select tỉnh/thành phố đã có giá trị được chọn sẵn
                 if (citis.value !== null && citis.value !== '') {
                     districts.disabled = false;
@@ -946,10 +928,21 @@
             }
         });
     }
+    function selectValue(selectElement, value) {
+        for (var i = 0; i < selectElement.options.length; i++) {
+            console.log(selectElement.options[i].value) 
+            if (selectElement.options[i].value === value) {
+                selectElement.options[i].selected = true;
+            }
+        }
+    }
     // Gọi hàm initializeDropdowns với các id tương ứng
     initializeDropdowns("Province1", "District1", "Ward1");
     @foreach (var item in Model.Addresses)
     {
+        @:selectvalue(document.getelementbyid("myselect2_@item.Id"), "@item.quocgia");
+        @:selectValue(document.getElementById("Province2_@item.Id"), he.decode("@item.tinhthanh"));
+        @:selectValue(document.getElementById("District2_@item.Id"), he.decode("@item.quanhuyen"));
         @:initializeDropdowns("Province2_@item.Id", "District2_@item.Id", "Ward2_@item.Id");
     }
 
