@@ -215,6 +215,40 @@ namespace WebSiteBanHang.Controllers
             return View();
         }
         [HttpPost]
+        public ActionResult EditToAddress(addressModel address, int addressId)
+        {
+            Address addressUser = db.Addresses.FirstOrDefault(ad => ad.Id == addressId);
+            if (addressUser != null)
+            {
+                if (address.NewAddress.diachimacdinh != null)
+                {
+                    if (address.NewAddress.diachimacdinh == 1) // Kiểm tra địa chỉ mới có phải là địa chỉ mặc định không
+                    {
+                        // Cập nhật tất cả các địa chỉ của người dùng thành không mặc định (0)
+                        var userAddresses = db.Addresses.Where(ad => ad.userId == addressUser.userId);
+                        foreach (var userAddress in userAddresses)
+                        {
+                            userAddress.diachimacdinh = 0;
+                        }
+                        addressUser.diachimacdinh = address.NewAddress.diachimacdinh;
+                    }
+                }
+                addressUser.hoten = address.NewAddress.hoten;
+                addressUser.sodt = address.NewAddress.sodt;
+                addressUser.congty = address.NewAddress.congty;
+                addressUser.diachi = address.NewAddress.diachi;
+                addressUser.quocgia = address.NewAddress.quocgia;
+                addressUser.tinhthanh = address.NewAddress.tinhthanh;
+                addressUser.quanhuyen = address.NewAddress.quanhuyen;
+                addressUser.phuongxa = address.NewAddress.phuongxa;
+
+                db.Addresses.AddOrUpdate(addressUser);
+                db.SaveChanges();
+                return RedirectToAction("addresses", "TaiKhoan");
+            }
+            return View();
+        }
+        [HttpPost]
         public JsonResult RemoveToAddress(int addressId)
         {
             var userSession = (User)Session[sessionLogin.USER_SESSION];
