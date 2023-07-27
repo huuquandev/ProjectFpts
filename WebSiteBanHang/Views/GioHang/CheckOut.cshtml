@@ -17,8 +17,6 @@
     <script src="//bizweb.dktcdn.net/assets/themes_support/libphonenumber-v3.2.30.min.js?1684115584822"></script>
     <script src="~/Assets/Js/checkout.vendor.min.js"></script>
     <script src="~/Assets/Js/checkout.min.js"></script>
-    <script src="~/Assets/Js/stats.min.js"></script>
-    <script async="" src="//bizweb.dktcdn.net/web/assets/lib/js/fp.v3.3.0.min.js"></script>
 
 </head>
 <body data-no-turbolink="">
@@ -95,10 +93,10 @@
                                                         <div class="field__input-wrapper">
                                                             <label for="customer-address" class="field__label">Sổ địa chỉ</label>
                                                             <select size="1" class="field__input field__input--select" id="customer-address" data-bind="customerAddress">
-                                                                <option value="0">Địa chỉ khác...</option>
+                                                                <option value="">Địa chỉ khác...</option>
                                                                 @foreach (var item in Model.Addresses)
                                                                 {
-                                                                    <option data-name="@item.hoten" data-address="@item.diachi" data-phone="@item.sodt" data-province="@item.tinhthanh" data-district="@item.quanhuyen" data-ward="@item.phuongxa">
+                                                                    <option data-id="@item.Id" data-name="@item.hoten" data-address="@item.diachi" data-phone="@item.sodt" data-province="@item.tinhthanh" data-district="@item.quanhuyen" data-ward="@item.phuongxa">
                                                                         @{
                                                                             var parts = new List<string>();
                                                                             if (!string.IsNullOrEmpty(item.hoten))
@@ -132,19 +130,58 @@
                                                         </div>
                                                     </div>
                                                 }
+
                                                 <div class="field field--show-floating-label field--disabled">
                                                     <input name="email" type="hidden" value="">
                                                     <div class="field__input-wrapper">
                                                         <label for="email" class="field__label">
                                                             Email
                                                         </label>
-                                                        <input id="NewAddress.email" type="text" class="field__input" value="@session.email" name="NewAddress.email" disabled>
+                                                        <input id="NewAddress.email" type="text" class="field__input" value="@session.email" name="NewAddress.email" readonly>
                                                     </div>
                                                 </div>
+                                                <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.min.js"></script>
+                                                <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+                                                <script>
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        var selectElement = document.getElementById("customer-address");
+
+                                                        selectElement.addEventListener("change", function () {
+                                                            var selectedOption = this.options[this.selectedIndex];
+                                                            if (selectedOption.value !== "") {
+                                                                var name = selectedOption.getAttribute("data-name");
+                                                                var address = selectedOption.getAttribute("data-address");
+                                                                var phone = selectedOption.getAttribute("data-phone");
+                                                                var province = selectedOption.getAttribute("data-province");
+                                                                var district = selectedOption.getAttribute("data-district");
+                                                                var ward = selectedOption.getAttribute("data-ward");
+                                                                document.querySelector("input[name='NewAddress.hoten']").value = name;
+                                                                document.querySelector("input[name='NewAddress.sodt']").value = phone;
+                                                                document.querySelector("input[name='NewAddress.diachi']").value = address;
+                                                                var inputs = document.querySelectorAll("input");
+                                                                inputs.forEach(function (input) {
+                                                                    if (input.value !== '') {
+                                                                        input.parentElement.parentElement.classList.add('field--show-floating-label');
+                                                                    } else {
+                                                                        input.parentElement.parentElement.classList.remove('field--show-floating-label');
+                                                                    }
+                                                                });
+                                                                initializeDropdowns("billingProvince", "billingDistrict", "billingWard", province, district, ward);
+                                                            } else {
+                                                                document.querySelector("input[name='NewAddress.hoten']").value = "";
+                                                                document.querySelector("input[name='NewAddress.sodt']").value = "";
+                                                                document.querySelector("input[name='NewAddress.diachi']").value = "";
+                                                            }
+                                                        });
+                                                    });
+
+                                                </script>
+
                                             }
                                             else
                                             {
-                                                <div class="field" data-bind-class="{'field--show-floating-label': email}">
+                                                <div class="field">
                                                     <div class="field__input-wrapper">
                                                         <label for="email" class="field__label">
                                                             Email
@@ -153,28 +190,28 @@
                                                     </div>
                                                 </div>
                                             }
-                                            <div class="field" data-bind-class="{'field--show-floating-label': lastName}">
+                                            <div class="field">
                                                 <div class="field__input-wrapper">
                                                     <label for="lastName" class="field__label">Họ và tên</label>
-                                                    <input id="NewAddress.hoten" type="text" class="field__input" value="" name="NewAddress.hoten", required = "">
+                                                    <input id="NewAddress.hoten" type="text" class="field__input" value="" name="NewAddress.hoten" , required>
                                                 </div>
                                             </div>
 
-                                            <div class="field" data-bind-class="{'field--show-floating-label': phone}">
+                                            <div class="field">
                                                 <div class="field__input-wrapper field__input-wrapper--connected">
                                                     <label for="phone" class="field__label">
                                                         Số điện thoại (tùy chọn)
                                                     </label>
-                                                    <input id="NewAddress.sodt" type="text" class="field__input" value="" name="NewAddress.sodt" , required="">
+                                                    <input id="NewAddress.sodt" type="text" class="field__input" value="" name="NewAddress.sodt" , required>
                                                 </div>
                                             </div>
 
-                                            <div class="field " data-bind-class="{'field--show-floating-label': address}">
+                                            <div class="field">
                                                 <div class="field__input-wrapper">
                                                     <label for="billingAddress" class="field__label">
                                                         Địa chỉ (tùy chọn)
                                                     </label>
-                                                    <input id="NewAddress.diachi" type="text" class="field__input" value="" name="NewAddress.diachi" , required="">
+                                                    <input id="NewAddress.diachi" type="text" class="field__input" value="" name="NewAddress.diachi" , required>
                                                 </div>
                                             </div>
                                             <div class="field field--show-floating-label ">
@@ -500,7 +537,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script>
-        function initializeDropdowns(citisId, districtId, wardId) {
+        function initializeDropdowns(citisId, districtId, wardId, citisValue, districtValue, wardValue) {
             // Lấy đối tượng select box dựa vào class        
             // Lấy tham chiếu đến các phần tử select từ id
             var citis = document.getElementById(citisId);
@@ -523,6 +560,9 @@
             function renderCity(data) {
                 for (const x of data) {
                     citis.options[citis.options.length] = new Option(x.Name, x.Id = x.Name);
+                    if (x.Name == citisValue) {
+                        citis.value = citisValue;
+                    }
                 }
                 // Xử lý khi select tỉnh/thành phố thay đổi
                 citis.onchange = function () {
@@ -534,6 +574,9 @@
                     // Tạo các tùy chọn cho select quận/huyện
                     for (const k of result[0].Districts) {
                         districts.options[districts.options.length] = new Option(k.Name, k.Id = k.Name);
+                        if (k.Name == districtValue) {
+                            districts.value = districtValue;
+                        }
                     }
 
                     districts.disabled = false;
@@ -551,6 +594,9 @@
                         // Tạo các tùy chọn cho select phường/xã
                         for (const w of dataWards) {
                             wards.options[wards.options.length] = new Option(w.Name, w.Id = w.Name);
+                            if (w.Name == wardValue) {
+                                wards.value = wardValue;
+                            }
                         }
                         wards.disabled = false;
                     } else {
@@ -558,7 +604,20 @@
                         wards.innerHTML = '<option value="" hidden="" data-select2-id="select2-data-220-2y2x">---</option>';
                     }
                 };
+                // Kiểm tra nếu select tỉnh/thành phố đã có giá trị được chọn sẵn
+                if (citis.value !== null && citis.value !== '') {
+                    districts.disabled = false;
+                    const changeEvent = new Event('change');
+                    citis.dispatchEvent(changeEvent);
+                    const selectedDistrict = districts.value;
 
+                    if (selectedDistrict.value !== null && selectedDistrict.value !== '') {
+                        wards.disabled = false;
+                        // Gọi sự kiện onchange của quận/huyện để kích hoạt xử lý
+                        const changeEvent = new Event('change');
+                        districts.dispatchEvent(changeEvent);
+                    }
+                }
                 // Xử lý sự kiện khi select tỉnh/thành phố thay đổi
                 citis.addEventListener('change', function () {
                     var selectedProvince = this.value;

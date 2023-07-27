@@ -336,7 +336,6 @@ namespace WebSiteBanHang.Controllers
                 {
                     var userSession = (User)Session[sessionLogin.USER_SESSION];
                     int customerId = userSession.Id;
-                    
                     // Lưu thông tin địa chỉ mới khi tạo mới một địa chỉ
                     Address newAddress = new Address
                     {
@@ -357,21 +356,21 @@ namespace WebSiteBanHang.Controllers
 
                     // Lấy địa chỉ để lưu vào đơn hàng
                     var parts = new List<string>();
-                    if (!string.IsNullOrEmpty(newAddress.diachi))
+                    if (!string.IsNullOrEmpty(checkoutViewModel.NewAddress.diachi))
                     {
-                        parts.Add(newAddress.diachi);
+                        parts.Add(checkoutViewModel.NewAddress.diachi);
                     }
-                    if (!string.IsNullOrEmpty(newAddress.phuongxa))
+                    if (!string.IsNullOrEmpty(checkoutViewModel.NewAddress.phuongxa))
                     {
-                        parts.Add(newAddress.phuongxa);
+                        parts.Add(checkoutViewModel.NewAddress.phuongxa);
                     }
-                    if (!string.IsNullOrEmpty(newAddress.quanhuyen))
+                    if (!string.IsNullOrEmpty(checkoutViewModel.NewAddress.quanhuyen))
                     {
-                        parts.Add(newAddress.quanhuyen);
+                        parts.Add(checkoutViewModel.NewAddress.quanhuyen);
                     }
-                    if (!string.IsNullOrEmpty(newAddress.tinhthanh))
+                    if (!string.IsNullOrEmpty(checkoutViewModel.NewAddress.tinhthanh))
                     {
-                        parts.Add(newAddress.tinhthanh);
+                        parts.Add(checkoutViewModel.NewAddress.tinhthanh);
                     }
 
                     //Tạo mã đơn hàng ngẫu nhiên
@@ -397,9 +396,9 @@ namespace WebSiteBanHang.Controllers
                         phuongthucthanhtoan = checkoutViewModel.Order.phuongthucthanhtoan,
                         trangthaidonhang = 2,
                         tongdh = CalculateTotalPrice(cartItems),
-                        hoten = newAddress.hoten,
-                        email = newAddress.email,
-                        sodt = newAddress.sodt,
+                        hoten = checkoutViewModel.NewAddress.hoten,
+                        email = checkoutViewModel.NewAddress.email,
+                        sodt = checkoutViewModel.NewAddress.sodt,
                         trangthaivanchuyen = 2,
                         ghichu = checkoutViewModel.Order.ghichu
                     };
