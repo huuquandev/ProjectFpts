@@ -1,0 +1,80 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<WebSiteBanHang.Models.Product>
+
+@if (Model != null && Model.Any())
+{
+    <div class="row" id="datatablesSimple">
+
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var item = Model[i];
+            <div class="col-12 col-md-4 col-lg-4 col-lg-4 product-col">
+                <div class="item_product_main">
+
+                    @using (Html.BeginForm("AddToCart", "GioHang", new { productid = item.id }, FormMethod.Post))
+                    {
+                        <div class="product-thumbnail">
+                            <a class="image_thumb" href="/mat-hoa-ca-phe" title="@item.ten" style="height: 263px;">
+                                <img src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.hinhanh))" alt="@item.ten" class="lazyload img-responsive center-block loaded" data-was-processed="true">
+                            </a>
+
+                            <div class="action-cart">
+                                <input type="hidden" name="variantId" value="76949308">
+
+                                <button class="btn-buy btn-left btn-views add_to_cart " title="Mua ngay" onclick="addCartItem(@item.id); return false;">
+                                    Mua ngay
+                                </button>
+                            </div>
+                        </div>
+                        <div class="info-product">
+                            <h3 class="product-name"><a href="@Url.Action("chiTietSanPham", "SanPham", new { productId = item.id})" title="@item.ten">@item.ten</a></h3>
+                            <div class="price-box">
+                                @if (item.giamgia != 0)
+                                {
+                                    <span class="discount">
+                                        -
+                                        @item.giamgia%
+                                    </span>
+                                }
+                                <span class="price">
+                                    @string.Format("{0:N0}", item.giatien)₫
+                                </span>
+                                @if (item.giacu != null)
+                                {
+                                    <span class="compare-price">
+                                        @string.Format("{0:N0}", item.giacu)₫
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+<script>
+                                    function addCartItem(productId) {
+                                        // Gửi yêu cầu xóa sản phẩm đến server
+                                        $.ajax({
+                                            url: '@Url.Action("AddToCart", "GioHang")',
+                                            type: 'POST',
+                                            data: JSON.stringify({ productId: productId, quantity: 1 }),
+                                            dataType: "json",
+                                            contentType: "application/json; charset=utf-8",
+                                            success: function (response) {
+                                                alert("Thêm giỏ hàng thành công!");
+                                                if (response.Count != 0) {
+                                                    $("#CartCount").text(response.Count);
+                                                }else if (response.CountUser != 0) {
+                                                    $("#CartCount").text(response.CountUser);
+                                                }
+                                                console.log(response.Count)
+                                            },
+                                            error: function () {
+                                                alert("Lỗi khi thêm vào giỏ hàng!")
+                                            }
+                                        });
+                                    }
+</script>
