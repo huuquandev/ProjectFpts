@@ -391,7 +391,6 @@
     <Content Include="Views\TaiKhoan\ChangePassword.cshtml" />
     <Content Include="Views\SanPham\chiTietSanPham.cshtml" />
     <Content Include="Views\Shared\PartialProductList.cshtml" />
-    <None Include="Views\Shared\.editorconfig" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

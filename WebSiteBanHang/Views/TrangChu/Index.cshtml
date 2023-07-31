@@ -1,33 +1,11 @@
-﻿
+﻿@model WebSiteBanHang.Models.Product
 @{
     ViewBag.Title = "Trang Chủ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<script>
-        $(function () {
-            $("#addToCart").click(function () {
-                var model = {};
-                model.id = @Model.id;
-                model.soluong = $("#qty").val();
-                debugger;
-                $.ajax({
-                    url: '@Url.Action("AddToCart", "GioHang")',
-                    type: "POST",
-                    dataType: "Json",
-                    contentType: "application/Json; charset=utf-8",
-                    success: function () {
-                        alert("Thêm giỏ hàng thành công!")
-                        $(#CartCount).text(@Session["Count"] + 1);
-                    },
-                    error: function () {
-                        alert("Lỗi khi thêm vào giỏ hàng!")
-                    }
-                });
-            });
-        });
-    </script>*@
-@*conntent*@
+
+
 <main class="wrapperMain_content">
 
     @*slide*@
@@ -60,31 +38,22 @@
                     <div class="fullarge_img">
                         <div class="swiper_index_large swiper-container swiper-container-initialized swiper-container-horizontal">
                             <div class="swiper-wrapper" id="swiper-wrapper-1ce3af5f7e952345" aria-live="polite" style="transform: translate3d(0px, 0px, 0px)">
-                                <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 5" style="width: 603px; margin-right: 10px;">
-                                    <a href="/SanPham/mat_ong_hoa_sam_ngoc_linh" data-hash="0" title="Mật Ong Hoa Sâm Ngọc Linh">
-                                        <img class="lazyload loaded" src="//bizweb.dktcdn.net/thumb/large/100/472/304/products/9350631000056.jpg?v=1669707636973" data-image="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/9350631000056.jpg?v=1669707636973" data-src="//bizweb.dktcdn.net/thumb/large/100/472/304/products/9350631000056.jpg?v=1669707636973" alt="Mật Ong Hoa Sâm Ngọc Linh" data-was-processed="true">
-                                    </a>
-                                </div>
-                                <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 5" style="width: 603px; margin-right: 10px;">
-                                    <a href="/SanPham/mat_ong_hoa_sam_ngoc_linh" data-hash="1" title="Mật Ong Hoa Sâm Ngọc Linh">
-                                        <img class="lazyload" src="data:image/png;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" data-image="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/australian-manuka-honey-mgo-30-500g.jpg?v=1669708921813" data-src="//bizweb.dktcdn.net/thumb/large/100/472/304/products/australian-manuka-honey-mgo-30-500g.jpg?v=1669708921813" alt="Mật Ong Hoa Sâm Ngọc Linh">
-                                    </a>
-                                </div>
-                                <div class="swiper-slide" role="group" aria-label="3 / 5" style="width: 603px; margin-right: 10px;">
-                                    <a href="/SanPham/mat_ong_hoa_sam_ngoc_linh.cshtml" data-hash="2" title="Mật Ong Hoa Sâm Ngọc Linh">
-                                        <img class="lazyload" src="data:image/png;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" data-image="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/bramwells-mgo100-manuka-honey.jpg?v=1669708921813" data-src="//bizweb.dktcdn.net/thumb/large/100/472/304/products/bramwells-mgo100-manuka-honey.jpg?v=1669708921813" alt="Mật Ong Hoa Sâm Ngọc Linh">
-                                    </a>
-                                </div>
-                                <div class="swiper-slide" role="group" aria-label="4 / 5" style="width: 603px; margin-right: 10px;">
-                                    <a href="/SanPham/mat_ong_hoa_sam_ngoc_linh" data-hash="3" title="Mật Ong Hoa Sâm Ngọc Linh">
-                                        <img class="lazyload" src="data:image/png;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" data-image="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/3df-800-10-1f1424d2-97db-4cea-ba6e-d3c585d47bea.jpg?v=1669708921813" data-src="//bizweb.dktcdn.net/thumb/large/100/472/304/products/3df-800-10-1f1424d2-97db-4cea-ba6e-d3c585d47bea.jpg?v=1669708921813" alt="Mật Ong Hoa Sâm Ngọc Linh">
-                                    </a>
-                                </div>
-                                <div class="swiper-slide" role="group" aria-label="5 / 5" style="width: 603px; margin-right: 10px;">
-                                    <a href="/SanPham/mat_ong_hoa_sam_ngoc_linh" data-hash="4" title="Mật Ong Hoa Sâm Ngọc Linh">
-                                        <img class="lazyload" src="data:image/png;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" data-image="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/7-d32481ff-654d-414f-9782-34420d36363b.png?v=1669708921813" data-src="//bizweb.dktcdn.net/thumb/large/100/472/304/products/7-d32481ff-654d-414f-9782-34420d36363b.png?v=1669708921813" alt="Mật Ong Hoa Sâm Ngọc Linh">
-                                    </a>
-                                </div>
+                                @if (Model != null)
+                                {
+                                    if (Model.ProductImages.Count > 0)
+                                    {
+
+                                        foreach (var item in Model.ProductImages)
+                                        {
+                                            <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 5" style="width: 603px; margin-right: 10px;">
+                                                <a href="/SanPham/mat_ong_hoa_sam_ngoc_linh" data-hash="0" title="Mật Ong Hoa Sâm Ngọc Linh">
+                                                    <img class="lazyload loaded" src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.image))" data-image="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.image))" data-src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.image))    " alt="@Model.ten" data-was-processed="true">
+                                                </a>
+                                            </div>
+                                        }
+                                    }
+                                }
+
                             </div>
                             <button class="carousel-control-prev" type="button">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -100,34 +69,35 @@
                     <div class="product_thumb_image">
                         <div class="swiper_index_thumb swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-thumbs">
                             <div class="swiper-wrapper" id="swiper-wrapper-251c721a441062eab" aria-live="polite" style="transform: translate3d(0px, 0px, 0px);">
-                                <div class="item swiper-slide swiper-slide-active swiper-slide-thumb-active" data-hash="0" role="group" aria-label="1 / 5" style="width: 96.6px; margin-right: 30px;">
-                                    <div class="thumbs">
-                                        <img data-img="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/9350631000056.jpg?v=1669707636973" class="lazyload loaded" src="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/9350631000056.jpg?v=1669707636973" data-src="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/9350631000056.jpg?v=1669707636973" data-image="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/9350631000056.jpg?v=1669707636973" alt="Mật Ong Hoa Sâm Ngọc Linh" data-was-processed="true">
-                                    </div>
-                                </div>
-                                <div class="item swiper-slide swiper-slide-next" data-hash="1" role="group" aria-label="2 / 5" style="width: 96.6px; margin-right: 30px;">
-                                    <div class="thumbs">
-                                        <img data-img="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/australian-manuka-honey-mgo-30-500g.jpg?v=1669708921813" class="lazyload loaded" src="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/australian-manuka-honey-mgo-30-500g.jpg?v=1669708921813" data-src="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/australian-manuka-honey-mgo-30-500g.jpg?v=1669708921813" data-image="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/australian-manuka-honey-mgo-30-500g.jpg?v=1669708921813" alt="Mật Ong Hoa Sâm Ngọc Linh" data-was-processed="true">
-                                    </div>
-                                </div>
+                                @if (Model != null)
+                                {
+                                    if (Model.ProductImages.Count > 1)
+                                    {
+                                        int i = 0;
+                                        foreach (var item in Model.ProductImages)
+                                        {
+                                            ++i;
+                                            if (i == 1)
+                                            {
+                                                <div class="item swiper-slide swiper-slide-active swiper-slide-thumb-active" data-hash="0" role="group" aria-label="1 / 5" style="width: 96.6px; margin-right: 30px;">
+                                                    <div class="thumbs">
+                                                        <img data-img="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.image))" class="lazyload loaded" src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.image))" data-src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.image))" data-image="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.image))" alt="@Model.ten" data-was-processed="true">
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="item swiper-slide swiper-slide-active" data-hash="0" role="group" aria-label="1 / 5" style="width: 96.6px; margin-right: 30px;">
+                                                    <div class="thumbs">
+                                                        <img data-img="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.image))" class="lazyload loaded" src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.image))" data-src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.image))" data-image="@Url.Content("~/Assets/image/large/" + Path.GetFileName(item.image))" alt="@Model.ten" data-was-processed="true">
+                                                    </div>
+                                                </div>
+                                            }
+                                            
+                                        }
+                                    }
+                                }
 
-                                <div class="item swiper-slide" data-hash="2" role="group" aria-label="3 / 5" style="width: 96.6px; margin-right: 30px;">
-                                    <div class="thumbs">
-                                        <img data-img="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/bramwells-mgo100-manuka-honey.jpg?v=1669708921813" class="lazyload loaded" src="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/bramwells-mgo100-manuka-honey.jpg?v=1669708921813" data-src="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/bramwells-mgo100-manuka-honey.jpg?v=1669708921813" data-image="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/bramwells-mgo100-manuka-honey.jpg?v=1669708921813" alt="Mật Ong Hoa Sâm Ngọc Linh" data-was-processed="true">
-                                    </div>
-                                </div>
-
-                                <div class="item swiper-slide" data-hash="3" role="group" aria-label="4 / 5" style="width: 96.6px; margin-right: 30px;">
-                                    <div class="thumbs">
-                                        <img data-img="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/3df-800-10-1f1424d2-97db-4cea-ba6e-d3c585d47bea.jpg?v=1669708921813" class="lazyload loaded" src="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/3df-800-10-1f1424d2-97db-4cea-ba6e-d3c585d47bea.jpg?v=1669708921813" data-src="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/3df-800-10-1f1424d2-97db-4cea-ba6e-d3c585d47bea.jpg?v=1669708921813" data-image="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/3df-800-10-1f1424d2-97db-4cea-ba6e-d3c585d47bea.jpg?v=1669708921813" alt="Mật Ong Hoa Sâm Ngọc Linh" data-was-processed="true">
-                                    </div>
-                                </div>
-
-                                <div class="item swiper-slide" data-hash="4" role="group" aria-label="5 / 5" style="width: 96.6px; margin-right: 30px;">
-                                    <div class="thumbs">
-                                        <img data-img="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/7-d32481ff-654d-414f-9782-34420d36363b.png?v=1669708921813" class="lazyload loaded" src="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/7-d32481ff-654d-414f-9782-34420d36363b.png?v=1669708921813" data-src="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/7-d32481ff-654d-414f-9782-34420d36363b.png?v=1669708921813" data-image="//bizweb.dktcdn.net/thumb/compact/100/472/304/products/7-d32481ff-654d-414f-9782-34420d36363b.png?v=1669708921813" alt="Mật Ong Hoa Sâm Ngọc Linh" data-was-processed="true">
-                                    </div>
-                                </div>
 
                             </div>
                             <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
@@ -142,37 +112,30 @@
                         <div class="price-box clearfix">
 
                             <span class="old-price">
-                                <del class="price product-price-old">1.500.000₫</del>
+                                <del class="price product-price-old">@string.Format("{0:N0}", Model.giacu)₫</del>
                             </span> <!-- Giá gốc -->
                             <span class="special-price">
-                                <span class="price product-price">1.000.000₫</span>
+                                <span class="price product-price">@string.Format("{0:N0}", Model.giatien)₫</span>
                             </span> <!-- Giá Khuyến mại -->
                             <span class="save-price">
-                                <span class="price product-price-save">-500.000₫</span>
+                                <span class="price product-price-save">@string.Format("{0:N0}", Model.giatien - Model.giacu)₫</span>
                             </span>
 
                         </div>
                         <div class="product-summary">
 
                             <ul>
-                                <li>Uống mật ong vào buổi sáng giúp làm sạch, bổ sung năng lượng cho dạ dày.</li>
-                                <li>Uống trước khi đi ngủ giúp an thần, dễ ngủ.</li>
-                                <li>
-                                    Uống mật trước khi ăn 30 phút giúp tốt cho hệ tiêu hó...
+                                @foreach (var item in Model.ProductDesc.ProductIntroductions)
+                                {
+                                    <li>@item.giothieu</li>
 
-                                </li>
+                                }
                             </ul>
                         </div>
                         <div class="product-content">
 
-                            <p><strong>Đặc điểm sản phẩm</strong></p>
-                            <p>Ong hút mật của hoa sâm Ngọc Linh và các loại dược liệu quý khác nên mật thơm, mùi vị có chút khác biệt so với các loại mật ong khác.</p>
-                            <p>
-                                <strong>
-                                    Côn...
-
-                                </strong>
-                            </p>
+                            <p><strong>@Model.ProductDesc.mota</strong></p>
+                            
                         </div><strong>
                             <form enctype="multipart/form-data" id="add-to-cart-form" data-cart-form="" action="/cart/add" method="post" class="wishItem">
                                 <div class="form-product">
@@ -219,8 +182,8 @@
                                         </div>
                                         <div class="btn-mua clearfix">
 
-                                            <button type="submit" data-role="addtocart" class="btn btn-lg btn-gray btn-cart btn_buy add_to_cart"><span class="text_1">Thêm giỏ hàng</span></button>
-                                            <button type="button" class="btn_buynow btn_base btn-buy-now" id="addToCart">
+                                            <button type="button" class="btn btn-lg btn-gray btn-cart btn_buy add_to_cart" id="addToCart"><span class="text_1">Thêm giỏ hàng</span></button>
+                                            <button type="button" class="btn_buynow btn_base btn-buy-now" id="BuyNow">
                                                 <span class="text_1">Mua ngay</span>
                                             </button>
 
@@ -713,3 +676,60 @@
     </section>
 </main>
 <script src="~/Assets/Js/Carousel.js"></script>
+<script>
+        $(function () {
+            $("#addToCart").click(function () {
+                var model = {
+                  productId: @Model.id,
+                  quantity: $("#qty").val()
+                };
+                $.ajax({
+                    url: '@Url.Action("AddToCart", "GioHang")',
+                    type: "POST",
+                    data: JSON.stringify(model),
+                    dataType: "Json",
+                    contentType: "application/Json; charset=utf-8",
+                    success: function (response) {
+                          alert("Thêm giỏ hàng thành công!");
+                            if (response.Count != null) {
+                                $("#CartCount").text(response.Count);
+                            }else {
+                                $("#CartCount").text(response.CountUser);
+                            }
+
+                    },
+                    error: function () {
+                        alert("Lỗi khi thêm vào giỏ hàng!")
+                    }
+                });
+                return false;
+            });
+        });
+    $(function () {
+        $("#BuyNow").click(function () {
+                var model = {
+                  productId: @Model.id,
+                  quantity: $("#qty").val()
+                };
+                $.ajax({
+                    url: '@Url.Action("AddToCart", "GioHang")',
+                    type: "POST",
+                    data: JSON.stringify(model),
+                    dataType: "Json",
+                    contentType: "application/Json; charset=utf-8",
+                    success: function (response) {
+                        if (response.Count != null) {
+                            $("#CartCount").text(response.Count)
+                        } else {
+                            $("#CartCount").text(response.CountUser);
+                        }
+                        window.location.href = '@Url.Action("Checkout", "GioHang")';
+                    },
+                    error: function () {
+                    }
+                });
+            return false;
+        });
+    });
+
+</script>

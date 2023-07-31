@@ -34,7 +34,7 @@
                                 {
                                     <span class="discount">
                                         -
-                                        @item.giamgia%
+                                        @Math.Round((((double)item.giacu - (double)item.giatien) / (double)item.giacu) * 100)%
                                     </span>
                                 }
                                 <span class="price">

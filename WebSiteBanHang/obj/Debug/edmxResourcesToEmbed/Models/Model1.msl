@@ -104,6 +104,7 @@
           <ScalarProperty Name="Id_representativelmage" ColumnName="Id_representativelmage" />
           <ScalarProperty Name="mota" ColumnName="mota" />
           <ScalarProperty Name="id_info" ColumnName="id_info" />
+          <ScalarProperty Name="noibat" ColumnName="noibat" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

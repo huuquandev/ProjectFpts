@@ -156,8 +156,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Giảm giá</label>
-                                        <input type="text" class="form-control" id="giamgia" value="@(Model.giamgia == null ? 0 : Model.giamgia)%" data-value="@(Model.giamgia == null ? 0 : Model.giamgia)" readonly>
+                                        <label>Giá gốc</label>
+                                        <input type="text" class="form-control" id="giacu" value="@(Model.giacu != null ? string.Format("{0:N0}", Model.giacu) + "đ" : "")" data-value="@(Model.giamgia == null ? 0 : Model.giamgia)" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -179,10 +179,10 @@
                                     <div class="d-flex align-items-center" style="padding-top: 30px">
                                         <div class="col-md-6">
                                             <div class="form-group d-flex justify-content-between" style="padding-left: 140px">
-                                                <div>                                                  
+                                                <div>
                                                     <img src="@Url.Content("~/Assets/image/large/" + Path.GetFileName(Model.hinhanh))" class="img-fluid" alt="@Model.ten" width="250px" id="hinhanh">
                                                 </div>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group" style="padding-bottom: 150px">
@@ -422,7 +422,7 @@
         formData.append('masanpham', $('#masanpham').val());
         formData.append('ten', $('#ten').val());
         formData.append('giatien', $('#giatien').data('value'));
-        formData.append('giamgia', $('#giamgia').data('value'));
+        formData.append('giacu', $('#giacu').data('value'));
         formData.append('soluong', $('#soluong').val());
         formData.append('idloaisanpham', $('#idloaisanpham').val());
         formData.append('ngaynhap', new Date($('#ngaynhap').val()).toISOString());

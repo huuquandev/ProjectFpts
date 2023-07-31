@@ -15,7 +15,8 @@ namespace WebSiteBanHang.Controllers
         // GET: TrangChu
         public ActionResult Index()
         {
-            return View();
+            var product = db.Products.FirstOrDefault(x => x.noibat == 1);
+            return View(product);
         }
         public ActionResult search(String searchString)
         {

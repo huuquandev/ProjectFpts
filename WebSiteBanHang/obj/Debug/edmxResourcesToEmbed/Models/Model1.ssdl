@@ -97,6 +97,7 @@
     <Property Name="Id_representativelmage" Type="int" />
     <Property Name="mota" Type="nvarchar" MaxLength="1000" />
     <Property Name="id_info" Type="int" />
+    <Property Name="noibat" Type="int" />
   </EntityType>
   <EntityType Name="ProductDesc">
     <Key>

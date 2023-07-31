@@ -41,6 +41,7 @@
                                 <th>Số lượng</th>
                                 <th>Tình trạng</th>
                                 <th>Giá tiền</th>
+                                <th>Nổi bật</th>
                                 <th>Hành động</th>
                             </tr>
                         </thead>
@@ -50,6 +51,7 @@
                                 for (int i = 0; i < Model.Count; i++)
                                 {
                                     var item = Model[i];
+                                    bool isChecked = item.noibat == 1;
                                     <tr>
                                         <td>
                                             <div class="form-check">
@@ -63,6 +65,7 @@
                                         </td>
                                         <td>@item.ProductType.loaiSanpham</td>
                                         <td>@item.soluong</td>
+
                                         @if (item.trangthai == 1)
                                         {
                                             <td>
@@ -77,6 +80,12 @@
                                             </td>
                                         }
                                         <td>@string.Format("{0:N0}", item.giatien)₫</td>
+                                        <td>
+                                            <div class="form-check text-center">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="@item.id" @(isChecked ? "checked" : "") onclick="setOutstandingProduct(@item.id)">
+
+                                            </div>
+                                        </td>
                                         <td>
                                             @foreach (var permission in session.Role.RolePermissions)
                                             {
@@ -126,6 +135,27 @@
                 }
             });
         }
+    }
+    function setOutstandingProduct(productId) {
+        $.ajax({
+            url: '@Url.Action("setOutstanding", "QuanLySanPham")',
+            type: 'POST',
+            data: { productId: productId },
+            success: function (response) {
+                // Xử lý phản hồi từ server
+                if (response.success) {
+                    // Hiển thị thông báo thành công
+                    alert('Đặt sản phẩm nổi bật thành công.');
+                    location.reload();
+                } else {
+                    // Hiển thị thông báo lỗi
+                    alert('Đặt sản phẩm nổi bật không thành công.');
+                }
+            },
+            error: function () {
+                alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+            }
+        });
     }
 
 

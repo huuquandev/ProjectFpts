@@ -36,6 +36,7 @@ namespace WebSiteBanHang.Models
         public Nullable<int> Id_representativelmage { get; set; }
         public string mota { get; set; }
         public Nullable<int> id_info { get; set; }
+        public Nullable<int> noibat { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CartItem> CartItems { get; set; }

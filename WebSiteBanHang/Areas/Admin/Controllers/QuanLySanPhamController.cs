@@ -73,7 +73,7 @@ namespace WebSiteBanHang.Areas.Admin.Controllers
                             idloaisanpham = _product.idloaisanpham,
                             ngaynhap = _product.ngaynhap,
                             giatien = _product.giatien,
-                            giamgia = _product.giamgia
+                            giacu = _product.giacu
                                                     
                         };
                         if (_product.soluong != 0)
@@ -161,7 +161,7 @@ namespace WebSiteBanHang.Areas.Admin.Controllers
                     existingProduct.idloaisanpham = _product.idloaisanpham;
                     existingProduct.ngaynhap = _product.ngaynhap;
                     existingProduct.giatien = _product.giatien;
-                    existingProduct.giamgia = _product.giamgia;
+                    existingProduct.giacu = _product.giacu;
                     var selectedImageId = _product.ProductImages.FirstOrDefault(x => x.image_representative == 1);
 
 
@@ -218,6 +218,26 @@ namespace WebSiteBanHang.Areas.Admin.Controllers
 
             return Json(new { success = false });
         }
+        [HttpPost]
+        public JsonResult setOutstanding(int productId)
+        {
+            var existingProduct = db.Products.FirstOrDefault(p => p.id == productId);
 
+            if (existingProduct != null)
+            {
+                var product = db.Products.ToList();
+                foreach (var productItem in product)
+                {
+                    productItem.noibat = 0;
+                }
+                existingProduct.noibat = 1;
+                db.Products.AddOrUpdate(existingProduct);
+                db.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
     }
 }
