@@ -74,8 +74,10 @@ namespace WebSiteBanHang.Controllers
         [HttpPost]
         public ActionResult AddToCart(int productId, int quantity)
          {
-                // Kiểm tra xem khách hàng đã đăng nhập hay chưa
-                if (Session[sessionLogin.USER_SESSION] != null)
+            decimal totalPrice = 0;
+
+            // Kiểm tra xem khách hàng đã đăng nhập hay chưa
+            if (Session[sessionLogin.USER_SESSION] != null)
                 {
                     // Lấy thông tin khách hàng từ session
                     var userSession = (User)Session[sessionLogin.USER_SESSION];
@@ -115,9 +117,13 @@ namespace WebSiteBanHang.Controllers
                             cartItem.soluong++;
                         }
                         db.SaveChanges();
+                   
                     }
-                }
-                else
+                List<CartItem> cartItems = GetCartItemsByCartId(cart.id);
+
+                totalPrice = CalculateTotalPrice(cartItems);
+            }
+            else
                 {
                     // Kiểm tra xem Session giỏ hàng đã tồn tại chưa
                     if (Session[sessionCart.CART_SESSION] == null)
@@ -153,10 +159,13 @@ namespace WebSiteBanHang.Controllers
                         // Cập nhật lại danh sách giỏ hàng trong Session
                         Session[sessionCart.CART_SESSION] = cart;
                     }
+                List<CartItem> cartSession = (List<CartItem>)Session[sessionCart.CART_SESSION];
+                totalPrice = CalculateTotalPrice(cartSession);
 
-                }
- 
-            return Json(new { Count = Convert.ToInt32(Session["Count"]), CountUser = Convert.ToInt32(Session["CountUser"]) }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            return Json(new { Count = Convert.ToInt32(Session["Count"]), CountUser = Convert.ToInt32(Session["CountUser"]), totalPrice }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult RemoveFromCart(int productId)
