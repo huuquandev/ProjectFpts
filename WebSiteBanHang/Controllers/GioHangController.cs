@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -26,11 +29,13 @@ namespace WebSiteBanHang.Controllers
     {
         // GET: GioHang
         dbWebSiteBanHang db = new dbWebSiteBanHang();
+        SqlConnection connection = new SqlConnection(@"Data Source=MSI;Initial Catalog=webBanHang;Integrated Security=True;Pooling=False;MultipleActiveResultSets=True;Application Name=EntityFramework");
         public Cart GetCartByCustomerId(int customerId)
         {
             // Truy vấn cơ sở dữ liệu để lấy giỏ hàng của khách hàng
             return db.Carts.FirstOrDefault(c => c.id_user == customerId);
         }
+
         public List<CartItem> GetCartItemsByCartId(int cartId)
         {
             // Truy vấn cơ sở dữ liệu để lấy danh sách các mục hàng trong giỏ hàng
@@ -41,6 +46,7 @@ namespace WebSiteBanHang.Controllers
             // Truy vấn cơ sở dữ liệu để lấy thông tin chi tiết về sản phẩm
             return db.Products.FirstOrDefault(p => p.id == productId);
         }
+
         public ActionResult cart()
         {
             // Kiểm tra xem khách hàng đã đăng nhập hay chưa
