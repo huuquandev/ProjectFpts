@@ -110,6 +110,7 @@ namespace WebSiteBanHang.Controllers
                             // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm sản phẩm vào giỏ hàng
                             cartItem = new CartItem
                             {
+                                Product = GetProductById(productId),
                                 id_cart = cart.id,
                                 id_product = productId,
                                 soluong = 1 // Số lượng mặc định khi thêm vào giỏ hàng
@@ -172,6 +173,7 @@ namespace WebSiteBanHang.Controllers
             }
 
             return Json(new { Count = Convert.ToInt32(Session["Count"]), CountUser = Convert.ToInt32(Session["CountUser"]), totalPrice }, JsonRequestBehavior.AllowGet);
+
         }
         [HttpPost]
         public JsonResult RemoveFromCart(int productId)

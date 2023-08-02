@@ -441,6 +441,7 @@
             {
                 <a class="noti-cart-count" href="/cart" title="Giỏ hàng"> Giỏ hàng của bạn hiện có <span class="count_item_pr">@Session["CountUser"]</span> sản phẩm </a>
             }
+
             <button title="Đóng" class="cart_btn-close iconclose" id="btnCloseCart">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve"> <g> <g> <path d="M284.286,256.002L506.143,34.144c7.811-7.811,7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L256,227.717    L34.143,5.859c-7.811-7.811-20.475-7.811-28.285,0c-7.81,7.811-7.811,20.475,0,28.285l221.857,221.857L5.858,477.859    c-7.811,7.811-7.811,20.475,0,28.285c3.905,3.905,9.024,5.857,14.143,5.857c5.119,0,10.237-1.952,14.143-5.857L256,284.287    l221.857,221.857c3.905,3.905,9.024,5.857,14.143,5.857s10.237-1.952,14.143-5.857c7.811-7.811,7.811-20.475,0-28.285    L284.286,256.002z"></path> </g> </g> </svg>
             </button>
@@ -481,16 +482,16 @@
                         <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cartheader"></use></svg>
                         @if (Session["Count"] != null)
                         {
-                            <span class="count_item count_item_pr hidden-count">@Session["Count"]</span>
+                            <span class="count_item count_item_pr hidden-count" id="CartCountHidden">@Session["Count"]</span>
 
                         }
                         else if (Session["CountUser"] != null)
                         {
-                            <span class="count_item count_item_pr hidden-count">@Session["CountUser"]</span>
+                            <span class="count_item count_item_pr hidden-count" id="CartCountHidden">@Session["CountUser"]</span>
                         }
                         else
                         {
-                            <span class="count_item count_item_pr hidden-count">0</span>
+                            <span class="count_item count_item_pr hidden-count" id="CartCountHidden">0</span>
                         }
                     </div> Giỏ hàng
                 </div>
@@ -592,7 +593,6 @@
                 $(".product-title").text($(this).data("name"));
                 var price = formatPrice($(this).data("price"))
                 $(".product-new-price b").text(price);
-                $(".count_item_pr").text(price);
             });
             $("#btnCloseCart").click(function () {
                 $("#popup-cart-mobile").removeClass("active");
@@ -689,9 +689,13 @@
                                     }
                                 }
                                 if (result.Count != null) {
+                                    $("#CartCount").text(result.Count);                                 
+                                    $("#CartCountHidden").text(result.Count);
                                     $("#CartCountItem").text(result.Count);
                                     sessionStorage.setItem("Count", result.Count);
                                 } else if (result.CountUser != null) {
+                                    $("#CartCount").text(result.CountUser);
+                                    $("#CartCountHidden").text(result.CountUser);
                                     $("#CartCountItem").text(result.CountUser);
                                     sessionStorage.setItem("CountUser", result.CountUser);
                                 }

@@ -68,12 +68,13 @@
                                                 if (response.Count != 0) {
                                                     $("#CartCount").text(response.Count);
                                                     $("#CartCountItem").text(response.Count);
+                                                    $("#CartCountHidden").text(response.Count);
                                                     $(".count_item_pr").text(response.Count);
-
                                                 }else if (response.CountUser != 0) {
                                                     $("#CartCount").text(response.CountUser);
                                                     $("#CartCountItem").text(response.CountUser);
-                                                    $(".count_item_pr").text(response.Count);
+                                                    $("#CartCountHidden").text(response.CountUser);
+                                                    $(".count_item_pr").text(response.CountUser);
 
                                                 }
                                                 $(".cartheader").show();
